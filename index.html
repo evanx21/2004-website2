@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Tell the Wrist Concierge where you're going and it picks three real watches for the dress code, with photos, specs and a strap tip for the forecast.">
+    <title>The Wrist Concierge</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#finder">Skip to the watch finder</a>
+
+    <header class="site-header">
+        <a class="brand" href="#top">
+            <span class="seal" aria-hidden="true">W</span>
+            <span class="brand__name">The Wrist Concierge</span>
+        </a>
+    </header>
+
+    <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero__copy">
+                <p class="eyebrow">Real watches for real dress codes</p>
+                <h1 id="hero-title">Tell us the occasion. <em>We'll pick the watch.</em></h1>
+                <p class="hero__lede">
+                    Paste an invitation or choose a dress code. The concierge lays out three real watches, from an
+                    entry-level pick to a grail, with the specs that matter and a strap tip for the forecast.
+                </p>
+                <a class="button button--wax" href="#finder">Find my watch</a>
+            </div>
+            <div class="hero__photos" id="hero-photos"></div>
+        </section>
+
+        <form class="finder" id="finder" novalidate aria-labelledby="finder-title">
+            <h2 class="finder__title" id="finder-title">Find your watch</h2>
+
+            <fieldset class="finder__step">
+                <legend class="step"><span class="step__numeral" aria-hidden="true">I</span>The occasion</legend>
+
+                <label class="field-label" for="invite-text">Paste the invitation <span class="optional">optional</span></label>
+                <textarea id="invite-text" name="invitation" rows="5"
+                    placeholder="“The pleasure of your company is requested…” We'll read the dress code, date and city for you."></textarea>
+                <div class="invite-tools">
+                    <button type="button" class="button button--ghost" id="sample-btn">Try a sample invitation</button>
+                    <p class="hint" id="detected" role="status"></p>
+                </div>
+
+                <fieldset class="chips" aria-describedby="dress-code-error">
+                    <legend class="field-label">Or choose the dress code</legend>
+                    <div class="chips__list">
+                        <input type="radio" id="code-white-tie" name="dressCode" value="white-tie">
+                        <label for="code-white-tie">White Tie</label>
+                        <input type="radio" id="code-black-tie" name="dressCode" value="black-tie">
+                        <label for="code-black-tie">Black Tie</label>
+                        <input type="radio" id="code-cocktail" name="dressCode" value="cocktail">
+                        <label for="code-cocktail">Cocktail</label>
+                        <input type="radio" id="code-business-pro" name="dressCode" value="business-pro">
+                        <label for="code-business-pro">Business Professional</label>
+                        <input type="radio" id="code-business-casual" name="dressCode" value="business-casual">
+                        <label for="code-business-casual">Business Casual</label>
+                        <input type="radio" id="code-smart-casual" name="dressCode" value="smart-casual">
+                        <label for="code-smart-casual">Smart Casual</label>
+                    </div>
+                    <p class="field-error" id="dress-code-error"></p>
+                </fieldset>
+            </fieldset>
+
+            <fieldset class="finder__step">
+                <legend class="step"><span class="step__numeral" aria-hidden="true">II</span>Your wardrobe</legend>
+                <div class="segmented">
+                    <input type="radio" id="wardrobe-menswear" name="wardrobe" value="menswear" checked>
+                    <label for="wardrobe-menswear">Menswear</label>
+                    <input type="radio" id="wardrobe-womenswear" name="wardrobe" value="womenswear">
+                    <label for="wardrobe-womenswear">Womenswear</label>
+                </div>
+                <p class="hint">Anyone can pick either. It only changes the sizes and styles we suggest.</p>
+            </fieldset>
+
+            <fieldset class="finder__step">
+                <legend class="step"><span class="step__numeral" aria-hidden="true">III</span>The forecast
+                    <span class="optional">optional</span></legend>
+                <p class="hint hint--lead">Add the venue and date, and we'll check the weather. Rain and heat change
+                    which strap you should wear.</p>
+
+                <div class="forecast-fields">
+                    <div class="field">
+                        <label class="field-label" for="city-input">Venue city</label>
+                        <div class="location-row">
+                            <input type="search" id="city-input" name="city" autocomplete="off"
+                                placeholder="e.g. St. Louis" aria-describedby="location-status">
+                            <button type="button" class="button button--ghost" id="city-search-btn">Find</button>
+                            <button type="button" class="button button--ghost" id="geo-btn">
+                                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
+                                    <circle cx="12" cy="10" r="2.5" />
+                                </svg>
+                                Use my location
+                            </button>
+                        </div>
+                        <ul class="city-results" id="city-results" aria-label="Matching cities"></ul>
+                        <p class="hint" id="location-status" role="status"></p>
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="event-date">Date</label>
+                        <input type="date" id="event-date" name="eventDate">
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="finder__submit">
+                <button type="submit" class="button button--wax button--large">Show my watches</button>
+            </div>
+        </form>
+
+        <section class="results" id="results" aria-labelledby="results-title" hidden>
+            <header class="results__head">
+                <p class="eyebrow" id="results-eyebrow"></p>
+                <h2 class="results__title" id="results-title" tabindex="-1">Your watches</h2>
+                <p class="results__decoded" id="results-decoded"></p>
+                <p class="results__rule" id="results-rule"></p>
+            </header>
+
+            <aside class="strap-tip" id="strap-tip" aria-live="polite"></aside>
+
+            <div class="watch-grid" id="watch-grid"></div>
+
+            <div class="no-watch" id="no-watch" hidden>
+                <figure class="photo">
+                    <div class="photo__frame" id="pocket-frame">
+                        <p class="photo__placeholder">Loading photo…</p>
+                    </div>
+                    <figcaption class="photo__credit" id="pocket-credit"></figcaption>
+                </figure>
+                <div class="no-watch__text">
+                    <h3>No wristwatch tonight</h3>
+                    <p>White tie is the one dress code where the most elegant watch is the one you leave at home. If
+                        you carry the time at all, it lives in a pocket.</p>
+                </div>
+            </div>
+
+            <p class="results__again"><a href="#finder">Change the occasion</a></p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <p class="brand brand--footer">
+                <span class="seal" aria-hidden="true">W</span>
+                <span class="brand__name">The Wrist Concierge</span>
+            </p>
+            <p>Designed and built by Evan Xia for CSE 2004.</p>
+            <p>
+                Watch photos from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, credited under each
+                photo · Weather and city search by <a href="https://open-meteo.com/">Open-Meteo</a>
+            </p>
+            <p class="site-footer__fine">
+                Specs come from makers' published data; Rolex doesn't publish thickness, so those figures come from
+                independent reviews. Price tiers are approximate. Not affiliated with any watch brand.
+            </p>
+        </div>
+    </footer>
+
+    <template id="watch-template">
+        <article class="watch">
+            <figure class="photo">
+                <div class="photo__frame">
+                    <p class="photo__placeholder">Loading photo…</p>
+                </div>
+                <figcaption class="photo__credit"></figcaption>
+            </figure>
+            <div class="watch__body">
+                <p class="watch__tier"></p>
+                <p class="watch__brand"></p>
+                <h3 class="watch__model"></h3>
+                <p class="watch__why"></p>
+                <dl class="watch__specs">
+                    <div>
+                        <dt>Case</dt>
+                        <dd data-spec="case"></dd>
+                    </div>
+                    <div>
+                        <dt>Thickness</dt>
+                        <dd data-spec="thickness"></dd>
+                    </div>
+                    <div>
+                        <dt>Movement</dt>
+                        <dd data-spec="movement"></dd>
+                    </div>
+                    <div>
+                        <dt>Worn on</dt>
+                        <dd data-spec="strap"></dd>
+                    </div>
+                </dl>
+                <div class="cuff">
+                    <p class="cuff__label">Cuff test</p>
+                    <div class="cuff__gauge" aria-hidden="true">
+                        <span class="cuff__marker"></span>
+                    </div>
+                    <div class="cuff__scale" aria-hidden="true">
+                        <span>slides under</span>
+                        <span>tug</span>
+                        <span>roomy cuff</span>
+                    </div>
+                    <p class="cuff__verdict"></p>
+                </div>
+            </div>
+        </article>
+    </template>
+</body>
+
+</html>
