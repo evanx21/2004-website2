@@ -7,6 +7,9 @@
  *               string shows a "draft" box on the page.
  * HOUSES        The brand guide: four groups, each brand with where and when
  *               it was founded and what it’s known for. Names match `brand`.
+ *               `say` (hard names only): the language to read the name in,
+ *               `text` when the voice needs a respelling to get it right, and
+ *               `guide`, the English spelling shown beside the Say it button.
  * WATCHES       Real watches. Specs describe the current model named in
  *               `model` (makers’ published data; Rolex doesn’t publish
  *               thickness, so those figures come from reviews and are marked
@@ -34,17 +37,20 @@ const HOUSES = [
             {
                 name: "Patek Philippe",
                 origin: "Geneva, 1839",
-                note: "Family-owned since 1932 and best known for grand complications, the Calatrava and the Nautilus."
+                note: "Family-owned since 1932 and best known for grand complications, the Calatrava and the Nautilus.",
+                say: { lang: "fr-FR", guide: "pah-TEK fee-LEEP" }
             },
             {
                 name: "Audemars Piguet",
                 origin: "Le Brassus, 1875",
-                note: "Still owned by its founding families; its 1972 Royal Oak helped create the luxury steel sports watch."
+                note: "Still owned by its founding families; its 1972 Royal Oak helped create the luxury steel sports watch.",
+                say: { lang: "fr-FR", text: "Audemar Piguet", guide: "oh-duh-MAR pee-GAY" }
             },
             {
                 name: "Vacheron Constantin",
                 origin: "Geneva, 1755",
-                note: "Says it has made watches without interruption since 1755, longer than any other maker."
+                note: "Says it has made watches without interruption since 1755, longer than any other maker.",
+                say: { lang: "fr-FR", guide: "vash-uh-RON kon-stahn-TAN" }
             }
         ]
     },
@@ -55,37 +61,44 @@ const HOUSES = [
             {
                 name: "Jaeger-LeCoultre",
                 origin: "Le Sentier, 1833",
-                note: "Called “the watchmaker’s watchmaker” for supplying movements to other houses; maker of the Reverso."
+                note: "Called “the watchmaker’s watchmaker” for supplying movements to other houses; maker of the Reverso.",
+                say: { lang: "fr-FR", text: "Jégère Lecoultre", guide: "zhay-ZHAIR luh-KOO-truh" }
             },
             {
                 name: "Breguet",
                 origin: "Paris, 1775",
-                note: "Founded by Abraham-Louis Breguet, who patented the tourbillon in 1801."
+                note: "Founded by Abraham-Louis Breguet, who patented the tourbillon in 1801.",
+                say: { lang: "fr-FR", guide: "bruh-GAY" }
             },
             {
                 name: "Blancpain",
                 origin: "Villeret, 1735",
-                note: "Claims to be the oldest watch brand; its 1953 Fifty Fathoms helped define the dive watch."
+                note: "Claims to be the oldest watch brand; its 1953 Fifty Fathoms helped define the dive watch.",
+                say: { lang: "fr-FR", guide: "blahn-PAN" }
             },
             {
                 name: "Piaget",
                 origin: "La Côte-aux-Fées, 1874",
-                note: "Famous for ultra-thin movements and for watches that double as jewelry."
+                note: "Famous for ultra-thin movements and for watches that double as jewelry.",
+                say: { lang: "fr-FR", guide: "pyah-ZHAY" }
             },
             {
                 name: "Cartier",
                 origin: "Paris, 1847",
-                note: "The Paris jeweler whose Santos (1904) and Tank (1917) helped make the wristwatch fashionable."
+                note: "The Paris jeweler whose Santos (1904) and Tank (1917) helped make the wristwatch fashionable.",
+                say: { lang: "fr-FR", guide: "kar-tee-AY" }
             },
             {
                 name: "Bulgari",
                 origin: "Rome, 1884",
-                note: "A Roman jeweler known for bold Italian design, from the Serpenti to record-thin Octo Finissimo watches."
+                note: "A Roman jeweler known for bold Italian design, from the Serpenti to record-thin Octo Finissimo watches.",
+                say: { lang: "it-IT", text: "Bùlgari", guide: "BOOL-gah-ree" }
             },
             {
                 name: "Grand Seiko",
                 origin: "Japan, 1960",
-                note: "Seiko’s luxury line, known for mirror-like Zaratsu polishing and the gliding Spring Drive."
+                note: "Seiko’s luxury line, known for mirror-like Zaratsu polishing and the gliding Spring Drive.",
+                say: { lang: "ja-JP", text: "グランドセイコー", guide: "grand SAY-koh" }
             }
         ]
     },
@@ -116,7 +129,8 @@ const HOUSES = [
             {
                 name: "TAG Heuer",
                 origin: "Saint-Imier, 1860",
-                note: "Edouard Heuer’s company, a pioneer of racing chronographs and stopwatches."
+                note: "Edouard Heuer’s company, a pioneer of racing chronographs and stopwatches.",
+                say: { lang: "en-US", text: "Tag Hoyer", guide: "tag HOY-er" }
             },
             {
                 name: "Zenith",
@@ -131,7 +145,8 @@ const HOUSES = [
             {
                 name: "Panerai",
                 origin: "Florence, 1860",
-                note: "A Florentine workshop that supplied the Italian navy with diving instruments and watches."
+                note: "A Florentine workshop that supplied the Italian navy with diving instruments and watches.",
+                say: { lang: "it-IT", guide: "pah-neh-RYE" }
             }
         ]
     },
@@ -142,7 +157,8 @@ const HOUSES = [
             {
                 name: "Seiko",
                 origin: "Tokyo, 1881",
-                note: "Launched the world’s first quartz wristwatch, the Astron, in 1969."
+                note: "Launched the world’s first quartz wristwatch, the Astron, in 1969.",
+                say: { lang: "ja-JP", text: "セイコー", guide: "SAY-koh" }
             },
             {
                 name: "Orient",
@@ -152,7 +168,8 @@ const HOUSES = [
             {
                 name: "Tissot",
                 origin: "Le Locle, 1853",
-                note: "One of the most affordable ways into Swiss mechanical watches."
+                note: "One of the most affordable ways into Swiss mechanical watches.",
+                say: { lang: "fr-FR", guide: "tee-SOH" }
             },
             {
                 name: "Hamilton",
@@ -162,7 +179,8 @@ const HOUSES = [
             {
                 name: "Nomos Glashütte",
                 origin: "Glashütte, 1990",
-                note: "Founded just after the fall of the Berlin Wall; known for clean, Bauhaus-style dials."
+                note: "Founded just after the fall of the Berlin Wall; known for clean, Bauhaus-style dials.",
+                say: { lang: "de-DE", guide: "NOH-moss GLAHS-hoo-tuh" }
             },
             {
                 name: "Casio",

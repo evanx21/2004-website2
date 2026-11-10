@@ -109,7 +109,8 @@
             <div class="wrap">
                 <header class="section-head">
                     <h2 id="brands-title">The brands</h2>
-                    <p class="section-head__lede">25 watchmakers in four groups. Choose a brand to see its watches.</p>
+                    <p class="section-head__lede">25 watchmakers in four groups. Choose a brand to see its watches,
+                        or press Say it to hear a hard name in its own language.</p>
                 </header>
                 <div class="house-groups" id="house-groups"></div>
             </div>
@@ -194,6 +195,12 @@
                             instead.</dd>
                     </div>
                     <div>
+                        <dt><a class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis">Web Speech API</a></dt>
+                        <dd class="api-list__kind">Browser API</dd>
+                        <dd>Speech synthesis: “Say it” in The brands reads hard names in their own language, such as
+                            French for Audemars Piguet.</dd>
+                    </div>
+                    <div>
                         <dt><a class="link" href="https://commons.wikimedia.org/">Wikimedia Commons</a></dt>
                         <dd class="api-list__kind">Data API</dd>
                         <dd>The watch photos, each credited in its watch’s details.</dd>
@@ -233,7 +240,10 @@
             </div>
 
             <div class="watch-dialog__info">
-                <p class="watch-dialog__brand" id="dialog-brand"></p>
+                <div class="watch-dialog__brand-row">
+                    <p class="watch-dialog__brand" id="dialog-brand"></p>
+                    <div id="dialog-say"></div>
+                </div>
                 <h2 class="watch-dialog__title" id="dialog-title"></h2>
                 <p class="watch-dialog__tier" id="dialog-tier"></p>
                 <p class="watch-dialog__why" id="dialog-why"></p>
@@ -295,6 +305,21 @@
             </h3>
             <p class="watch-card__tier"></p>
         </li>
+    </template>
+
+    <template id="say-template">
+        <div class="say">
+            <button type="button" class="say__button">
+                <svg class="say__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M4 9.5v5h3.5L12 18V6L7.5 9.5H4z" />
+                    <path d="M15.5 9a4 4 0 0 1 0 6" />
+                    <path d="M18 6.5a7.5 7.5 0 0 1 0 11" />
+                </svg>
+                Say it<span class="visually-hidden"></span>
+            </button>
+            <span class="say__guide"></span>
+            <span class="say__note" role="status"></span>
+        </div>
     </template>
 
     <template id="stop-template">

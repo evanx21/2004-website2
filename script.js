@@ -3,12 +3,13 @@
 /*
  * Evan Explains Watches: a student’s guide to watches
  * -------------------------------------------------------------------------
- * Data APIs    Wikimedia Commons (watch photos and their credits)
- *              Wikipedia REST (place notes in "Notes from Europe")
- *              Frankfurter (exchange rates for the price converter)
- *              Open-Meteo Geocoding (city search in "Try it on near you")
- *              Overpass / OpenStreetMap (watch shops and jewelers nearby)
- * Browser API  Geolocation ("Use my location" in each watch’s details)
+ * Data APIs     Wikimedia Commons (watch photos and their credits)
+ *               Wikipedia REST (place notes in "My trips to Europe")
+ *               Frankfurter (exchange rates for the price converter)
+ *               Open-Meteo Geocoding (city search in "Try it on near you")
+ *               Overpass / OpenStreetMap (watch shops and jewelers nearby)
+ * Browser APIs  Geolocation ("Use my location" in each watch’s details)
+ *               Web Speech, speech synthesis ("Say it" beside hard brand names)
  *
  * All content, including Evan’s own notes, lives in data.js.
  */
@@ -27,6 +28,11 @@ const MAX_SHOPS = 6;
 const KM_PER_MILE = 1.609344;
 const TIER_ORDER = ["entry", "mid", "grail"];
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
+const SPEECH_RATE = 0.85; // a little slower than normal, so each syllable is clear
+const LANGUAGE_NAMES = { en: "English", fr: "French", it: "Italian", de: "German", ja: "Japanese" };
+
+// Brand name → its entry in HOUSES (origin, note and, for hard names, how to say it)
+const HOUSES_BY_NAME = new Map(HOUSES.flatMap(group => group.brands).map(house => [house.name, house]));
 
 const DRAFT_STORY = "Draft: your own memory of this place, what you saw, and how it felt.";
 
@@ -52,6 +58,7 @@ const els = {
     dialogFrame: document.querySelector("#dialog-frame"),
     dialogCredit: document.querySelector("#dialog-credit"),
     dialogBrand: document.querySelector("#dialog-brand"),
+    dialogSay: document.querySelector("#dialog-say"),
     dialogTitle: document.querySelector("#dialog-title"),
     dialogTier: document.querySelector("#dialog-tier"),
     dialogWhy: document.querySelector("#dialog-why"),
@@ -66,7 +73,8 @@ const els = {
     shopStatus: document.querySelector("#shop-status"),
     shopList: document.querySelector("#shop-list"),
     watchTemplate: document.querySelector("#watch-template"),
-    stopTemplate: document.querySelector("#stop-template")
+    stopTemplate: document.querySelector("#stop-template"),
+    sayTemplate: document.querySelector("#say-template")
 };
 
 const state = {
@@ -351,7 +359,7 @@ function showBrand(brand) {
 
 function buildHouse(house) {
     const count = Object.values(WATCHES).filter(watch => watch.brand === house.name).length;
-    const item = createElement("li", "house");
+    const item = createElement("li", house.say ? "house house--say" : "house");
     const button = createElement("button", "house__name", house.name);
     button.type = "button";
     button.addEventListener("click", () => showBrand(house.name));
@@ -359,9 +367,12 @@ function buildHouse(house) {
     item.append(
         button,
         createElement("p", "house__origin", house.origin),
-        createElement("p", "house__count", `${count} ${count === 1 ? "watch" : "watches"}`),
-        createElement("p", "house__note", house.note)
+        createElement("p", "house__count", `${count} ${count === 1 ? "watch" : "watches"}`)
     );
+    if (house.say) {
+        item.append(buildSay(house));
+    }
+    item.append(createElement("p", "house__note", house.note));
     return item;
 }
 
@@ -379,13 +390,102 @@ function renderHouses() {
     }));
 }
 
+/* ===================== Say it (Web Speech API: speech synthesis) ===================== */
+
+function canSpeak() {
+    return Boolean(window.speechSynthesis) && typeof window.SpeechSynthesisUtterance === "function";
+}
+
+// Chrome loads its voices a moment after the page, so wait briefly if the list is still empty.
+function loadVoices() {
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length) {
+        return Promise.resolve(voices);
+    }
+    return new Promise(resolve => {
+        const finish = () => resolve(window.speechSynthesis.getVoices());
+        window.speechSynthesis.addEventListener("voiceschanged", finish, { once: true });
+        setTimeout(finish, 1000);
+    });
+}
+
+// A voice for the exact language (fr-FR), or else any voice in that language (fr-CA, fr-CH…).
+function findVoice(voices, lang) {
+    const language = lang.split("-")[0];
+    return voices.find(voice => voice.lang === lang)
+        || voices.find(voice => voice.lang.toLowerCase().startsWith(language))
+        || null;
+}
+
+async function sayName(house, button, note) {
+    const { lang, text = house.name } = house.say;
+    note.textContent = "";
+
+    if (!canSpeak()) {
+        note.textContent = "This browser can’t read names aloud. Follow the spelling instead.";
+        return;
+    }
+
+    try {
+        const voice = findVoice(await loadVoices(), lang);
+        if (!voice) {
+            const language = LANGUAGE_NAMES[lang.split("-")[0]];
+            note.textContent = `This device has no ${language} voice. Follow the spelling instead.`;
+            return;
+        }
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = voice;
+        utterance.lang = voice.lang;
+        utterance.rate = SPEECH_RATE;
+        utterance.addEventListener("start", () => button.classList.add("is-speaking"));
+        utterance.addEventListener("end", () => button.classList.remove("is-speaking"));
+        utterance.addEventListener("error", event => {
+            button.classList.remove("is-speaking");
+            // "interrupted" and "canceled" only mean another name started or the details closed.
+            if (event.error !== "interrupted" && event.error !== "canceled") {
+                note.textContent = "The name couldn’t be played. Follow the spelling instead.";
+            }
+        });
+
+        const speech = window.speechSynthesis;
+        if (speech.speaking || speech.pending) {
+            speech.cancel();
+            setTimeout(() => speech.speak(utterance), 60); // Chrome can drop speech started right after cancel()
+        } else {
+            speech.speak(utterance);
+        }
+    } catch (error) {
+        button.classList.remove("is-speaking");
+        note.textContent = "The name couldn’t be played. Follow the spelling instead.";
+    }
+}
+
+// The Say it button, the spelling beside it, and a line for messages if speech isn't available.
+function buildSay(house) {
+    const say = els.sayTemplate.content.firstElementChild.cloneNode(true);
+    const button = say.querySelector(".say__button");
+    const note = say.querySelector(".say__note");
+
+    say.querySelector(".visually-hidden").textContent = `: ${house.name}`;
+    say.querySelector(".say__guide").textContent = house.say.guide;
+    button.addEventListener("click", () => sayName(house, button, note));
+    return say;
+}
+
+function stopSpeaking() {
+    if (canSpeak()) {
+        window.speechSynthesis.cancel();
+    }
+}
+
 /* ===================== Watch details (dialog) ===================== */
 
 function formatThickness(watch) {
     if (watch.thicknessMm === null) {
         return "Not published by the maker";
     }
-    const value = `${watch.thicknessApprox ? "≈ " : ""}${watch.thicknessMm} mm`;
+    const value = `${watch.thicknessApprox ? "≈\u00a0" : ""}${watch.thicknessMm}\u00a0mm`;
     // Dress watches are thin so they slide under a shirt cuff.
     let cuff = "wants a roomier cuff";
     if (watch.thicknessMm <= 9) {
@@ -411,10 +511,13 @@ function openWatch(id, trigger) {
     loadPhoto(els.dialogFrame, els.dialogCredit, watch.photo, watch.pictured);
 
     els.dialogBrand.textContent = watch.brand;
+    const house = HOUSES_BY_NAME.get(watch.brand);
+    stopSpeaking();
+    els.dialogSay.replaceChildren(...(house && house.say ? [buildSay(house)] : []));
     els.dialogTitle.textContent = watch.model;
     els.dialogTier.textContent = PRICE_TIERS[watch.tier];
     els.dialogWhy.textContent = watch.why;
-    els.dialogCase.textContent = `${watch.caseMm} mm`;
+    els.dialogCase.textContent = `${watch.caseMm}\u00a0mm`;
     els.dialogThickness.textContent = formatThickness(watch);
     els.dialogMovement.replaceChildren(
         watch.movement,
@@ -714,6 +817,7 @@ function bindEvents() {
     });
     els.dialog.addEventListener("close", () => {
         state.shopSearchId += 1; // ignore any shop search still running
+        stopSpeaking();
         if (state.lastTrigger) {
             state.lastTrigger.focus();
         }
@@ -728,6 +832,9 @@ function init() {
     renderStops();
     renderCurrencyOptions();
     bindEvents();
+    if (canSpeak()) {
+        window.speechSynthesis.getVoices(); // starts loading the voices before the first Say it
+    }
 }
 
 init();
