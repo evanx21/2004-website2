@@ -6,10 +6,10 @@
  * Data APIs     Wikimedia Commons (watch photos and their credits)
  *               Wikipedia REST (place notes in "My trips to Europe")
  *               Frankfurter (exchange rates for the price converter)
- *               Open-Meteo Geocoding (city search in "Try it on near you")
+ *               Open-Meteo Geocoding (city search in "Try one on")
  *               Google Places, through the CSE 2004 class proxy (stores near you)
  *               Overpass / OpenStreetMap (the backup shop search)
- * Browser APIs  Geolocation ("Use my location" in each watch’s details)
+ * Browser APIs  Geolocation ("Use my location" in Try one on)
  *               Web Speech, speech synthesis ("Say it" in Watch basics and the details)
  *
  * All content, including Evan’s own notes, lives in data.js.
@@ -75,6 +75,9 @@ const els = {
     dialogMovement: document.querySelector("#dialog-movement"),
     dialogStrap: document.querySelector("#dialog-strap"),
     dialogMaker: document.querySelector("#dialog-maker"),
+    dialogStores: document.querySelector("#dialog-stores"),
+    storesSection: document.querySelector("#stores"),
+    shopBrand: document.querySelector("#shop-brand"),
     dialogOccasions: document.querySelector("#dialog-occasions"),
     shopSearch: document.querySelector("#shop-search"),
     shopCity: document.querySelector("#shop-city"),
@@ -311,21 +314,25 @@ function buildWatchCard(id) {
     return card;
 }
 
-// The brand menu lists every brand in the collection, with how many watches it has.
+// The brand menus: the watch filter (with how many watches each brand has) and the store search.
 function renderBrandOptions() {
     const counts = {};
     Object.values(WATCHES).forEach(watch => {
         counts[watch.brand] = (counts[watch.brand] || 0) + 1;
     });
     const brands = Object.keys(counts).sort((a, b) => a.localeCompare(b));
+    const buildOptions = (allLabel, label) => {
+        const allOption = createElement("option", "", allLabel);
+        allOption.value = "all";
+        return [allOption, ...brands.map(brand => {
+            const option = createElement("option", "", label(brand));
+            option.value = brand;
+            return option;
+        })];
+    };
 
-    const allOption = createElement("option", "", `All ${brands.length} brands`);
-    allOption.value = "all";
-    els.brandSelect.replaceChildren(allOption, ...brands.map(brand => {
-        const option = createElement("option", "", `${brand} (${counts[brand]})`);
-        option.value = brand;
-        return option;
-    }));
+    els.brandSelect.replaceChildren(...buildOptions(`All ${brands.length} brands`, brand => `${brand} (${counts[brand]})`));
+    els.shopBrand.replaceChildren(...buildOptions("Any brand", brand => brand));
 }
 
 // Cheapest price band first, then by brand and model.
@@ -609,11 +616,7 @@ function openWatch(id, trigger) {
     );
     els.dialogStrap.textContent = watch.strap;
     els.dialogOccasions.textContent = occasionsFor(id).join(", ");
-
-    // Each watch starts with a fresh shop search.
-    state.shopSearchId += 1;
-    els.shopList.replaceChildren();
-    setStatus(els.shopStatus, `Finds stores that sell ${watch.brand}, with ratings and opening hours.`);
+    els.dialogStores.textContent = `Find ${watch.brand} stores near you`;
 
     if (!els.dialog.open) {
         els.dialog.showModal();
@@ -621,11 +624,22 @@ function openWatch(id, trigger) {
     els.dialog.scrollTop = 0;
 }
 
+// From a watch's details to Try one on, with that watch's brand already chosen.
+function goToStores() {
+    const brand = WATCHES[state.watchId].brand;
+    state.lastTrigger = null; // stay at the store search instead of returning to the watch card
+    closeDialog();
+    els.shopBrand.value = brand;
+    clearShops(`Type a city or use your location to find ${brand} stores.`);
+    els.storesSection.scrollIntoView({ behavior: REDUCED_MOTION.matches ? "auto" : "smooth", block: "start" });
+    els.shopCity.focus({ preventScroll: true });
+}
+
 function closeDialog() {
     els.dialog.close();
 }
 
-/* ===================== Try it on near you (Geolocation, Open-Meteo, Google Places, Overpass) ===================== */
+/* ===================== Try one on (Geolocation, Open-Meteo, Google Places, Overpass) ===================== */
 
 function placeLabel(place) {
     const parts = [place.name, place.admin1, place.country].filter(Boolean);
@@ -657,8 +671,9 @@ function roundCoordinate(value) {
     return Number(value.toFixed(COORDINATE_DECIMALS));
 }
 
+// `brand` is a brand name, or "all" when the visitor chose "Any brand".
 function mentionsBrand(text, brand) {
-    return text.toLowerCase().includes(brand.toLowerCase());
+    return brand !== "all" && text.toLowerCase().includes(brand.toLowerCase());
 }
 
 // Stores that sell this brand, from Google Maps through the CSE 2004 class proxy.
@@ -670,7 +685,7 @@ function queryPlaces(location, brand) {
 
     if (!placesCache.has(cacheKey)) {
         const params = new URLSearchParams({
-            query: `${brand} watches`,
+            query: brand === "all" ? "watch store" : `${brand} watches`,
             latitude: String(latitude),
             longitude: String(longitude),
             radius: String(SHOP_RADIUS_M),
@@ -782,20 +797,26 @@ function buildShopItem(shop, brand) {
     return item;
 }
 
+// Empties the results, and stops any search still running from filling them in.
+function clearShops(message = "") {
+    state.shopSearchId += 1;
+    els.shopList.replaceChildren();
+    setStatus(els.shopStatus, message);
+}
+
 // Google Places first. If it fails or finds nothing, fall back to OpenStreetMap.
 async function findShops(location) {
-    const watch = WATCHES[state.watchId];
-    state.shopSearchId += 1;
+    const brand = els.shopBrand.value;
+    const stores = brand === "all" ? "watch stores" : `${brand} stores`;
+    clearShops(`Looking near ${location.label}…`);
     const searchId = state.shopSearchId;
-    els.shopList.replaceChildren();
-    setStatus(els.shopStatus, `Looking near ${location.label}…`);
 
     let shops = [];
     let fallbackNote = "";
     try {
-        shops = await queryPlaces(location, watch.brand);
+        shops = await queryPlaces(location, brand);
         if (!shops.length) {
-            fallbackNote = `Google Maps found no ${watch.brand} stores nearby, so these are watch shops and jewelers from OpenStreetMap.`;
+            fallbackNote = `Google Maps found no ${stores} nearby, so these are watch shops and jewelers from OpenStreetMap.`;
         }
     } catch (error) {
         fallbackNote = error.status === 429
@@ -803,12 +824,12 @@ async function findShops(location) {
             : "Google Places isn’t answering right now, so these are watch shops and jewelers from OpenStreetMap.";
     }
     if (searchId !== state.shopSearchId) {
-        return; // the visitor searched again, or opened another watch
+        return; // the visitor searched again or changed the brand
     }
 
     if (!shops.length) {
         try {
-            shops = await queryOpenStreetMap(location, watch.brand);
+            shops = await queryOpenStreetMap(location, brand);
         } catch (error) {
             if (searchId === state.shopSearchId) {
                 setStatus(els.shopStatus, "Neither Google Maps nor OpenStreetMap is answering right now. Please try again in a minute.", "warning");
@@ -824,11 +845,12 @@ async function findShops(location) {
         }
     }
 
-    els.shopList.replaceChildren(...shops.map(shop => buildShopItem(shop, watch.brand)));
+    els.shopList.replaceChildren(...shops.map(shop => buildShopItem(shop, brand)));
     if (fallbackNote) {
         setStatus(els.shopStatus, `${fallbackNote} Call ahead to check which brands they carry.`, "warning");
     } else {
-        setStatus(els.shopStatus, `${watch.brand} stores near ${location.label}, from Google Maps. Call ahead to check which models they have.`, "success");
+        const label = stores.charAt(0).toUpperCase() + stores.slice(1);
+        setStatus(els.shopStatus, `${label} near ${location.label}, from Google Maps. Call ahead to check which models they have.`, "success");
     }
 }
 
@@ -1001,9 +1023,11 @@ function bindEvents() {
     els.typeFilter.addEventListener("change", renderWatches);
     els.converter.addEventListener("submit", handleConvert);
     els.shopSearch.addEventListener("submit", handleShopSearch);
+    els.shopBrand.addEventListener("change", () => clearShops());
     els.geoBtn.addEventListener("click", useMyLocation);
 
     els.dialogClose.addEventListener("click", closeDialog);
+    els.dialogStores.addEventListener("click", goToStores);
     // A click on the dimmed backdrop lands on the dialog element itself.
     els.dialog.addEventListener("click", clickEvent => {
         if (clickEvent.target === els.dialog) {
@@ -1011,7 +1035,6 @@ function bindEvents() {
         }
     });
     els.dialog.addEventListener("close", () => {
-        state.shopSearchId += 1; // ignore any shop search still running
         stopSpeaking();
         if (state.lastTrigger) {
             state.lastTrigger.focus();

@@ -28,6 +28,7 @@
             <nav class="site-nav" aria-label="Sections">
                 <a href="#basics">Basics</a>
                 <a href="#watches">Watches</a>
+                <a href="#stores">Stores</a>
                 <a href="#europe">Europe</a>
                 <a href="#apis">APIs</a>
             </nav>
@@ -201,8 +202,8 @@
             <div class="wrap">
                 <header class="section-head">
                     <h2 id="watches-title">The watches</h2>
-                    <p class="section-head__lede">Choose a watch to see its size, its movement, what to wear it to
-                        and where to try it on.</p>
+                    <p class="section-head__lede">Choose a watch to see its size, its movement and what to wear it
+                        to.</p>
                 </header>
 
                 <form class="filter" id="type-filter" aria-label="Filter the watches">
@@ -218,6 +219,34 @@
 
                 <ul class="watch-grid" id="watch-grid"></ul>
                 <p class="empty-state" id="empty-state" hidden></p>
+            </div>
+        </section>
+
+        <section class="section" id="stores" aria-labelledby="stores-title">
+            <div class="wrap">
+                <header class="section-head">
+                    <h2 id="stores-title">Try one on</h2>
+                    <p class="section-head__lede">Photos only go so far. Find stores near you that sell a brand, then
+                        see the watch on your own wrist.</p>
+                </header>
+
+                <form class="store-search" id="shop-search" novalidate>
+                    <div class="field">
+                        <label for="shop-brand">Brand</label>
+                        <select id="shop-brand" name="brand"></select>
+                    </div>
+                    <div class="field">
+                        <label for="shop-city">City</label>
+                        <input type="search" id="shop-city" name="city" autocomplete="off" placeholder="Chicago"
+                            aria-describedby="shop-status">
+                    </div>
+                    <div class="store-search__actions">
+                        <button type="submit" class="button button--primary">Find stores</button>
+                        <button type="button" class="button button--secondary" id="geo-btn">Use my location</button>
+                    </div>
+                </form>
+                <p class="hint" id="shop-status" role="status"></p>
+                <ol class="shop-list" id="shop-list"></ol>
             </div>
         </section>
 
@@ -272,7 +301,7 @@
                     <div>
                         <dt><a class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API">Geolocation</a></dt>
                         <dd class="api-list__kind">Browser API</dd>
-                        <dd>“Use my location” in any watch’s details. If you block location, you can type a city
+                        <dd>“Use my location” in Try one on. If you block location, you can type a city
                             instead.</dd>
                     </div>
                     <div>
@@ -290,12 +319,12 @@
                         <dt><a class="link" href="https://open-meteo.com/en/docs/geocoding-api">Open-Meteo Geocoding</a>
                         </dt>
                         <dd class="api-list__kind">Data API</dd>
-                        <dd>Turns the city you type in “Try it on near you” into a place on the map.</dd>
+                        <dd>Turns the city you type in Try one on into a place on the map.</dd>
                     </div>
                     <div>
                         <dt><a class="link" href="https://cse2004.com/">Google Places</a></dt>
                         <dd class="api-list__kind">Data API</dd>
-                        <dd>Stores that sell the watch’s brand near that place, with ratings, opening hours and
+                        <dd>Stores near that place that sell the brand you chose, with ratings, opening hours and
                             photos, through the CSE 2004 class proxy. Results from Google Maps.</dd>
                     </div>
                     <div>
@@ -362,23 +391,8 @@
                     </div>
                 </dl>
 
-                <section class="try-on" aria-labelledby="try-on-title">
-                    <h3 id="try-on-title">Try it on near you</h3>
-                    <form class="try-on__form" id="shop-search" novalidate>
-                        <div class="field">
-                            <label for="shop-city">City</label>
-                            <input type="search" id="shop-city" name="city" autocomplete="off" placeholder="Chicago"
-                                aria-describedby="shop-status">
-                        </div>
-                        <div class="try-on__actions">
-                            <button type="submit" class="button button--primary">Find shops</button>
-                            <button type="button" class="button button--secondary" id="geo-btn">Use my
-                                location</button>
-                        </div>
-                    </form>
-                    <p class="hint" id="shop-status" role="status"></p>
-                    <ol class="shop-list" id="shop-list"></ol>
-                </section>
+                <button type="button" class="button button--secondary watch-dialog__stores" id="dialog-stores">Find
+                    stores near you</button>
 
                 <p class="photo-credit" id="dialog-credit"></p>
             </div>
