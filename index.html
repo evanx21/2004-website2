@@ -27,6 +27,7 @@
             <span class="brand__name">Wrist Notes</span>
         </a>
         <nav class="site-nav" aria-label="Sections">
+            <a href="#houses">Houses</a>
             <a href="#watches">Watches</a>
             <a href="#europe">Europe</a>
         </nav>
@@ -51,10 +52,19 @@
             </figure>
         </section>
 
+        <section class="houses" id="houses" aria-labelledby="houses-title">
+            <header class="section-head">
+                <h2 id="houses-title">The houses</h2>
+                <p class="section-head__lede">Who's who in watchmaking, one line each. Choose a house to see its
+                    watches.</p>
+            </header>
+            <div class="house-groups" id="house-groups"></div>
+        </section>
+
         <section class="panel" id="watches" aria-labelledby="watches-title">
             <header class="panel__head">
                 <h2 id="watches-title">The watches</h2>
-                <p class="panel__lede">Choose a watch to see the details, my take on it, and where to try it on.</p>
+                <p class="panel__lede">Choose a watch to see the details and where to try it on.</p>
             </header>
 
             <form class="type-filter" id="type-filter" aria-label="Filter the watches">
@@ -124,12 +134,6 @@
                 <p class="watch-dialog__brand" id="dialog-brand"></p>
                 <h2 class="watch-dialog__title" id="dialog-title"></h2>
                 <p class="watch-dialog__tier" id="dialog-tier"></p>
-
-                <div class="take" id="dialog-take">
-                    <p class="take__label">Evan's take</p>
-                    <p class="take__text"></p>
-                </div>
-
                 <p class="watch-dialog__why" id="dialog-why"></p>
 
                 <dl class="facts">
@@ -187,7 +191,6 @@
                 <button type="button" class="watch-card__open"></button>
             </h3>
             <p class="watch-card__tier"></p>
-            <p class="watch-card__take"></p>
         </li>
     </template>
 

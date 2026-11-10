@@ -26,8 +26,8 @@ const SHOP_RADIUS_M = 15000;
 const MAX_SHOPS = 6;
 const KM_PER_MILE = 1.609344;
 const TIER_ORDER = ["entry", "mid", "grail"];
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-const DRAFT_TAKE = "Draft: a line or two in your own words. Why this watch, who it's for, and whether a student should save up for it.";
 const DRAFT_STORY = "Draft: your own memory of this place, what you saw, and how it felt.";
 
 /* ===================== Elements & state ===================== */
@@ -35,6 +35,8 @@ const DRAFT_STORY = "Draft: your own memory of this place, what you saw, and how
 const els = {
     introFrame: document.querySelector("#intro-frame"),
     introCredit: document.querySelector("#intro-credit"),
+    houseGroups: document.querySelector("#house-groups"),
+    watchesSection: document.querySelector("#watches"),
     typeFilter: document.querySelector("#type-filter"),
     typeChips: document.querySelector("#type-chips"),
     typeNote: document.querySelector("#type-note"),
@@ -54,7 +56,6 @@ const els = {
     dialogBrand: document.querySelector("#dialog-brand"),
     dialogTitle: document.querySelector("#dialog-title"),
     dialogTier: document.querySelector("#dialog-tier"),
-    dialogTake: document.querySelector("#dialog-take"),
     dialogWhy: document.querySelector("#dialog-why"),
     dialogCase: document.querySelector("#dialog-case"),
     dialogThickness: document.querySelector("#dialog-thickness"),
@@ -290,14 +291,6 @@ function buildWatchCard(id) {
     openButton.addEventListener("click", () => openWatch(id, openButton));
     card.querySelector(".watch-card__tier").textContent = PRICE_TIERS[watch.tier];
 
-    // Cards stay clean: Evan's take appears only once he has written it.
-    const take = card.querySelector(".watch-card__take");
-    if (hasText(watch.take)) {
-        take.textContent = `“${watch.take}”`;
-    } else {
-        take.remove();
-    }
-
     loadPhoto(card.querySelector(".photo__frame"), null, watch.photo, watch.pictured);
     return card;
 }
@@ -350,6 +343,45 @@ function renderWatches() {
     els.watchGrid.replaceChildren(...ids.map(buildWatchCard));
 }
 
+/* ===================== The houses (brand guide) ===================== */
+
+// Choosing a house shows all of its watches in the gallery.
+function showBrand(brand) {
+    els.typeFilter.elements.type.value = "all";
+    els.brandSelect.value = brand;
+    renderWatches();
+    els.watchesSection.scrollIntoView({ behavior: REDUCED_MOTION.matches ? "auto" : "smooth", block: "start" });
+}
+
+function buildHouse(house) {
+    const count = Object.values(WATCHES).filter(watch => watch.brand === house.name).length;
+    const item = createElement("li", "house");
+    const button = createElement("button", "house__name", house.name);
+    button.type = "button";
+    button.addEventListener("click", () => showBrand(house.name));
+
+    item.append(
+        button,
+        createElement("p", "house__origin", `${house.origin} · ${count} ${count === 1 ? "watch" : "watches"} here`),
+        createElement("p", "house__note", house.note)
+    );
+    return item;
+}
+
+function renderHouses() {
+    els.houseGroups.replaceChildren(...HOUSES.map(group => {
+        const section = createElement("section", "house-group");
+        const list = createElement("ul", "house-group__list");
+        list.append(...group.brands.map(buildHouse));
+        section.append(
+            createElement("h3", "house-group__title", group.title),
+            createElement("p", "house-group__summary", group.summary),
+            list
+        );
+        return section;
+    }));
+}
+
 /* ===================== Watch details (dialog) ===================== */
 
 function formatThickness(watch) {
@@ -384,7 +416,6 @@ function openWatch(id, trigger) {
     els.dialogBrand.textContent = watch.brand;
     els.dialogTitle.textContent = watch.model;
     els.dialogTier.textContent = PRICE_TIERS[watch.tier];
-    fillTake(els.dialogTake, watch.take, DRAFT_TAKE);
     els.dialogWhy.textContent = watch.why;
     els.dialogCase.textContent = `${watch.caseMm} mm`;
     els.dialogThickness.textContent = formatThickness(watch);
@@ -692,6 +723,7 @@ function init() {
     loadPhoto(els.introFrame, els.introCredit, introWatch.photo, introWatch.pictured, { compact: true });
     renderTypeChips();
     renderBrandOptions();
+    renderHouses();
     renderWatches();
     renderStops();
     renderCurrencyOptions();
