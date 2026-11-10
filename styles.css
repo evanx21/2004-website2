@@ -221,9 +221,15 @@ main,
     color: var(--text-light-muted);
 }
 
-.intro .draft {
+.intro__story {
     max-width: 32em;
-    margin: 28px 0 36px;
+    margin: 24px 0 36px;
+    padding-left: 18px;
+    border-left: 2px solid var(--gold-400);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: var(--text-light);
 }
 
 .photo--intro .photo__frame {
