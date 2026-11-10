@@ -959,7 +959,17 @@ img {
     border-bottom: 1px solid var(--line);
 }
 
+.shop__photo {
+    flex: none;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: var(--r-sm);
+    background: var(--ground-alt);
+}
+
 .shop__details {
+    flex: 1;
     min-width: 0;
 }
 
@@ -979,7 +989,8 @@ img {
 }
 
 .shop__map {
-    flex-shrink: 0;
+    display: inline-block;
+    margin-top: var(--s-1);
     font-size: 0.875rem;
     font-weight: 500;
 }

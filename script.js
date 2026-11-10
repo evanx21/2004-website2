@@ -7,7 +7,8 @@
  *               Wikipedia REST (place notes in "My trips to Europe")
  *               Frankfurter (exchange rates for the price converter)
  *               Open-Meteo Geocoding (city search in "Try it on near you")
- *               Overpass / OpenStreetMap (watch shops and jewelers nearby)
+ *               Google Places, through the CSE 2004 class proxy (stores near you)
+ *               Overpass / OpenStreetMap (the backup shop search)
  * Browser APIs  Geolocation ("Use my location" in each watch’s details)
  *               Web Speech, speech synthesis ("Say it" in Watch basics and the details)
  *
@@ -21,6 +22,10 @@ const WIKI_SUMMARY_API = "https://en.wikipedia.org/api/rest_v1/page/summary/";
 const FRANKFURTER_API = "https://api.frankfurter.dev/v1/latest";
 const GEOCODING_API = "https://geocoding-api.open-meteo.com/v1/search";
 const OVERPASS_API = "https://overpass-api.de/api/interpreter";
+const PLACES_API = "https://cse2004.com/api/places/search";
+// The CSE 2004 class key. The course proxy adds the real Google key, and allows
+// 20 searches a minute and 300 a day, so results are saved in placesCache below.
+const CLASS_API_KEY = "3mpffpn2uikw";
 const FETCH_TIMEOUT_MS = 15000; // the shop search can take a few seconds
 const PHOTO_WIDTH = 800;
 const SHOP_RADIUS_M = 15000;
@@ -31,6 +36,8 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
 const SPEECH_RATE = 0.85; // a little slower than normal, so each syllable is clear
 const LANGUAGE_NAMES = { en: "English", fr: "French", it: "Italian", de: "German", ja: "Japanese" };
 const MAX_EXAMPLES = 3; // example watches shown under each movement and dress code
+const MAX_SHOP_DISTANCE_KM = 50; // Google may suggest a far-away boutique; leave those out
+const COORDINATE_DECIMALS = 2; // about 1 km
 
 const DRAFT_STORY = "Draft: your own memory of this place, what you saw, and how it felt.";
 
@@ -87,6 +94,9 @@ const state = {
 
 // Commons file title → Promise of { src, width, height, pageUrl, artist, license } (or null)
 const photoCache = new Map();
+
+// "brand|latitude,longitude" → Promise of the Google Places answer, so a repeat search costs nothing
+const placesCache = new Map();
 
 /* ===================== Small helpers ===================== */
 
@@ -603,7 +613,7 @@ function openWatch(id, trigger) {
     // Each watch starts with a fresh shop search.
     state.shopSearchId += 1;
     els.shopList.replaceChildren();
-    setStatus(els.shopStatus, `Shops whose name mentions ${watch.brand} are listed first.`);
+    setStatus(els.shopStatus, `Finds stores that sell ${watch.brand}, with ratings and opening hours.`);
 
     if (!els.dialog.open) {
         els.dialog.showModal();
@@ -615,7 +625,7 @@ function closeDialog() {
     els.dialog.close();
 }
 
-/* ===================== Try it on near you (Geolocation, Open-Meteo, Overpass) ===================== */
+/* ===================== Try it on near you (Geolocation, Open-Meteo, Google Places, Overpass) ===================== */
 
 function placeLabel(place) {
     const parts = [place.name, place.admin1, place.country].filter(Boolean);
@@ -641,11 +651,67 @@ function shopAddress(tags) {
     return [street, tags["addr:city"]].filter(Boolean).join(", ");
 }
 
-async function queryShops(location, brand) {
-    const around = `(around:${SHOP_RADIUS_M},${location.latitude},${location.longitude})`;
+// Coordinates sent to the shop searches are rounded to about 1 km, so a visitor's exact
+// position never leaves the browser. Distances are still worked out from the exact one.
+function roundCoordinate(value) {
+    return Number(value.toFixed(COORDINATE_DECIMALS));
+}
+
+function mentionsBrand(text, brand) {
+    return text.toLowerCase().includes(brand.toLowerCase());
+}
+
+// Stores that sell this brand, from Google Maps through the CSE 2004 class proxy.
+// Results are saved per brand and area: the class key allows 20 searches a minute.
+function queryPlaces(location, brand) {
+    const latitude = roundCoordinate(location.latitude);
+    const longitude = roundCoordinate(location.longitude);
+    const cacheKey = `${brand}|${latitude},${longitude}`;
+
+    if (!placesCache.has(cacheKey)) {
+        const params = new URLSearchParams({
+            query: `${brand} watches`,
+            latitude: String(latitude),
+            longitude: String(longitude),
+            radius: String(SHOP_RADIUS_M),
+            limit: String(MAX_SHOPS)
+        });
+        const request = fetchJSON(`${PLACES_API}?${params}`, {
+            headers: { Authorization: `Bearer ${CLASS_API_KEY}` }
+        }).catch(error => {
+            placesCache.delete(cacheKey); // allow a retry next time
+            throw error;
+        });
+        placesCache.set(cacheKey, request);
+    }
+
+    return placesCache.get(cacheKey).then(data => (data.places || [])
+        .map(place => {
+            const name = place.displayName ? place.displayName.text : "";
+            return {
+                name,
+                kind: place.primaryTypeDisplayName ? place.primaryTypeDisplayName.text : "Store",
+                address: place.formattedAddress || "",
+                distance: place.location ? distanceKm(location, place.location) : NaN,
+                rating: place.rating,
+                ratingCount: place.userRatingCount,
+                openNow: place.currentOpeningHours ? place.currentOpeningHours.openNow : undefined,
+                photo: place.photos && place.photos[0] ? place.photos[0].url : "",
+                mentionsBrand: mentionsBrand(name, brand),
+                mapUrl: place.googleMapsUri || "",
+                mapLabel: "Google Maps"
+            };
+        })
+        // Google ranks by relevance; keep that order, but drop anything far outside the area.
+        .filter(shop => shop.name && shop.distance <= MAX_SHOP_DISTANCE_KM)
+        .sort((a, b) => Number(b.mentionsBrand) - Number(a.mentionsBrand)));
+}
+
+// The backup: any watch shop or jeweler near the place, from OpenStreetMap.
+async function queryOpenStreetMap(location, brand) {
+    const around = `(around:${SHOP_RADIUS_M},${roundCoordinate(location.latitude)},${roundCoordinate(location.longitude)})`;
     const query = `[out:json][timeout:25];(nwr["shop"="watches"]${around};nwr["shop"="jewelry"]${around};);out center;`;
     const data = await fetchJSON(OVERPASS_API, { method: "POST", body: new URLSearchParams({ data: query }) });
-    const brandName = brand.toLowerCase();
 
     return (data.elements || [])
         .map(element => {
@@ -655,9 +721,10 @@ async function queryShops(location, brand) {
                 name: tags.name,
                 kind: tags.shop === "watches" ? "Watch shop" : "Jeweler",
                 address: shopAddress(tags),
-                mentionsBrand: `${tags.name || ""} ${tags.brand || ""}`.toLowerCase().includes(brandName),
+                mentionsBrand: mentionsBrand(`${tags.name || ""} ${tags.brand || ""}`, brand),
                 distance: distanceKm(location, { latitude: point.lat, longitude: point.lon }),
-                mapUrl: `https://www.openstreetmap.org/${element.type}/${element.id}`
+                mapUrl: `https://www.openstreetmap.org/${element.type}/${element.id}`,
+                mapLabel: "Map"
             };
         })
         .filter(shop => shop.name && Number.isFinite(shop.distance))
@@ -666,23 +733,56 @@ async function queryShops(location, brand) {
         .slice(0, MAX_SHOPS);
 }
 
+function describeRating(shop) {
+    const parts = [];
+    if (typeof shop.rating === "number") {
+        const reviews = shop.ratingCount ? ` from ${shop.ratingCount.toLocaleString("en-US")} reviews` : "";
+        parts.push(`${shop.rating.toFixed(1)} stars${reviews}`);
+    }
+    if (typeof shop.openNow === "boolean") {
+        parts.push(shop.openNow ? "open now" : "closed now");
+    }
+    const text = parts.join(", ");
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 function buildShopItem(shop, brand) {
     const item = createElement("li", "shop");
+    if (shop.photo) {
+        const image = document.createElement("img");
+        image.className = "shop__photo";
+        image.src = shop.photo;
+        image.alt = ""; // the shop's name is right beside it
+        image.width = 64;
+        image.height = 64;
+        image.loading = "lazy";
+        image.addEventListener("error", () => image.remove());
+        item.append(image);
+    }
+
     const details = createElement("div", "shop__details");
     details.append(
         createElement("p", "shop__name", shop.name),
         createElement("p", "shop__meta", `${shop.kind}, ${formatDistance(shop.distance)} away`)
     );
+    const rating = describeRating(shop);
+    if (rating) {
+        details.append(createElement("p", "shop__meta", rating));
+    }
     if (shop.address) {
         details.append(createElement("p", "shop__meta", shop.address));
     }
     if (shop.mentionsBrand) {
         details.append(createElement("p", "shop__brand", `Mentions ${brand}`));
     }
-    item.append(details, createLink("Map", shop.mapUrl, "shop__map"));
+    if (shop.mapUrl) {
+        details.append(createLink(shop.mapLabel, shop.mapUrl, "shop__map"));
+    }
+    item.append(details);
     return item;
 }
 
+// Google Places first. If it fails or finds nothing, fall back to OpenStreetMap.
 async function findShops(location) {
     const watch = WATCHES[state.watchId];
     state.shopSearchId += 1;
@@ -690,24 +790,45 @@ async function findShops(location) {
     els.shopList.replaceChildren();
     setStatus(els.shopStatus, `Looking near ${location.label}…`);
 
+    let shops = [];
+    let fallbackNote = "";
     try {
-        const shops = await queryShops(location, watch.brand);
-        if (searchId !== state.shopSearchId) {
-            return; // the visitor searched again, or opened another watch
-        }
+        shops = await queryPlaces(location, watch.brand);
         if (!shops.length) {
-            setStatus(els.shopStatus, `OpenStreetMap lists no watch shops or jewelers within ${SHOP_RADIUS_M / 1000} km of ${location.label}. Try a bigger city nearby.`, "warning");
+            fallbackNote = `Google Maps found no ${watch.brand} stores nearby, so these are watch shops and jewelers from OpenStreetMap.`;
+        }
+    } catch (error) {
+        fallbackNote = error.status === 429
+            ? "The class Google Places API is at its limit for now, so these are watch shops and jewelers from OpenStreetMap."
+            : "Google Places isn’t answering right now, so these are watch shops and jewelers from OpenStreetMap.";
+    }
+    if (searchId !== state.shopSearchId) {
+        return; // the visitor searched again, or opened another watch
+    }
+
+    if (!shops.length) {
+        try {
+            shops = await queryOpenStreetMap(location, watch.brand);
+        } catch (error) {
+            if (searchId === state.shopSearchId) {
+                setStatus(els.shopStatus, "Neither Google Maps nor OpenStreetMap is answering right now. Please try again in a minute.", "warning");
+            }
             return;
         }
-        els.shopList.replaceChildren(...shops.map(shop => buildShopItem(shop, watch.brand)));
-        setStatus(els.shopStatus, `Closest places near ${location.label}. Call ahead to check which brands they carry.`, "success");
-    } catch (error) {
-        if (searchId === state.shopSearchId) {
-            const busy = error.status === 429 || error.status === 504 || error.name === "AbortError";
-            setStatus(els.shopStatus, busy
-                ? "The map service is busy right now. Please try again in a minute."
-                : "We couldn’t reach the map service. Please try again in a moment.", "warning");
+        if (searchId !== state.shopSearchId) {
+            return;
         }
+        if (!shops.length) {
+            setStatus(els.shopStatus, `No watch shops or jewelers found within ${SHOP_RADIUS_M / 1000} km of ${location.label}. Try a bigger city nearby.`, "warning");
+            return;
+        }
+    }
+
+    els.shopList.replaceChildren(...shops.map(shop => buildShopItem(shop, watch.brand)));
+    if (fallbackNote) {
+        setStatus(els.shopStatus, `${fallbackNote} Call ahead to check which brands they carry.`, "warning");
+    } else {
+        setStatus(els.shopStatus, `${watch.brand} stores near ${location.label}, from Google Maps. Call ahead to check which models they have.`, "success");
     }
 }
 
