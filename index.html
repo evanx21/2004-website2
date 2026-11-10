@@ -29,6 +29,7 @@
                 <a href="#brands">Brands</a>
                 <a href="#watches">Watches</a>
                 <a href="#europe">Europe</a>
+                <a href="#apis">APIs</a>
             </nav>
         </div>
     </header>
@@ -177,15 +178,50 @@
 
     <footer class="site-footer">
         <div class="wrap site-footer__inner">
-            <a class="wordmark" href="#top">Evan Explains Watches</a>
-            <p>Written and built by Evan Xia for CSE 2004. Not affiliated with any watch brand.</p>
-            <p>Watch photos from <a class="link" href="https://commons.wikimedia.org/">Wikimedia Commons</a>,
-                credited in each watch’s details. Place notes from <a class="link"
-                    href="https://en.wikipedia.org/">Wikipedia</a>. Exchange rates from <a class="link"
-                    href="https://frankfurter.dev/">Frankfurter</a>. City search by <a class="link"
-                    href="https://open-meteo.com/">Open-Meteo</a>. Shop listings © <a class="link"
-                    href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Specs come from
-                makers’ published data, except Rolex thicknesses, which come from reviews.</p>
+            <div class="site-footer__about">
+                <a class="wordmark" href="#top">Evan Explains Watches</a>
+                <p>Written and built by Evan Xia for CSE 2004. Not affiliated with any watch brand.</p>
+                <p>Specs come from makers’ published data, except Rolex thicknesses, which come from reviews.</p>
+            </div>
+
+            <section class="apis" id="apis" aria-labelledby="apis-title">
+                <h2 id="apis-title">APIs used on this page</h2>
+                <dl class="api-list">
+                    <div>
+                        <dt><a class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API">Geolocation</a></dt>
+                        <dd class="api-list__kind">Browser API</dd>
+                        <dd>“Use my location” in any watch’s details. If you block location, you can type a city
+                            instead.</dd>
+                    </div>
+                    <div>
+                        <dt><a class="link" href="https://commons.wikimedia.org/">Wikimedia Commons</a></dt>
+                        <dd class="api-list__kind">Data API</dd>
+                        <dd>The watch photos, each credited in its watch’s details.</dd>
+                    </div>
+                    <div>
+                        <dt><a class="link" href="https://open-meteo.com/en/docs/geocoding-api">Open-Meteo Geocoding</a>
+                        </dt>
+                        <dd class="api-list__kind">Data API</dd>
+                        <dd>Turns the city you type in “Try it on near you” into a place on the map.</dd>
+                    </div>
+                    <div>
+                        <dt><a class="link" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></dt>
+                        <dd class="api-list__kind">Data API</dd>
+                        <dd>Watch shops and jewelers near that place, through the Overpass API. © OpenStreetMap
+                            contributors.</dd>
+                    </div>
+                    <div>
+                        <dt><a class="link" href="https://frankfurter.dev/">Frankfurter</a></dt>
+                        <dd class="api-list__kind">Data API</dd>
+                        <dd>Today’s exchange rates for “Convert a price tag”.</dd>
+                    </div>
+                    <div>
+                        <dt><a class="link" href="https://en.wikipedia.org/">Wikipedia</a></dt>
+                        <dd class="api-list__kind">Data API</dd>
+                        <dd>The short “About …” notes on each place in My trips to Europe.</dd>
+                    </div>
+                </dl>
+            </section>
         </div>
     </footer>
 

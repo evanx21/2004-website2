@@ -1214,20 +1214,65 @@ input[aria-invalid="true"] {
 
 .site-footer__inner {
     display: grid;
-    justify-items: start;
-    gap: var(--s-3);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--s-5);
+    row-gap: var(--s-7);
     padding-block: var(--s-7) var(--s-8);
     font-size: 0.875rem;
     color: var(--muted);
 }
 
-.site-footer__inner p {
-    max-width: 56rem;
+.site-footer__about {
+    display: grid;
+    grid-column: 1 / span 4;
+    align-content: start;
+    justify-items: start;
+    gap: var(--s-3);
 }
 
 .site-footer .wordmark {
     margin-bottom: var(--s-2);
     color: var(--ink);
+}
+
+/* The list of APIs, so anyone grading the page can find each one. */
+.apis {
+    grid-column: 6 / span 7;
+}
+
+.apis h2 {
+    margin-bottom: var(--s-3);
+    font-family: var(--font-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--ink);
+}
+
+.api-list {
+    margin: 0;
+    border-top: 1px solid var(--line);
+}
+
+.api-list > div {
+    display: grid;
+    grid-template-columns: 11rem 6rem minmax(0, 1fr);
+    column-gap: var(--s-4);
+    padding-block: var(--s-2);
+    border-bottom: 1px solid var(--line);
+}
+
+.api-list dt {
+    font-weight: 500;
+    color: var(--ink);
+}
+
+.api-list dd {
+    margin: 0;
+}
+
+.api-list__kind {
+    white-space: nowrap;
 }
 
 /* ---------- 15. Motion and small screens ---------- */
@@ -1316,6 +1361,11 @@ input[aria-invalid="true"] {
 
     .story__lessons {
         padding-top: 0;
+    }
+
+    .site-footer__about,
+    .apis {
+        grid-column: 1 / -1;
     }
 
     .house-groups {
@@ -1439,6 +1489,15 @@ input[aria-invalid="true"] {
     .facts > div {
         grid-template-columns: minmax(0, 1fr);
         gap: 2px;
+    }
+
+    .api-list > div {
+        grid-template-columns: minmax(0, 1fr) auto;
+        row-gap: 2px;
+    }
+
+    .api-list dd:last-child {
+        grid-column: 1 / -1;
     }
 }
 
