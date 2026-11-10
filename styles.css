@@ -272,6 +272,34 @@ main,
     margin-bottom: 40px;
 }
 
+/* Kind of watch on the left, brand menu on the right */
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+}
+
+select.brand-select {
+    width: auto;
+    min-width: 230px;
+    border-radius: 999px;
+    padding: 0 18px;
+    font-size: 0.95rem;
+}
+
+.empty-state {
+    padding: 32px;
+    border: 1px dashed var(--ivory-300);
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-style: italic;
+    text-align: center;
+    color: var(--text-muted);
+}
+
 /* Radio buttons styled as chips. The real inputs stay in the page, invisible,
    so keyboards and screen readers still work. */
 .chips {

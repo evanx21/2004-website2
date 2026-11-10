@@ -27,7 +27,6 @@ const MAX_SHOPS = 6;
 const KM_PER_MILE = 1.609344;
 const TIER_ORDER = ["entry", "mid", "grail"];
 
-const ALL_WATCHES_NOTE = "Nineteen real watches, from a twenty-dollar digital to a grail.";
 const DRAFT_TAKE = "Draft: a line or two in your own words. Why this watch, who it's for, and whether a student should save up for it.";
 const DRAFT_STORY = "Draft: your own memory of this place, what you saw, and how it felt.";
 
@@ -39,7 +38,9 @@ const els = {
     typeFilter: document.querySelector("#type-filter"),
     typeChips: document.querySelector("#type-chips"),
     typeNote: document.querySelector("#type-note"),
+    brandSelect: document.querySelector("#brand-select"),
     watchGrid: document.querySelector("#watch-grid"),
+    emptyState: document.querySelector("#empty-state"),
     stopGrid: document.querySelector("#stop-grid"),
     converter: document.querySelector("#converter"),
     priceAmount: document.querySelector("#price-amount"),
@@ -301,15 +302,51 @@ function buildWatchCard(id) {
     return card;
 }
 
+// The brand menu lists every brand in the collection, with how many watches it has.
+function renderBrandOptions() {
+    const counts = {};
+    Object.values(WATCHES).forEach(watch => {
+        counts[watch.brand] = (counts[watch.brand] || 0) + 1;
+    });
+    const brands = Object.keys(counts).sort((a, b) => a.localeCompare(b));
+
+    const allOption = createElement("option", "", `All ${brands.length} brands`);
+    allOption.value = "all";
+    els.brandSelect.replaceChildren(allOption, ...brands.map(brand => {
+        const option = createElement("option", "", `${brand} (${counts[brand]})`);
+        option.value = brand;
+        return option;
+    }));
+}
+
+function describeSelection(type, brand, count) {
+    if (type !== "all") {
+        return WATCH_TYPES[type].summary;
+    }
+    if (brand !== "all") {
+        return `${count} ${count === 1 ? "watch" : "watches"} from ${brand}.`;
+    }
+    return `${count} real watches from ${els.brandSelect.options.length - 1} brands, from a twenty-dollar digital to a grail.`;
+}
+
 function renderWatches() {
     const type = els.typeFilter.elements.type.value;
+    const brand = els.brandSelect.value;
     const ids = Object.keys(WATCHES)
-        .filter(id => type === "all" || WATCHES[id].type === type)
+        .filter(id => (type === "all" || WATCHES[id].type === type) && (brand === "all" || WATCHES[id].brand === brand))
         .sort((a, b) => TIER_ORDER.indexOf(WATCHES[a].tier) - TIER_ORDER.indexOf(WATCHES[b].tier)
-            || WATCHES[a].brand.localeCompare(WATCHES[b].brand));
+            || WATCHES[a].brand.localeCompare(WATCHES[b].brand)
+            || WATCHES[a].model.localeCompare(WATCHES[b].model));
 
-    els.typeNote.textContent = type === "all" ? ALL_WATCHES_NOTE : WATCH_TYPES[type].summary;
-    getPhotos(ids.map(id => WATCHES[id].photo)).catch(() => {}); // one request for every photo shown
+    els.typeNote.textContent = describeSelection(type, brand, ids.length);
+    els.emptyState.hidden = ids.length > 0;
+    if (!ids.length) {
+        els.emptyState.textContent = `No ${WATCH_TYPES[type].label.toLowerCase()} watches from ${brand} here yet. Try “All” or another brand.`;
+    }
+
+    if (ids.length) {
+        getPhotos(ids.map(id => WATCHES[id].photo)).catch(() => {}); // one request for every photo shown
+    }
     els.watchGrid.replaceChildren(...ids.map(buildWatchCard));
 }
 
@@ -654,6 +691,7 @@ function init() {
     const introWatch = WATCHES[INTRO_WATCH];
     loadPhoto(els.introFrame, els.introCredit, introWatch.photo, introWatch.pictured, { compact: true });
     renderTypeChips();
+    renderBrandOptions();
     renderWatches();
     renderStops();
     renderCurrencyOptions();

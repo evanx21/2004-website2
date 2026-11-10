@@ -38,11 +38,11 @@ const WATCH_TYPES = {
     },
     sport: {
         label: "Sport",
-        summary: "Tool watches: a stopwatch, a field watch, a digital. Tough, easy to read and easy to live with."
+        summary: "Tool watches: chronographs, pilot and GMT watches, a field watch, a digital. Tough, easy to read and easy to live with."
     },
     everyday: {
         label: "Everyday",
-        summary: "Steel on a bracelet: smart enough for a meeting, tough enough for every day."
+        summary: "Built to wear every day: smart enough for a meeting, tough enough for everything else."
     },
     jewelry: {
         label: "Jewelry",
@@ -342,6 +342,292 @@ const WATCHES = {
         pictured: "A Bulgari Serpenti watch",
         why: "A coiled steel Tubogas bracelet wraps the wrist like a bangle: part watch, part jewelry.",
         take: ""
+    },
+    nautilus: {
+        brand: "Patek Philippe",
+        model: "Nautilus 5811/1G",
+        type: "everyday",
+        caseMm: "41",
+        thicknessMm: 8.2,
+        movement: "Automatic",
+        strap: "White gold bracelet",
+        tier: "grail",
+        photo: "File:Patek-Philippe-Nautilus-5711-1A-010-1.jpg",
+        pictured: "A Patek Philippe Nautilus 5711/1A, the steel model the 5811/1G replaced",
+        why: "Gérald Genta designed the first Nautilus in 1976; the white-gold 5811/1G replaced the famous steel 5711 in 2022.",
+        take: ""
+    },
+    "royal-oak": {
+        brand: "Audemars Piguet",
+        model: "Royal Oak “Jumbo” 16202ST",
+        type: "everyday",
+        caseMm: "39",
+        thicknessMm: 8.1,
+        movement: "Automatic",
+        strap: "Steel bracelet",
+        tier: "grail",
+        photo: "File:Audemars Piguet Royal Oak ref. 15202.jpg",
+        pictured: "An Audemars Piguet Royal Oak 15202, the 16202's predecessor, on the wrist",
+        why: "Gérald Genta designed the 1972 Royal Oak, an early luxury sports watch in steel; this 39 mm version arrived in 2022.",
+        take: ""
+    },
+    "historiques-222": {
+        brand: "Vacheron Constantin",
+        model: "Historiques 222",
+        type: "everyday",
+        caseMm: "37",
+        thicknessMm: 7.95,
+        movement: "Automatic",
+        strap: "Steel bracelet",
+        tier: "grail",
+        photo: "File:Vacheron Constantin Historique 222.jpg",
+        pictured: "A Vacheron Constantin 222, probably the gold re-edition",
+        why: "A reissue of the integrated-bracelet 222 that Vacheron Constantin launched in 1977 for its 222nd anniversary.",
+        take: ""
+    },
+    patrimony: {
+        brand: "Vacheron Constantin",
+        model: "Patrimony Manual-Winding",
+        type: "dress",
+        caseMm: "39",
+        thicknessMm: 7.72,
+        movement: "Manual-wind",
+        strap: "Alligator strap",
+        tier: "grail",
+        photo: "File:Vacheron Constantin Patrimony gold watch.jpg",
+        pictured: "A gold Vacheron Constantin Patrimony from about 1990",
+        why: "From a maker that has worked without interruption since 1755; its hand-wound calibre is just 2.6 mm thick.",
+        take: ""
+    },
+    "jlc-master": {
+        brand: "Jaeger-LeCoultre",
+        model: "Master Ultra Thin Moon",
+        type: "dress",
+        caseMm: "39",
+        thicknessMm: 9.3,
+        movement: "Automatic",
+        strap: "Alligator strap",
+        tier: "grail",
+        photo: "File:Jaeger Le Coultre ultra thin moonphase Q1258420.jpg",
+        pictured: "A Jaeger-LeCoultre Master Ultra Thin Moon",
+        why: "A moon phase and date in a 9.3 mm case, from the Vallée de Joux maker that also builds the Reverso.",
+        take: ""
+    },
+    "breguet-classique": {
+        brand: "Breguet",
+        model: "Classique 5177",
+        type: "dress",
+        caseMm: "38",
+        thicknessMm: 8.8,
+        movement: "Automatic",
+        strap: "Leather strap",
+        tier: "grail",
+        photo: "File:Breguet ref. 5177 con datario e secondi al centro.jpg",
+        pictured: "A Breguet Classique 5177 with date and centre seconds",
+        why: "Its hollow-tipped “Breguet hands” date back to Abraham-Louis Breguet in 1783; the dial is grand feu enamel.",
+        take: ""
+    },
+    "piaget-polo": {
+        brand: "Piaget",
+        model: "Polo Date",
+        type: "everyday",
+        caseMm: "42",
+        thicknessMm: 9.4,
+        movement: "Automatic",
+        strap: "Steel bracelet",
+        tier: "grail",
+        photo: "File:Piaget Polo S.jpg",
+        pictured: "A Piaget Polo S, the 2016 steel Polo",
+        why: "Piaget's Polo began in 1979 as an all-gold watch; the name returned in 2016 on a steel sports model.",
+        take: ""
+    },
+    "tank-americaine": {
+        brand: "Cartier",
+        model: "Tank Américaine, large",
+        type: "dress",
+        caseMm: "24.4 × 44.4",
+        thicknessMm: 8.6,
+        movement: "Automatic",
+        strap: "Alligator strap",
+        tier: "mid",
+        photo: "File:Cartier Tank Americaine automatico in acciaio.jpg",
+        pictured: "A steel Cartier Tank Américaine automatic",
+        why: "Introduced in 1989, the curved Tank Américaine stretches Louis Cartier's 1917 Tank into a longer, slimmer shape.",
+        take: ""
+    },
+    tangente: {
+        brand: "Nomos Glashütte",
+        model: "Tangente 35",
+        type: "dress",
+        caseMm: "35",
+        thicknessMm: 6.6,
+        thicknessApprox: true,
+        movement: "Manual-wind",
+        strap: "Leather strap",
+        tier: "mid",
+        photo: "File:NOMOS Glashütte Tangente.jpg",
+        pictured: "A Nomos Glashütte Tangente",
+        why: "A Bauhaus-style dial from Glashütte, Germany's watchmaking town, with a hand-wound movement in a 35 mm case.",
+        take: ""
+    },
+    daytona: {
+        brand: "Rolex",
+        model: "Cosmograph Daytona 126500LN",
+        type: "sport",
+        caseMm: "40",
+        thicknessMm: 11.9,
+        thicknessApprox: true,
+        movement: "Automatic",
+        strap: "Steel bracelet",
+        tier: "grail",
+        photo: "File:Daytona116509.jpg",
+        pictured: "A white-gold Rolex Daytona 116509, the previous generation",
+        why: "Launched in 1963 for endurance racing drivers; the 126500LN arrived in 2023 with the updated calibre 4131.",
+        take: ""
+    },
+    "gmt-master": {
+        brand: "Rolex",
+        model: "GMT-Master II 126710BLNR",
+        type: "sport",
+        caseMm: "40",
+        thicknessMm: null,
+        movement: "Automatic",
+        strap: "Steel bracelet",
+        tier: "grail",
+        photo: "File:Rolex GMT Master II 116710BLNR Batman.jpg",
+        pictured: "A Rolex GMT-Master II 116710BLNR, the 126710BLNR's predecessor",
+        why: "Descended from the 1950s GMT-Master made for airline pilots; a 24-hour hand and bezel track a second time zone.",
+        take: ""
+    },
+    seamaster: {
+        brand: "Omega",
+        model: "Seamaster Diver 300M",
+        type: "dive",
+        caseMm: "42",
+        thicknessMm: 13.56,
+        thicknessApprox: true,
+        movement: "Automatic",
+        strap: "Steel bracelet",
+        tier: "mid",
+        photo: "File:Omega Seamaster chronograph watch (300 meters water resist).jpg",
+        pictured: "An Omega Seamaster 300M Chrono Diver, an older chronograph version",
+        why: "The 2018 generation brought back the wave-pattern dial and added Omega's Master Chronometer calibre 8800.",
+        take: ""
+    },
+    "fifty-fathoms": {
+        brand: "Blancpain",
+        model: "Fifty Fathoms Automatique",
+        type: "dive",
+        caseMm: "45",
+        thicknessMm: 15.5,
+        movement: "Automatic",
+        strap: "Textile strap",
+        tier: "grail",
+        photo: "File:Blancpain.jpg",
+        pictured: "A Blancpain Fifty Fathoms Automatique",
+        why: "Blancpain calls its 1953 Fifty Fathoms the first modern dive watch; this version runs for 120 hours on a full wind.",
+        take: ""
+    },
+    luminor: {
+        brand: "Panerai",
+        model: "Luminor Marina",
+        type: "dive",
+        caseMm: "44",
+        thicknessMm: 13.4,
+        thicknessApprox: true,
+        movement: "Automatic",
+        strap: "Leather strap",
+        tier: "mid",
+        photo: "File:Panerai MG 0593.JPG",
+        pictured: "A Panerai Luminor",
+        why: "Panerai, once a supplier to the Italian navy, applied in 1955 to patent the crown-protecting bridge that defines the Luminor.",
+        take: ""
+    },
+    "seiko-skx": {
+        brand: "Seiko",
+        model: "SKX007",
+        type: "dive",
+        caseMm: "42",
+        thicknessMm: 13,
+        thicknessApprox: true,
+        movement: "Automatic",
+        strap: "Steel bracelet",
+        tier: "entry",
+        photo: "File:Seiko SKX007.jpg",
+        pictured: "A Seiko SKX007",
+        why: "A 200 m automatic dive watch with day and date, made by Seiko until about 2019.",
+        take: ""
+    },
+    portugieser: {
+        brand: "IWC",
+        model: "Portugieser Chronograph",
+        type: "sport",
+        caseMm: "41",
+        thicknessMm: 13,
+        movement: "Automatic",
+        strap: "Leather strap",
+        tier: "mid",
+        photo: "File:IWC Portuguese Automatic.JPG",
+        pictured: "An IWC Portugieser on display at a 2009 watch fair",
+        why: "The Portugieser line began in the late 1930s with large, precise watches ordered by two Portuguese merchants.",
+        take: ""
+    },
+    navitimer: {
+        brand: "Breitling",
+        model: "Navitimer B01 Chronograph 43",
+        type: "sport",
+        caseMm: "43",
+        thicknessMm: 13.69,
+        movement: "Automatic",
+        strap: "Leather strap",
+        tier: "grail",
+        photo: "File:Breitling Navitimer chronograph watch.jpg",
+        pictured: "A Breitling Navitimer chronograph",
+        why: "Introduced in 1952 with a slide-rule bezel for flight calculations; it became the Aircraft Owners and Pilots Association's watch.",
+        take: ""
+    },
+    monaco: {
+        brand: "TAG Heuer",
+        model: "Monaco Chronograph",
+        type: "sport",
+        caseMm: "39 × 39",
+        thicknessMm: 15.21,
+        movement: "Automatic",
+        strap: "Leather strap",
+        tier: "mid",
+        photo: "File:TAG Heuer Monaco, 2020.jpg",
+        pictured: "A TAG Heuer Monaco",
+        why: "Heuer launched the square Monaco in 1969, one of the first automatic chronographs and the first in a square water-resistant case.",
+        take: ""
+    },
+    chronomaster: {
+        brand: "Zenith",
+        model: "Chronomaster Sport",
+        type: "sport",
+        caseMm: "41",
+        thicknessMm: 13.6,
+        thicknessApprox: true,
+        movement: "Automatic",
+        strap: "Steel bracelet",
+        tier: "grail",
+        photo: "File:Zenith El Primero 36000.jpg",
+        pictured: "A Zenith El Primero chronograph",
+        why: "Its El Primero 3600 movement times to a tenth of a second; the chronograph hand circles the dial every 10 seconds.",
+        take: ""
+    },
+    swatch: {
+        brand: "Swatch",
+        model: "Gent “Once Again”",
+        type: "everyday",
+        caseMm: "34",
+        thicknessMm: 8.75,
+        movement: "Quartz",
+        strap: "Plastic strap",
+        tier: "entry",
+        photo: "File:Swatch GB101.jpg",
+        pictured: "A 1983 Swatch GB101 “Gent Black”",
+        why: "Launched in 1983 with a plastic case and just 51 parts, Swatch helped revive Swiss watchmaking in the quartz era.",
+        take: ""
     }
 };
 
@@ -360,31 +646,38 @@ const DRESS_CODES = {
         name: "Black Tie",
         decoded: "Evening formalwear: a tuxedo, or a floor-length gown or very refined dress.",
         advice: "A thin, plain dress watch that slips under the shirt cuff, or a small, slim watch with jewelry doing the talking.",
-        picks: ["bambino", "tank-must-large", "calatrava", "tank-must-small", "reverso", "panthere"]
+        picks: ["bambino", "tank-must-large", "calatrava", "tank-must-small", "reverso", "panthere",
+            "patrimony", "jlc-master", "breguet-classique", "tank-americaine", "tangente"]
     },
     cocktail: {
         name: "Cocktail",
         decoded: "Dressy, not formal: a dark suit, or a knee- to midi-length dress.",
         advice: "Room for a little shine: a dressy steel watch on a bracelet, or a jewelry watch you can stack.",
-        picks: ["prx-40", "santos", "datejust-36", "prx-35", "panthere", "serpenti"]
+        picks: ["prx-40", "santos", "datejust-36", "prx-35", "panthere", "serpenti",
+            "nautilus", "royal-oak", "historiques-222", "piaget-polo", "daytona"]
     },
     "business-pro": {
         name: "Business Professional",
         decoded: "Interview-ready: a matched suit and tie, or a suit or tailored dress with a blazer.",
         advice: "Understated and well made: steel on leather or a bracelet, and nothing that beeps.",
-        picks: ["bambino", "grand-seiko", "datejust-36", "prx-35", "tank-must-small", "lady-datejust"]
+        picks: ["bambino", "grand-seiko", "datejust-36", "prx-35", "tank-must-small", "lady-datejust",
+            "patrimony", "jlc-master", "breguet-classique", "tank-americaine", "portugieser", "tangente"]
     },
     "business-casual": {
         name: "Business Casual",
         decoded: "Office polish without the suit: the blazer is optional and the tie comes off.",
         advice: "The sweet spot for steel: a field watch, a chronograph or a classic on a bracelet.",
-        picks: ["khaki-field", "speedmaster", "santos", "constellation", "lady-datejust"]
+        picks: ["khaki-field", "speedmaster", "santos", "constellation", "lady-datejust",
+            "nautilus", "royal-oak", "historiques-222", "piaget-polo", "gmt-master", "seamaster",
+            "portugieser", "navitimer", "monaco", "chronomaster", "tangente"]
     },
     "smart-casual": {
         name: "Smart Casual",
         decoded: "Relaxed but intentional: dark denim is fine, as long as everything fits.",
         advice: "Tool watches shine here: a retro digital, a dive watch, or a Santos between sport and dress.",
-        picks: ["f91w", "black-bay-54", "submariner", "santos"]
+        picks: ["f91w", "black-bay-54", "submariner", "santos",
+            "daytona", "gmt-master", "seamaster", "fifty-fathoms", "luminor", "navitimer", "monaco",
+            "chronomaster", "seiko-skx", "swatch"]
     }
 };
 
