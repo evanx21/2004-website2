@@ -285,7 +285,7 @@ function loadPhoto(frame, credit, title, pictured) {
                 showPhotoMessage(frame, credit, "Photo unavailable");
             }
         })
-        .catch(() => showPhotoMessage(frame, credit, "The photo archive isn’t answering right now."));
+        .catch(() => showPhotoMessage(frame, credit, "Couldn’t load the photo right now."));
 }
 
 /* ===================== The watches ===================== */
@@ -354,7 +354,7 @@ function describeSelection(type, brand, count) {
     if (brand !== "all") {
         return `${count} ${count === 1 ? "watch" : "watches"} from ${brand}.`;
     }
-    return `All ${count} watches from ${els.brandSelect.options.length - 1} brands, from under $1,000 to over $10,000.`;
+    return `All ${count} watches from ${els.brandSelect.options.length - 1} brands, starting with the ones under $1,000.`;
 }
 
 function renderWatches() {
@@ -460,7 +460,7 @@ function renderMovements() {
             createElement("h4", "movement__name", movement.label),
             createElement("p", "movement__summary", movement.summary),
             createElement("p", "movement__tip", movement.tip),
-            buildExamples(`${ids.length} on this site, for example`, pickExamples(ids, MOVEMENT_EXAMPLES))
+            buildExamples(`${ids.length} on this site, including`, pickExamples(ids, MOVEMENT_EXAMPLES))
         );
         return item;
     }));
@@ -617,7 +617,7 @@ function formatThickness(watch) {
     }
     const value = `${watch.thicknessApprox ? "≈\u00a0" : ""}${watch.thicknessMm}\u00a0mm`;
     // Dress watches are thin so they slide under a shirt cuff.
-    let cuff = "wants a roomier cuff";
+    let cuff = "needs a looser cuff";
     if (watch.thicknessMm <= 9) {
         cuff = "slides under a shirt cuff";
     } else if (watch.thicknessMm <= 11) {
@@ -941,7 +941,7 @@ function useMyLocation() {
             els.geoBtn.disabled = false;
             let message = "We couldn’t pin down your location. Type a city instead.";
             if (error.code === error.PERMISSION_DENIED) {
-                message = "Location access was declined. No problem: type a city instead.";
+                message = "You didn’t allow location access, so type a city instead.";
             } else if (error.code === error.TIMEOUT) {
                 message = "Finding your location took too long. Type a city instead.";
             }
