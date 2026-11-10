@@ -342,7 +342,7 @@ img {
 /* ---------- Sections ---------- */
 
 .section {
-    padding-block: var(--s-9);
+    padding-block: var(--s-8);
 }
 
 .section + .section {
@@ -369,64 +369,59 @@ img {
 
 /* ---------- 6. Watch basics ---------- */
 
-/* Each part: its heading on the left, its content on the right. */
-.basics-part {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--s-5);
-    row-gap: var(--s-5);
-    padding-block: var(--s-7);
-    border-top: 1px solid var(--line);
+/* Five lessons behind tabs (radio buttons); only the chosen lesson shows. */
+.basics-tabs {
+    margin-bottom: var(--s-5);
+    border-bottom: 1px solid var(--line);
 }
 
-.basics-part:last-child {
-    padding-bottom: 0;
+.basics-tabs label::after {
+    bottom: -1px;
 }
 
-.basics-part__head {
-    grid-column: 1 / span 4;
-}
-
-.basics-part__head h3 {
-    font-size: 1.5rem;
-}
-
-.basics-part__head p {
-    max-width: 22rem;
-    margin-top: var(--s-2);
+.lesson__intro {
+    max-width: 40rem;
+    margin-bottom: var(--s-5);
     color: var(--muted);
 }
 
+/* Each lesson runs across the page in columns, so it stays short. */
 .movement-grid,
 .glossary,
 .occasion-list,
-.specialty-list,
-.name-list {
-    grid-column: 5 / span 8;
-}
-
-/* Rows with a hairline between them: the glossary, dress codes and specialities. */
-.glossary > div,
-.occasion,
-.specialty {
+.specialty-list {
     display: grid;
-    grid-template-columns: 12rem minmax(0, 1fr);
-    gap: var(--s-4);
-    padding-block: var(--s-4);
-    border-top: 1px solid var(--line);
-}
-
-.glossary > div:first-child,
-.occasion:first-child,
-.specialty:first-child {
-    padding-top: 0;
-    border-top: 0;
+    gap: var(--s-6) var(--s-6);
+    margin: 0;
 }
 
 .movement-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.glossary,
+.occasion-list,
+.specialty-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.name-list {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--s-6) var(--s-5);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--s-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* A hairline above every item, like the rest of the page. */
+.movement,
+.glossary > div,
+.occasion,
+.specialty,
+.name {
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line);
 }
 
 .movement__name,
@@ -451,6 +446,15 @@ img {
     margin-top: var(--s-2);
 }
 
+.occasion__decoded,
+.specialty__text {
+    margin-top: var(--s-1);
+}
+
+.occasion__advice {
+    margin-top: var(--s-2);
+}
+
 /* Example watches; each one opens its details. */
 .examples {
     margin-top: var(--s-3);
@@ -468,10 +472,6 @@ img {
     list-style: none;
 }
 
-.glossary {
-    margin: 0;
-}
-
 .glossary dt {
     font-weight: 500;
 }
@@ -484,38 +484,22 @@ img {
 }
 
 .glossary dd {
-    margin: 0;
+    margin: var(--s-2) 0 0;
 }
 
-.occasion__advice {
-    margin-top: var(--s-1);
-}
-
-.specialty {
-    grid-template-columns: 16rem minmax(0, 1fr);
-}
-
-.specialty__text {
-    margin-top: var(--s-1);
-}
-
+/* The brands for each speciality, as one line separated by commas. */
 .specialty__brands {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: start;
-    column-gap: var(--s-5);
-    margin: 0;
+    margin: var(--s-2) 0 0;
     padding: 0;
     list-style: none;
 }
 
-.name-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--s-6) var(--s-5);
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.specialty__brands li {
+    display: inline;
+}
+
+.specialty__brands li:not(:last-child)::after {
+    content: ", ";
 }
 
 .name__brand {
@@ -672,8 +656,8 @@ img {
 
 .watch-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: var(--s-7) var(--s-5);
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: var(--s-6) var(--s-5);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -740,6 +724,15 @@ img {
     margin-top: var(--s-1);
     font-size: 0.875rem;
     color: var(--muted);
+}
+
+.watch-more {
+    display: flex;
+    justify-content: center;
+}
+
+.watch-more .button {
+    margin-top: var(--s-7);
 }
 
 .empty-state {
@@ -1499,8 +1492,15 @@ input[aria-invalid="true"] {
         grid-column: 8 / span 5;
     }
 
-    .name-list {
+    .movement-grid,
+    .glossary,
+    .occasion-list,
+    .specialty-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .name-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -1541,19 +1541,6 @@ input[aria-invalid="true"] {
     .site-footer__about,
     .apis {
         grid-column: 1 / -1;
-    }
-
-    .basics-part__head,
-    .movement-grid,
-    .glossary,
-    .occasion-list,
-    .specialty-list,
-    .name-list {
-        grid-column: 1 / -1;
-    }
-
-    .basics-part__head p {
-        max-width: 36rem;
     }
 
     .watch-dialog__layout {
@@ -1621,9 +1608,12 @@ input[aria-invalid="true"] {
         column-gap: var(--s-4);
     }
 
-    .story__inner,
-    .section {
+    .story__inner {
         padding-block: var(--s-8);
+    }
+
+    .section {
+        padding-block: var(--s-7);
     }
 
     .section-head {
@@ -1631,15 +1621,15 @@ input[aria-invalid="true"] {
     }
 
     .movement-grid,
-    .name-list {
+    .glossary,
+    .occasion-list,
+    .specialty-list {
         grid-template-columns: minmax(0, 1fr);
+        row-gap: var(--s-5);
     }
 
-    .glossary > div,
-    .occasion,
-    .specialty {
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--s-2);
+    .name-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .filter__row {

@@ -35,7 +35,8 @@ const TIER_ORDER = ["entry", "mid", "grail"];
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
 const SPEECH_RATE = 0.85; // a little slower than normal, so each syllable is clear
 const LANGUAGE_NAMES = { en: "English", fr: "French", it: "Italian", de: "German", ja: "Japanese" };
-const MAX_EXAMPLES = 3; // example watches shown under each movement and dress code
+const MOVEMENT_EXAMPLES = 3; // example watches under each movement: one per price band
+const OCCASION_EXAMPLES = 2; // and under each dress code
 const MAX_SHOP_DISTANCE_KM = 50; // Google may suggest a far-away boutique; leave those out
 const COORDINATE_DECIMALS = 2; // about 1 km
 
@@ -55,6 +56,9 @@ const els = {
     brandSelect: document.querySelector("#brand-select"),
     watchGrid: document.querySelector("#watch-grid"),
     emptyState: document.querySelector("#empty-state"),
+    watchMore: document.querySelector("#watch-more"),
+    basicsTabs: document.querySelector("#basics-tabs"),
+    lessons: document.querySelectorAll(".lesson"),
     stopGrid: document.querySelector("#stop-grid"),
     converter: document.querySelector("#converter"),
     priceAmount: document.querySelector("#price-amount"),
@@ -92,7 +96,8 @@ const els = {
 const state = {
     watchId: null, // the watch open in the details dialog
     lastTrigger: null, // the button that opened it, so focus can return there
-    shopSearchId: 0 // lets us ignore answers to older shop searches
+    shopSearchId: 0, // lets us ignore answers to older shop searches
+    showAllWatches: false // false: only the first rows of the gallery
 };
 
 // Commons file title → Promise of { src, width, height, pageUrl, artist, license } (or null)
@@ -365,34 +370,69 @@ function renderWatches() {
         els.emptyState.textContent = `No ${WATCH_TYPES[type].label.toLowerCase()} watches from ${brand} here yet. Try “All” or another brand.`;
     }
 
-    if (ids.length) {
-        getPhotos(ids.map(id => WATCHES[id].photo)).catch(() => {}); // one request for every photo shown
+    // Only the first rows until the visitor asks for the rest, so the page stays short.
+    const preview = previewCount();
+    const shown = state.showAllWatches ? ids : ids.slice(0, preview);
+    els.watchMore.hidden = ids.length <= preview;
+    els.watchMore.textContent = state.showAllWatches ? "Show fewer watches" : `Show all ${ids.length} watches`;
+    els.watchMore.setAttribute("aria-expanded", String(state.showAllWatches));
+
+    if (shown.length) {
+        getPhotos(shown.map(id => WATCHES[id].photo)).catch(() => {}); // one request for every photo shown
     }
-    els.watchGrid.replaceChildren(...ids.map(buildWatchCard));
+    els.watchGrid.replaceChildren(...shown.map(buildWatchCard));
+}
+
+// Two full rows of cards (three on a phone, where there are only two columns).
+function previewCount() {
+    const columns = getComputedStyle(els.watchGrid).gridTemplateColumns.split(" ").length;
+    return columns * (columns <= 2 ? 3 : 2);
+}
+
+// A new filter starts from the short list again.
+function filterWatches() {
+    state.showAllWatches = false;
+    renderWatches();
+}
+
+function toggleAllWatches() {
+    state.showAllWatches = !state.showAllWatches;
+    renderWatches();
+    if (!state.showAllWatches) {
+        els.watchesSection.scrollIntoView({ behavior: REDUCED_MOTION.matches ? "auto" : "smooth", block: "start" });
+    }
 }
 
 /* ===================== Watch basics ===================== */
+
+// One lesson at a time: the radio buttons above the lessons choose which one shows.
+function showLesson() {
+    const lesson = els.basicsTabs.querySelector("input:checked").value;
+    els.lessons.forEach(panel => {
+        panel.hidden = panel.dataset.lesson !== lesson;
+    });
+}
 
 // Choosing a brand shows all of its watches in the gallery.
 function showBrand(brand) {
     els.typeFilter.elements.type.value = "all";
     els.brandSelect.value = brand;
-    renderWatches();
+    filterWatches();
     els.watchesSection.scrollIntoView({ behavior: REDUCED_MOTION.matches ? "auto" : "smooth", block: "start" });
 }
 
 // A few example watches, one from each price band first, so they run from affordable to grail.
-function pickExamples(ids) {
+function pickExamples(ids, max) {
     const sorted = [...ids].sort(compareWatches);
     const picks = TIER_ORDER
         .map(tier => sorted.find(id => WATCHES[id].tier === tier))
         .filter(Boolean);
     sorted.forEach(id => {
-        if (picks.length < MAX_EXAMPLES && !picks.includes(id)) {
+        if (picks.length < max && !picks.includes(id)) {
             picks.push(id);
         }
     });
-    return picks.slice(0, MAX_EXAMPLES).sort(compareWatches);
+    return picks.slice(0, max).sort(compareWatches);
 }
 
 // A short list of watches; each name opens that watch's details.
@@ -420,7 +460,7 @@ function renderMovements() {
             createElement("h4", "movement__name", movement.label),
             createElement("p", "movement__summary", movement.summary),
             createElement("p", "movement__tip", movement.tip),
-            buildExamples(`${ids.length} on this site, for example`, pickExamples(ids))
+            buildExamples(`${ids.length} on this site, for example`, pickExamples(ids, MOVEMENT_EXAMPLES))
         );
         return item;
     }));
@@ -435,7 +475,7 @@ function renderOccasions() {
             createElement("p", "occasion__advice", dressCode.advice)
         );
         if (dressCode.picks.length) {
-            body.append(buildExamples("Try", pickExamples(dressCode.picks)));
+            body.append(buildExamples("Try", pickExamples(dressCode.picks, OCCASION_EXAMPLES)));
         }
         item.append(createElement("h4", "occasion__name", dressCode.name), body);
         return item;
@@ -443,7 +483,7 @@ function renderOccasions() {
 }
 
 function buildBrandButton(name) {
-    const button = createElement("button", "link-button", name);
+    const button = createElement("button", "link-button link-button--inline", name);
     button.type = "button";
     button.append(createElement("span", "visually-hidden", " watches"));
     button.addEventListener("click", () => showBrand(name));
@@ -1020,7 +1060,9 @@ async function handleConvert(submitEvent) {
 /* ===================== Start ===================== */
 
 function bindEvents() {
-    els.typeFilter.addEventListener("change", renderWatches);
+    els.typeFilter.addEventListener("change", filterWatches);
+    els.watchMore.addEventListener("click", toggleAllWatches);
+    els.basicsTabs.addEventListener("change", showLesson);
     els.converter.addEventListener("submit", handleConvert);
     els.shopSearch.addEventListener("submit", handleShopSearch);
     els.shopBrand.addEventListener("change", () => clearShops());
