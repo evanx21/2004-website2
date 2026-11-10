@@ -239,6 +239,65 @@ main,
 }
 
 .photo--intro .photo__credit {
+    font-size: 0.82rem;
+    color: var(--text-light-muted);
+}
+
+.photo--intro .photo__credit a {
+    color: var(--gold-300);
+}
+
+/* ---------- My first watch ---------- */
+
+.first-watch {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+    gap: 64px;
+    padding-bottom: 112px;
+    scroll-margin-top: 16px;
+}
+
+.first-watch h2 {
+    margin: 14px 0 22px;
+    font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+}
+
+.first-watch__story p:not(.eyebrow) {
+    max-width: 34em;
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-light-muted);
+}
+
+.first-watch__lessons {
+    padding: 28px 30px;
+    border-radius: var(--radius-lg);
+    background: var(--ink-800);
+}
+
+.first-watch__lessons h3 {
+    margin-bottom: 18px;
+    font-size: 1.8rem;
+    color: var(--gold-200);
+}
+
+.lessons {
+    display: grid;
+    gap: 18px;
+    margin: 0;
+}
+
+.lessons dt {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--text-light);
+}
+
+.lessons dd {
+    margin: 4px 0 0;
+    font-size: 0.92rem;
     color: var(--text-light-muted);
 }
 
@@ -1131,7 +1190,8 @@ input[aria-invalid="true"] {
         max-width: 360px;
     }
 
-    .house-groups {
+    .house-groups,
+    .first-watch {
         grid-template-columns: 1fr;
         gap: 48px;
     }

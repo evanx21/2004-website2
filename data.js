@@ -15,7 +15,6 @@
  * WATCH_TYPES  The one filter above the watches, with a one-line explanation.
  * MOVEMENTS    Plain-English explanations shown in each watch's details.
  * DRESS_CODES  Which occasions each watch suits ("Wear it to" in the details).
- * INTRO_WATCH  The photo beside the introduction.
  * EUROPE_STOPS Places with a watch story. The three below are examples to
  *              replace with places Evan actually visited.
  * CURRENCIES   Currencies offered by the price converter.
@@ -745,8 +744,6 @@ const WATCHES = {
     }
 };
 
-// The photo beside the introduction.
-const INTRO_WATCH = "calatrava";
 
 // Which watches suit which dress code ("Wear it to" in each watch's details).
 const DRESS_CODES = {

@@ -33,8 +33,6 @@ const DRAFT_STORY = "Draft: your own memory of this place, what you saw, and how
 /* ===================== Elements & state ===================== */
 
 const els = {
-    introFrame: document.querySelector("#intro-frame"),
-    introCredit: document.querySelector("#intro-credit"),
     houseGroups: document.querySelector("#house-groups"),
     watchesSection: document.querySelector("#watches"),
     typeFilter: document.querySelector("#type-filter"),
@@ -719,8 +717,6 @@ function bindEvents() {
 }
 
 function init() {
-    const introWatch = WATCHES[INTRO_WATCH];
-    loadPhoto(els.introFrame, els.introCredit, introWatch.photo, introWatch.pictured, { compact: true });
     renderTypeChips();
     renderBrandOptions();
     renderHouses();
