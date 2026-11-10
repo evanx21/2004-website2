@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Wrist Notes: a student's guide to watches. The basics in plain English, nineteen real watches, notes from Europe, a price converter and a way to find shops where you can try one on.">
+        content="Wrist Notes: a student's guide to watches. Nineteen real watches in plain English, notes from Europe, and where to try one on.">
     <title>Wrist Notes</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <a class="skip-link" href="#guide">Skip to the guide</a>
+    <a class="skip-link" href="#watches">Skip to the watches</a>
 
     <header class="site-header">
         <a class="brand" href="#top">
@@ -27,288 +27,162 @@
             <span class="brand__name">Wrist Notes</span>
         </a>
         <nav class="site-nav" aria-label="Sections">
-            <a href="#guide">Basics</a>
-            <a href="#collection">Collection</a>
+            <a href="#watches">Watches</a>
             <a href="#europe">Europe</a>
-            <a href="#perspective">Perspective</a>
-            <a href="#abroad">Buying abroad</a>
-            <a href="#try-on">Try one on</a>
         </nav>
     </header>
 
     <main id="top">
-        <section class="hero" aria-labelledby="hero-title">
-            <div class="hero__copy">
+        <section class="intro" aria-labelledby="intro-title">
+            <div class="intro__text">
                 <p class="eyebrow">A student's guide to watches</p>
-                <h1 id="hero-title">Watches, explained <em>by a student who loves them.</em></h1>
-                <p class="hero__lede">
-                    The basics in plain English, nineteen real watches, and notes from my time in Europe: what's
-                    worth knowing, what's worth saving for, and where to try one on.
-                </p>
+                <h1 id="intro-title">Watches, explained <em>by a student who loves them.</em></h1>
+                <p class="intro__lede">Nineteen real watches in plain English, and notes from my time in Europe.</p>
                 <p class="draft draft--dark">Evan's introduction: where you're from, how long you've been in the US,
-                    and how you got into watches.</p>
-                <a class="button button--wax" href="#collection">Browse the collection</a>
+                    how you got into watches, and how people wear them back home compared with here.</p>
+                <a class="button button--wax" href="#watches">See the watches</a>
             </div>
-            <div class="hero__photos" id="hero-photos"></div>
+            <figure class="photo photo--intro">
+                <div class="photo__frame" id="intro-frame">
+                    <p class="photo__placeholder">Loading photo…</p>
+                </div>
+                <figcaption class="photo__credit" id="intro-credit"></figcaption>
+            </figure>
         </section>
 
-        <section class="panel" id="guide" aria-labelledby="guide-title">
+        <section class="panel" id="watches" aria-labelledby="watches-title">
             <header class="panel__head">
-                <p class="eyebrow">Part one</p>
-                <h2 id="guide-title">The basics, without the jargon</h2>
-                <p class="panel__lede">Three things decide most of what a watch is like: what kind it is, what makes it
-                    tick, and how it fits.</p>
-            </header>
-            <p class="draft">Evan's take: what you wish you'd known before your first watch.</p>
-
-            <section class="guide-part" aria-labelledby="types-title">
-                <h3 class="guide-part__title" id="types-title">Seven kinds of watch</h3>
-                <div class="guide-grid" id="type-cards"></div>
-            </section>
-
-            <section class="guide-part" aria-labelledby="movements-title">
-                <h3 class="guide-part__title" id="movements-title">Four ways to keep time</h3>
-                <div class="guide-grid guide-grid--four" id="movement-cards"></div>
-            </section>
-
-            <section class="guide-part" aria-labelledby="specs-title">
-                <h3 class="guide-part__title" id="specs-title">Specs, translated</h3>
-                <dl class="spec-glossary">
-                    <div>
-                        <dt>Case size: 39 mm</dt>
-                        <dd>The width of the case, not counting the crown. Many wrists are comfortable at 36–40 mm;
-                            past about 42 mm a watch starts to wear large.</dd>
-                    </div>
-                    <div>
-                        <dt>Thickness: 8 mm</dt>
-                        <dd>Under about 9 mm, a watch slips under a shirt cuff. The cuff test on every watch in the
-                            collection checks exactly this.</dd>
-                    </div>
-                    <div>
-                        <dt>Water resistance: 30 m</dt>
-                        <dd>Splashes and rain only, despite the number. 100 m is fine for swimming and snorkeling;
-                            200 m and up is built for diving.</dd>
-                    </div>
-                    <div>
-                        <dt>Power reserve: 72 hours</dt>
-                        <dd>How long a mechanical watch keeps running once you take it off. Take it off on Friday
-                            evening and it's still going on Monday morning.</dd>
-                    </div>
-                    <div>
-                        <dt>28,800 vph</dt>
-                        <dd>Vibrations per hour, or eight beats a second. It's why a mechanical seconds hand sweeps
-                            instead of ticking.</dd>
-                    </div>
-                </dl>
-            </section>
-        </section>
-
-        <section class="panel" id="collection" aria-labelledby="collection-title">
-            <header class="panel__head">
-                <p class="eyebrow">Part two</p>
-                <h2 id="collection-title">The collection</h2>
-                <p class="panel__lede">Nineteen real watches, from a twenty-dollar digital to a grail. Filter by what
-                    matters to you.</p>
+                <h2 id="watches-title">The watches</h2>
+                <p class="panel__lede">Choose a watch to see the details, my take on it, and where to try it on.</p>
             </header>
 
-            <form class="filters" id="filters" aria-label="Filter the collection">
-                <fieldset class="filter-group">
-                    <legend class="field-label">Kind</legend>
-                    <div class="chips" data-filter="type"></div>
-                </fieldset>
-                <fieldset class="filter-group">
-                    <legend class="field-label">Movement</legend>
-                    <div class="chips" data-filter="movement"></div>
-                </fieldset>
-                <fieldset class="filter-group">
-                    <legend class="field-label">Price</legend>
-                    <div class="chips" data-filter="tier"></div>
-                </fieldset>
-                <fieldset class="filter-group">
-                    <legend class="field-label">Occasion</legend>
-                    <div class="chips" data-filter="occasion"></div>
-                </fieldset>
+            <form class="type-filter" id="type-filter" aria-label="Filter by kind of watch">
+                <div class="chips" id="type-chips"></div>
+                <p class="type-filter__note" id="type-note" aria-live="polite"></p>
             </form>
 
-            <div class="collection-bar">
-                <p class="collection-bar__count" id="collection-count" role="status"></p>
-                <button type="button" class="link-button" data-reset-filters>Reset filters</button>
-            </div>
-            <aside class="occasion-note" id="occasion-note" hidden></aside>
-            <div class="watch-grid" id="watch-grid"></div>
-            <p class="empty-state" id="empty-state" hidden></p>
+            <ul class="watch-grid" id="watch-grid"></ul>
         </section>
 
-        <section class="dark-section" id="europe" aria-labelledby="europe-title">
+        <section class="europe" id="europe" aria-labelledby="europe-title">
             <header class="section-head">
-                <p class="eyebrow">Part three</p>
                 <h2 id="europe-title">Notes from Europe</h2>
                 <p class="section-head__lede">Places I've been where watches have a story.</p>
             </header>
             <p class="draft draft--dark">Evan's take: a short intro to your trip. When you went, where, and what you
                 were looking for.</p>
+
             <div class="stop-grid" id="stop-grid"></div>
-        </section>
 
-        <section class="panel" id="perspective" aria-labelledby="perspective-title">
-            <header class="panel__head">
-                <p class="eyebrow">Part four</p>
-                <h2 id="perspective-title">Three places, three ways to wear a watch</h2>
-                <p class="panel__lede">What I've noticed about watches back home, on an American campus and in Europe.
-                </p>
-            </header>
-            <div class="perspective-grid">
-                <article class="perspective">
-                    <h3>Back home</h3>
-                    <p class="draft">Evan's take: how people around you at home think about watches. What they wear,
-                        what a watch means as a gift or a milestone.</p>
-                </article>
-                <article class="perspective">
-                    <h3>On a US campus</h3>
-                    <p class="draft">Evan's take: what you see on wrists at WashU, and how that surprised you (or
-                        didn't).</p>
-                </article>
-                <article class="perspective">
-                    <h3>In Europe</h3>
-                    <p class="draft">Evan's take: what stood out in Europe. The boutiques, the history, the way people
-                        wear their watches.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="panel" id="abroad" aria-labelledby="abroad-title">
-            <header class="panel__head">
-                <p class="eyebrow">Part five</p>
-                <h2 id="abroad-title">Buying abroad</h2>
-                <p class="panel__lede">Saw a price tag in Geneva or Paris? See what it comes to in dollars, yuan and
-                    more at today's rates.</p>
-            </header>
-
-            <form class="converter" id="converter" novalidate>
-                <div class="field">
-                    <label class="field-label" for="price-amount">Price on the tag</label>
+            <section class="converter-block" aria-labelledby="converter-title">
+                <h3 id="converter-title">Saw a price tag abroad?</h3>
+                <p class="converter-block__lede">See what it comes to at today's exchange rates.</p>
+                <form class="converter" id="converter" novalidate>
+                    <label class="visually-hidden" for="price-amount">Price on the tag</label>
                     <input type="number" id="price-amount" name="amount" min="0" step="any" inputmode="decimal"
-                        placeholder="e.g. 9600" aria-describedby="converter-error">
-                </div>
-                <div class="field">
-                    <label class="field-label" for="price-currency">Currency</label>
+                        placeholder="Price, e.g. 9600" aria-describedby="converter-error">
+                    <label class="visually-hidden" for="price-currency">Currency</label>
                     <select id="price-currency" name="currency"></select>
-                </div>
-                <button type="submit" class="button button--wax">Convert</button>
-            </form>
-            <p class="field-error" id="converter-error" role="alert"></p>
-            <div class="converter-result" id="converter-result" aria-live="polite"></div>
-
-            <p class="draft">Evan's take: buying tips from your trip, such as tax-free shopping and where prices felt
-                different. We'll fact-check any rules before publishing.</p>
-        </section>
-
-        <section class="panel" id="try-on" aria-labelledby="try-on-title">
-            <header class="panel__head">
-                <p class="eyebrow">Part six</p>
-                <h2 id="try-on-title">Try one on</h2>
-                <p class="panel__lede">Photos only go so far. Find watch shops and jewelers near you, then see how a
-                    watch actually sits on your wrist.</p>
-            </header>
-
-            <form class="shop-search" id="shop-search" novalidate>
-                <label class="field-label" for="shop-city">City</label>
-                <div class="location-row">
-                    <input type="search" id="shop-city" name="city" autocomplete="off" placeholder="e.g. Chicago"
-                        aria-describedby="shop-status">
-                    <button type="submit" class="button button--ghost">Find shops</button>
-                    <button type="button" class="button button--ghost" id="geo-btn">
-                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                            <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
-                            <circle cx="12" cy="10" r="2.5" />
-                        </svg>
-                        Use my location
-                    </button>
-                </div>
-            </form>
-            <p class="hint" id="shop-status" role="status"></p>
-            <div class="place-options" id="place-options"></div>
-            <ol class="shop-list" id="shop-list"></ol>
-            <p class="fine-print">Shops come from OpenStreetMap, which volunteers keep up to date. Call ahead to check
-                which brands a shop carries.</p>
-
-            <p class="draft">Evan's take: a try-on checklist. What to look at when a watch is actually on your wrist.
-            </p>
+                    <button type="submit" class="button button--wax">Convert</button>
+                </form>
+                <p class="field-error" id="converter-error" role="alert"></p>
+                <div class="converter-result" id="converter-result" aria-live="polite"></div>
+                <p class="draft draft--dark">Evan's take: buying tips from your trip, such as tax-free shopping and
+                    where prices felt different. We'll fact-check any rules before publishing.</p>
+            </section>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="site-footer__inner">
-            <p class="brand brand--footer">
-                <span class="seal" aria-hidden="true">W</span>
-                <span class="brand__name">Wrist Notes</span>
-            </p>
-            <p>Written and built by Evan Xia for CSE 2004.</p>
-            <p>
-                Watch photos from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, credited under each
-                photo · Place summaries from <a href="https://en.wikipedia.org/">Wikipedia</a> (CC BY-SA) ·
-                Exchange rates from <a href="https://frankfurter.dev/">Frankfurter</a> (European Central Bank) ·
-                City search by <a href="https://open-meteo.com/">Open-Meteo</a> ·
-                Shop data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors
-            </p>
-            <p class="site-footer__fine">
-                Specs come from makers' published data; Rolex doesn't publish thickness, so those figures come from
-                independent reviews. Price tiers are approximate. Not affiliated with any watch brand.
-            </p>
-        </div>
+        <p>Written and built by Evan Xia for CSE 2004.</p>
+        <p class="site-footer__credits">
+            Photos from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, credited in each watch's
+            details · Place notes from <a href="https://en.wikipedia.org/">Wikipedia</a> · Exchange rates from
+            <a href="https://frankfurter.dev/">Frankfurter</a> · City search by
+            <a href="https://open-meteo.com/">Open-Meteo</a> · Shops © <a
+                href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors
+        </p>
+        <p class="site-footer__credits">Specs come from makers' published data, except Rolex thicknesses, which come
+            from reviews. Not affiliated with any watch brand.</p>
     </footer>
 
-    <template id="watch-template">
-        <article class="watch">
-            <figure class="photo">
-                <div class="photo__frame">
-                    <p class="photo__placeholder">Loading photo…</p>
-                </div>
-                <figcaption class="photo__credit"></figcaption>
+    <dialog class="watch-dialog" id="watch-dialog" aria-labelledby="dialog-title">
+        <button type="button" class="watch-dialog__close" id="dialog-close" aria-label="Close">×</button>
+        <div class="watch-dialog__layout">
+            <figure class="photo watch-dialog__photo">
+                <div class="photo__frame" id="dialog-frame"></div>
+                <figcaption class="photo__credit" id="dialog-credit"></figcaption>
             </figure>
-            <div class="watch__body">
-                <p class="watch__tier"></p>
-                <p class="watch__brand"></p>
-                <h3 class="watch__model"></h3>
-                <p class="watch__tags"></p>
-                <p class="watch__why"></p>
-                <dl class="watch__specs">
-                    <div>
-                        <dt>Case</dt>
-                        <dd data-spec="case"></dd>
-                    </div>
-                    <div>
-                        <dt>Thickness</dt>
-                        <dd data-spec="thickness"></dd>
-                    </div>
-                    <div>
-                        <dt>Movement</dt>
-                        <dd data-spec="movement"></dd>
-                    </div>
-                    <div>
-                        <dt>Worn on</dt>
-                        <dd data-spec="strap"></dd>
-                    </div>
-                </dl>
-                <div class="cuff">
-                    <p class="cuff__label">Cuff test</p>
-                    <div class="cuff__gauge" aria-hidden="true">
-                        <span class="cuff__marker"></span>
-                    </div>
-                    <div class="cuff__scale" aria-hidden="true">
-                        <span>slides under</span>
-                        <span>tug</span>
-                        <span>roomy cuff</span>
-                    </div>
-                    <p class="cuff__verdict"></p>
-                </div>
-                <p class="watch__occasions"></p>
-                <div class="take">
+
+            <div class="watch-dialog__info">
+                <p class="watch-dialog__brand" id="dialog-brand"></p>
+                <h2 class="watch-dialog__title" id="dialog-title"></h2>
+                <p class="watch-dialog__tier" id="dialog-tier"></p>
+
+                <div class="take" id="dialog-take">
                     <p class="take__label">Evan's take</p>
                     <p class="take__text"></p>
                 </div>
+
+                <p class="watch-dialog__why" id="dialog-why"></p>
+
+                <dl class="facts">
+                    <div>
+                        <dt>Case</dt>
+                        <dd id="dialog-case"></dd>
+                    </div>
+                    <div>
+                        <dt>Thickness</dt>
+                        <dd id="dialog-thickness"></dd>
+                    </div>
+                    <div>
+                        <dt>Movement</dt>
+                        <dd id="dialog-movement"></dd>
+                    </div>
+                    <div>
+                        <dt>Worn on</dt>
+                        <dd id="dialog-strap"></dd>
+                    </div>
+                    <div>
+                        <dt>Wear it to</dt>
+                        <dd id="dialog-occasions"></dd>
+                    </div>
+                </dl>
+
+                <section class="try-on" aria-labelledby="try-on-title">
+                    <h3 id="try-on-title">Try it on near you</h3>
+                    <form class="try-on__form" id="shop-search" novalidate>
+                        <label class="visually-hidden" for="shop-city">City</label>
+                        <input type="search" id="shop-city" name="city" autocomplete="off"
+                            placeholder="City, e.g. Chicago" aria-describedby="shop-status">
+                        <button type="submit" class="button button--ghost">Search</button>
+                        <button type="button" class="button button--ghost" id="geo-btn">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
+                                <circle cx="12" cy="10" r="2.5" />
+                            </svg>
+                            Near me
+                        </button>
+                    </form>
+                    <p class="hint" id="shop-status" role="status"></p>
+                    <ol class="shop-list" id="shop-list"></ol>
+                </section>
             </div>
-        </article>
+        </div>
+    </dialog>
+
+    <template id="watch-template">
+        <li class="watch-card">
+            <div class="photo__frame">
+                <p class="photo__placeholder">Loading photo…</p>
+            </div>
+            <p class="watch-card__brand"></p>
+            <h3 class="watch-card__model">
+                <button type="button" class="watch-card__open"></button>
+            </h3>
+            <p class="watch-card__tier"></p>
+            <p class="watch-card__take"></p>
+        </li>
     </template>
 
     <template id="stop-template">
@@ -319,16 +193,16 @@
             <div class="stop__body">
                 <p class="stop__where"></p>
                 <h3 class="stop__place"></h3>
-                <p class="stop__summary">Loading the story of this place…</p>
-                <div class="stop__link">
-                    <p class="stop__link-label">The watch connection</p>
-                    <p class="stop__link-text"></p>
-                    <button type="button" class="link-button stop__watch"></button>
-                </div>
                 <div class="take">
                     <p class="take__label">Evan's take</p>
                     <p class="take__text"></p>
                 </div>
+                <p class="stop__link"></p>
+                <button type="button" class="link-button stop__watch"></button>
+                <details class="stop__about">
+                    <summary></summary>
+                    <p class="stop__summary">Loading…</p>
+                </details>
             </div>
         </article>
     </template>

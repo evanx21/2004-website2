@@ -1,11 +1,9 @@
 /* ============================================================
    Wrist Notes
-   1. Tokens          7. Basics guide         13. Try one on
-   2. Base            8. Filters & chips      14. Buttons & forms
-   3. Header & nav    9. Watch cards & photos 15. Footer
-   4. Hero           10. Notes from Europe    16. Responsive
-   5. Sections       11. Perspective
-   6. Evan's notes   12. Buying abroad
+   1. Tokens        5. Watches           9. Price converter
+   2. Base          6. Photos           10. Evan's notes
+   3. Header        7. Watch details    11. Buttons & forms
+   4. Intro         8. Europe           12. Footer & responsive
    ============================================================ */
 
 /* ---------- 1. Tokens ---------- */
@@ -31,15 +29,14 @@
     --text-muted: #675f52;
     --text-light: #efe9dc;
     --text-light-muted: #a9a294;
-    --line-dark: rgba(31, 29, 25, 0.13);
+    --line-dark: rgba(31, 29, 25, 0.12);
     --line-light: rgba(239, 233, 220, 0.14);
 
     --font-display: "Cormorant Garamond", "Times New Roman", serif;
     --font-ui: "Jost", "Helvetica Neue", Arial, sans-serif;
 
-    --radius-lg: 18px;
-    --radius-md: 12px;
-    --shadow-paper: 0 40px 80px -30px rgba(0, 0, 0, 0.75), 0 2px 6px rgba(0, 0, 0, 0.25);
+    --radius-lg: 20px;
+    --radius-md: 14px;
 }
 
 /* ---------- 2. Base ---------- */
@@ -62,16 +59,13 @@ body {
     line-height: 1.6;
     color: var(--text-light);
     background-color: var(--ink-900);
-    background-image:
-        radial-gradient(ellipse 60% 50% at 80% 0%, rgba(201, 164, 92, 0.15), transparent),
-        radial-gradient(ellipse 50% 40% at 0% 35%, rgba(142, 38, 56, 0.14), transparent);
+    background-image: radial-gradient(ellipse 60% 50% at 85% 0%, rgba(201, 164, 92, 0.12), transparent);
     background-attachment: fixed;
 }
 
 h1,
 h2,
-h3,
-h4 {
+h3 {
     margin: 0;
     font-family: var(--font-display);
     font-weight: 500;
@@ -97,6 +91,18 @@ img {
 
 [hidden] {
     display: none !important;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .skip-link {
@@ -125,20 +131,19 @@ img {
 
 main,
 .site-header,
-.site-footer__inner {
+.site-footer {
     width: min(1120px, calc(100% - 32px));
     margin: 0 auto;
 }
 
-/* ---------- 3. Header & nav ---------- */
+/* ---------- 3. Header ---------- */
 
 .site-header {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 12px 24px;
-    padding: 24px 0;
+    gap: 16px;
+    padding: 28px 0;
 }
 
 .brand {
@@ -167,21 +172,17 @@ main,
     font-size: 1.15rem;
     font-style: italic;
     font-weight: 600;
-    box-shadow:
-        inset 0 0 0 3px rgba(0, 0, 0, 0.18),
-        inset 0 0 0 5px rgba(224, 200, 142, 0.35),
-        0 4px 12px rgba(0, 0, 0, 0.35);
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.18), inset 0 0 0 5px rgba(224, 200, 142, 0.35);
 }
 
 .site-nav {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px 20px;
+    gap: 28px;
 }
 
 .site-nav a {
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     text-decoration: none;
     color: var(--text-light-muted);
@@ -192,102 +193,73 @@ main,
     color: var(--gold-300);
 }
 
-/* ---------- 4. Hero ---------- */
+/* ---------- 4. Intro ---------- */
 
-.hero {
+.intro {
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
+    grid-template-columns: 1.3fr 0.7fr;
     align-items: center;
-    gap: 56px;
-    padding: 32px 0 80px;
+    gap: 72px;
+    padding: 48px 0 104px;
 }
 
-.hero h1 {
-    margin: 18px 0 22px;
+.intro h1 {
+    margin: 20px 0 24px;
     font-size: clamp(2.6rem, 5vw, 4.4rem);
 }
 
-.hero h1 em {
+.intro h1 em {
     display: block;
     color: var(--gold-300);
     font-weight: 400;
 }
 
-.hero__lede {
-    max-width: 32em;
-    font-size: 1.08rem;
+.intro__lede {
+    max-width: 30em;
+    font-size: 1.15rem;
     font-weight: 300;
     color: var(--text-light-muted);
 }
 
-.hero .draft {
-    margin: 20px 0 32px;
+.intro .draft {
     max-width: 32em;
+    margin: 28px 0 36px;
 }
 
-/* Three photos in a gently staggered row */
-.hero__photos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: start;
-    gap: 16px;
+.photo--intro .photo__frame {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 50px -24px rgba(0, 0, 0, 0.8);
 }
 
-.hero__photos .photo:nth-child(2) {
-    margin-top: 48px;
-}
-
-.photo--hero .photo__frame {
-    aspect-ratio: 3 / 4;
-    border-radius: var(--radius-md);
-    box-shadow: 0 24px 40px -18px rgba(0, 0, 0, 0.7);
-}
-
-.photo--hero .photo__credit {
+.photo--intro .photo__credit {
     color: var(--text-light-muted);
 }
 
-/* ---------- 5. Sections ---------- */
+/* ---------- 5. Watches ---------- */
 
-/* Ivory "stationery" panels */
 .panel {
-    position: relative;
-    margin-top: 64px;
-    padding: clamp(24px, 5vw, 56px);
+    padding: clamp(28px, 5vw, 64px);
     border-radius: var(--radius-lg);
     background: var(--ivory-50);
     color: var(--text-dark);
-    box-shadow: var(--shadow-paper);
     scroll-margin-top: 16px;
-}
-
-.panel::before {
-    content: "";
-    position: absolute;
-    inset: 10px;
-    border: 1px solid rgba(156, 122, 54, 0.35);
-    border-radius: 10px;
-    pointer-events: none;
 }
 
 .panel__head,
 .section-head {
-    max-width: 44em;
-    margin-bottom: 28px;
-}
-
-.panel__head .eyebrow {
-    color: var(--gold-500);
+    max-width: 40em;
+    margin-bottom: 32px;
 }
 
 .panel h2,
-.dark-section h2 {
-    margin: 10px 0 12px;
-    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+.europe h2 {
+    font-size: clamp(2.4rem, 4.5vw, 3.4rem);
 }
 
 .panel__lede,
 .section-head__lede {
+    margin-top: 10px;
     font-size: 1.05rem;
     color: var(--text-muted);
 }
@@ -296,178 +268,8 @@ main,
     color: var(--text-light-muted);
 }
 
-/* Darker sections sit straight on the page background for rhythm */
-.dark-section {
-    margin-top: 80px;
-    scroll-margin-top: 16px;
-}
-
-/* ---------- 6. Evan's notes ---------- */
-
-/* Draft boxes mark where Evan's own words will go. */
-.draft {
-    padding: 14px 18px;
-    border: 1px dashed var(--gold-400);
-    border-radius: 10px;
-    background: rgba(201, 164, 92, 0.08);
-    color: var(--text-muted);
-    font-style: italic;
-}
-
-.draft::before {
-    content: "Draft";
-    display: block;
-    margin-bottom: 2px;
-    font-size: 0.66rem;
-    font-style: normal;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold-500);
-}
-
-.draft--dark {
-    color: var(--text-light-muted);
-}
-
-.draft--dark::before {
-    color: var(--gold-300);
-}
-
-.panel > .draft,
-.dark-section > .draft {
-    margin-bottom: 28px;
-}
-
-.take {
-    padding: 14px 16px;
-    border-left: 3px solid var(--wax-500);
-    border-radius: 0 10px 10px 0;
-    background: var(--ivory-100);
-}
-
-.take__label {
-    margin-bottom: 4px;
-    font-size: 0.66rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--wax-500);
-}
-
-.take__text {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    line-height: 1.4;
-}
-
-.take--draft {
-    border: 1px dashed var(--gold-400);
-    background: rgba(201, 164, 92, 0.08);
-}
-
-.take--draft .take__label {
-    color: var(--gold-500);
-}
-
-.take--draft .take__text {
-    font-family: var(--font-ui);
-    font-size: 0.88rem;
-    font-style: italic;
-    color: var(--text-muted);
-}
-
-/* ---------- 7. Basics guide ---------- */
-
-.guide-part {
-    padding-top: 28px;
-    border-top: 1px solid var(--line-dark);
-}
-
-.guide-part + .guide-part {
-    margin-top: 32px;
-}
-
-.guide-part__title {
-    margin-bottom: 18px;
-    font-size: 1.8rem;
-}
-
-.guide-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 14px;
-}
-
-.guide-grid--four {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-}
-
-.guide-card {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 18px;
-    border: 1px solid var(--ivory-300);
-    border-radius: var(--radius-md);
-    background: #fff;
-}
-
-.guide-card__title {
-    font-size: 1.45rem;
-}
-
-.guide-card__text {
-    flex: 1;
-    font-size: 0.92rem;
-    color: var(--text-muted);
-}
-
-.spec-glossary {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 14px 28px;
-    margin: 0;
-}
-
-.spec-glossary dt {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 500;
-}
-
-.spec-glossary dd {
-    margin: 4px 0 0;
-    font-size: 0.92rem;
-    color: var(--text-muted);
-}
-
-/* ---------- 8. Filters & chips ---------- */
-
-.filters {
-    display: grid;
-    gap: 16px;
-    padding: 20px;
-    border-radius: var(--radius-md);
-    background: var(--ivory-100);
-}
-
-.filter-group {
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-.field-label {
-    display: block;
-    margin-bottom: 8px;
-    padding: 0;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text-muted);
+.type-filter {
+    margin-bottom: 40px;
 }
 
 /* Radio buttons styled as chips. The real inputs stay in the page, invisible,
@@ -486,12 +288,12 @@ main,
 }
 
 .chips label {
-    padding: 7px 16px;
+    padding: 8px 20px;
     border: 1px solid var(--ivory-300);
     border-radius: 999px;
     background: #fff;
     color: var(--text-dark);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
@@ -511,209 +313,93 @@ main,
     outline-offset: 2px;
 }
 
-.collection-bar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 8px 16px;
-    margin: 22px 0 18px;
-}
-
-.collection-bar__count {
-    font-size: 0.9rem;
+.type-filter__note {
+    margin-top: 14px;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-style: italic;
     color: var(--text-muted);
 }
-
-.occasion-note {
-    display: grid;
-    gap: 4px;
-    margin-bottom: 22px;
-    padding: 16px 20px;
-    border-radius: var(--radius-md);
-    background: var(--ink-800);
-    color: var(--text-light-muted);
-}
-
-.occasion-note__title {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--gold-200);
-}
-
-.occasion-note__advice {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    font-style: italic;
-    color: var(--text-light);
-}
-
-.empty-state {
-    padding: 32px;
-    border: 1px dashed var(--ivory-300);
-    border-radius: var(--radius-md);
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-style: italic;
-    text-align: center;
-    color: var(--text-muted);
-}
-
-/* ---------- 9. Watch cards & photos ---------- */
 
 .watch-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 40px 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.watch {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border: 1px solid var(--ivory-300);
+/* The whole card is clickable: the button's ::after stretches over it. */
+.watch-card {
+    position: relative;
+}
+
+.watch-card .photo__frame {
     border-radius: var(--radius-md);
-    background: #fff;
-    scroll-margin-top: 24px;
-    transition: box-shadow 0.4s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.watch.is-highlighted {
-    box-shadow: 0 0 0 3px var(--gold-400);
+.watch-card:hover .photo__frame {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 30px -18px rgba(31, 29, 25, 0.5);
 }
 
-.watch .photo__credit {
-    padding: 0 18px;
-}
-
-.watch__body {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px 18px 22px;
-}
-
-.watch__tier {
-    align-self: flex-start;
-    padding: 3px 10px;
-    border: 1px solid var(--gold-400);
-    border-radius: 999px;
-    font-size: 0.66rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold-500);
-}
-
-.watch__brand {
-    font-size: 0.72rem;
+.watch-card__brand {
+    margin-top: 16px;
+    font-size: 0.7rem;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--text-muted);
 }
 
-.watch__model {
-    margin-top: -6px;
-    font-size: 1.6rem;
+.watch-card__model {
+    margin-top: 2px;
+    font-size: 1.4rem;
 }
 
-.watch__tags {
-    font-size: 0.8rem;
-    color: var(--gold-500);
+.watch-card__open {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
 }
 
-.watch__why,
-.watch__occasions {
-    font-size: 0.92rem;
-    color: var(--text-muted);
-}
-
-.watch__specs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 16px;
-    margin: 4px 0 0;
-    padding-top: 14px;
-    border-top: 1px solid var(--line-dark);
-}
-
-.watch__specs dt,
-.cuff__label {
-    font-size: 0.66rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
-
-.watch__specs dd {
-    margin: 0;
-    font-size: 0.94rem;
-}
-
-.cuff {
-    padding-top: 14px;
-    border-top: 1px solid var(--line-dark);
-}
-
-.cuff__label {
-    margin-bottom: 10px;
-}
-
-/* 0–15 mm: up to 9 mm slides under a cuff, 9–11 mm needs a tug, over 11 mm needs room. */
-.cuff__gauge {
-    position: relative;
-    height: 6px;
-    border-radius: 3px;
-    background: linear-gradient(90deg, var(--sage-500) 0 60%, var(--gold-400) 60% 73.3%, var(--wax-400) 73.3% 100%);
-}
-
-.cuff__gauge.is-unknown {
-    background: var(--ivory-300);
-}
-
-/* --at is the watch's thickness as a percentage of the gauge, set by script.js. */
-.cuff__marker {
+.watch-card__open::after {
+    content: "";
     position: absolute;
-    top: 50%;
-    left: calc(var(--at, 0) * 1%);
-    width: 14px;
-    height: 14px;
-    border: 2px solid #fff;
-    background: var(--ink-800);
-    transform: translate(-50%, -50%) rotate(45deg);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    inset: 0;
+    border-radius: var(--radius-md);
 }
 
-.cuff__gauge.is-unknown .cuff__marker {
-    display: none;
+.watch-card__open:focus-visible {
+    outline: none;
 }
 
-.cuff__scale {
-    display: grid;
-    grid-template-columns: 60% 13.3% 26.7%;
-    margin-top: 6px;
-    font-size: 0.66rem;
+.watch-card__open:focus-visible::after {
+    outline: 2px solid var(--gold-500);
+    outline-offset: 6px;
+}
+
+.watch-card__tier {
+    margin-top: 4px;
+    font-size: 0.82rem;
     color: var(--text-muted);
 }
 
-.cuff__scale span:nth-child(2) {
-    text-align: center;
+.watch-card__take {
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.35;
 }
 
-.cuff__scale span:last-child {
-    text-align: right;
-}
-
-.cuff__verdict {
-    margin-top: 6px;
-    font-size: 0.9rem;
-}
-
-.watch .take {
-    margin-top: auto;
-}
+/* ---------- 6. Photos ---------- */
 
 .photo {
     margin: 0;
@@ -754,14 +440,14 @@ main,
     position: relative;
     padding: 16px;
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-style: italic;
     text-align: center;
     color: var(--text-muted);
 }
 
 .photo__credit {
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 0.7rem;
     line-height: 1.45;
     color: var(--text-muted);
@@ -771,228 +457,142 @@ main,
     margin: 0;
 }
 
-/* ---------- 10. Notes from Europe ---------- */
+/* ---------- 7. Watch details (dialog) ---------- */
 
-.stop-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
+.watch-dialog {
+    width: min(960px, calc(100% - 32px));
+    max-height: calc(100vh - 48px);
+    overflow: auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--ivory-50);
+    color: var(--text-dark);
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
 }
 
-.stop {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border: 1px solid var(--line-light);
+.watch-dialog::backdrop {
+    background: rgba(8, 10, 14, 0.72);
+}
+
+.watch-dialog__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ivory-50);
+    color: var(--text-dark);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.watch-dialog__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.watch-dialog__photo {
+    padding: 28px 0 28px 28px;
+}
+
+.watch-dialog__photo .photo__frame {
     border-radius: var(--radius-md);
-    background: var(--ink-800);
 }
 
-.stop__photo {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 4 / 3;
-    border-bottom: 1px dashed rgba(201, 164, 92, 0.5);
-    background: var(--ink-700);
-}
-
-/* Until Evan adds his own photo, the placeholder stays short. */
-.stop__photo--empty {
-    aspect-ratio: auto;
-    min-height: 140px;
-}
-
-.stop__photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.stop__photo-note {
-    padding: 16px;
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-style: italic;
-    text-align: center;
-    color: var(--text-light-muted);
-}
-
-.stop__body {
+.watch-dialog__info {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    gap: 12px;
-    padding: 18px 20px 22px;
+    gap: 18px;
+    padding: 40px 36px 36px;
 }
 
-.stop__where {
-    font-size: 0.7rem;
+.watch-dialog__brand {
+    font-size: 0.74rem;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--gold-400);
+    color: var(--text-muted);
 }
 
-.stop__place {
-    font-size: 1.8rem;
-    color: var(--text-light);
+.watch-dialog__title {
+    margin-top: -12px;
+    padding-right: 40px;
+    font-size: 2.2rem;
 }
 
-.stop__summary {
-    font-size: 0.92rem;
-    color: var(--text-light-muted);
+.watch-dialog__tier {
+    margin-top: -12px;
+    font-size: 0.9rem;
+    color: var(--gold-500);
 }
 
-.stop__link {
-    padding-top: 12px;
-    border-top: 1px solid var(--line-light);
+.watch-dialog__why {
+    color: var(--text-muted);
 }
 
-.stop__link-label {
-    font-size: 0.66rem;
+.facts {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--line-dark);
+}
+
+.facts div {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+}
+
+.facts dt {
+    padding-top: 2px;
+    font-size: 0.7rem;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--gold-300);
+    color: var(--text-muted);
 }
 
-.stop__link-text {
-    margin: 4px 0 6px;
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    color: var(--text-light);
+.facts dd {
+    margin: 0;
 }
 
-.stop .link-button {
-    color: var(--gold-300);
+.facts__note {
+    display: block;
+    font-size: 0.86rem;
+    color: var(--text-muted);
 }
 
-.stop .take {
-    margin-top: auto;
+.try-on {
+    padding-top: 18px;
+    border-top: 1px solid var(--line-dark);
 }
 
-.stop .take--draft .take__text {
-    color: var(--text-light-muted);
-}
-
-/* ---------- 11. Perspective ---------- */
-
-.perspective-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
-}
-
-.perspective h3 {
+.try-on h3 {
     margin-bottom: 12px;
-    font-size: 1.7rem;
-}
-
-/* ---------- 12. Buying abroad ---------- */
-
-.converter {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    align-items: end;
-    gap: 16px;
-    max-width: 720px;
-}
-
-.converter-result {
-    max-width: 720px;
-    margin: 22px 0 28px;
-}
-
-.converter-result:empty {
-    margin: 0 0 28px;
-}
-
-.converter-result__from {
-    margin-bottom: 10px;
-    font-family: var(--font-display);
     font-size: 1.5rem;
 }
 
-.converter-result__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 10px;
-    margin: 0 0 10px;
-}
-
-.converter-result__list div {
-    padding: 12px 14px;
-    border: 1px solid var(--ivory-300);
-    border-radius: 10px;
-    background: #fff;
-}
-
-.converter-result__list dt {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
-
-.converter-result__list dd {
-    margin: 2px 0 0;
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-}
-
-/* ---------- 13. Try one on ---------- */
-
-.shop-search {
-    max-width: 720px;
-}
-
-.location-row {
-    display: flex;
-    gap: 10px;
-}
-
-.location-row input {
-    flex: 1;
-    min-width: 0;
-}
-
-.place-options {
+.try-on__form {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     gap: 8px;
-    margin-top: 12px;
 }
 
-.place-options:empty {
-    display: none;
-}
-
-.place-options__label {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-}
-
-.city-option {
-    padding: 6px 14px;
-    border: 1px solid var(--ivory-300);
-    border-radius: 999px;
-    background: #fff;
-    color: var(--text-dark);
-    font-family: var(--font-ui);
-    font-size: 0.86rem;
-    cursor: pointer;
-}
-
-.city-option:hover {
-    border-color: var(--gold-400);
+.try-on__form input {
+    flex: 1 1 180px;
 }
 
 .shop-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 12px;
-    margin: 18px 0 0;
+    gap: 8px;
+    margin: 14px 0 0;
     padding: 0;
     list-style: none;
 }
@@ -1006,10 +606,8 @@ main,
     align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
-    padding: 14px 16px;
-    border: 1px solid var(--ivory-300);
-    border-radius: 10px;
-    background: #fff;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line-dark);
 }
 
 .shop__details {
@@ -1017,19 +615,15 @@ main,
 }
 
 .shop__name {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    line-height: 1.2;
+    font-weight: 500;
 }
 
-.shop__meta,
-.shop__address {
-    font-size: 0.86rem;
+.shop__meta {
+    font-size: 0.84rem;
     color: var(--text-muted);
 }
 
-.shop__brands {
-    margin-top: 4px;
+.shop__brand {
     font-size: 0.8rem;
     font-weight: 500;
     color: var(--wax-500);
@@ -1037,24 +631,254 @@ main,
 
 .shop__map {
     flex-shrink: 0;
-    font-size: 0.8rem;
+    font-size: 0.84rem;
     font-weight: 500;
     color: var(--wax-500);
 }
 
-.fine-print {
-    margin: 16px 0 28px;
-    font-size: 0.8rem;
+/* ---------- 8. Europe ---------- */
+
+.europe {
+    padding: 120px 0 0;
+    scroll-margin-top: 16px;
+}
+
+.europe > .draft {
+    max-width: 44em;
+    margin-bottom: 40px;
+}
+
+.stop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+}
+
+.stop {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--ink-800);
+}
+
+.stop__photo {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    background: var(--ink-700);
+}
+
+/* Until Evan adds his own photo, the placeholder stays short. */
+.stop__photo--empty {
+    aspect-ratio: auto;
+    min-height: 120px;
+    border-bottom: 1px dashed rgba(201, 164, 92, 0.5);
+}
+
+.stop__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stop__photo-note {
+    padding: 16px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-style: italic;
+    text-align: center;
+    color: var(--text-light-muted);
+}
+
+.stop__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px 24px 24px;
+}
+
+.stop__where {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-400);
+}
+
+.stop__place {
+    margin-top: -8px;
+    font-size: 1.9rem;
+}
+
+.stop__link {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+}
+
+.stop .link-button {
+    margin-top: -8px;
+    color: var(--gold-300);
+}
+
+.stop__about summary {
+    font-size: 0.86rem;
+    color: var(--text-light-muted);
+    cursor: pointer;
+}
+
+.stop__summary {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--text-light-muted);
+}
+
+/* ---------- 9. Price converter ---------- */
+
+.converter-block {
+    max-width: 760px;
+    margin-top: 80px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line-light);
+}
+
+.converter-block h3 {
+    font-size: 2rem;
+}
+
+.converter-block__lede {
+    margin: 6px 0 20px;
+    color: var(--text-light-muted);
+}
+
+.converter {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+}
+
+.converter-result__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin: 20px 0 8px;
+    padding: 0;
+    list-style: none;
+}
+
+.converter-result__list li {
+    padding: 8px 16px;
+    border: 1px solid var(--line-light);
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+}
+
+.converter-result__note {
+    margin-top: 12px;
+    font-size: 0.82rem;
+    color: var(--text-light-muted);
+}
+
+.converter-block .draft {
+    margin-top: 28px;
+}
+
+/* ---------- 10. Evan's notes ---------- */
+
+/* Draft boxes mark where Evan's own words will go. */
+.draft {
+    padding: 14px 18px;
+    border: 1px dashed var(--gold-400);
+    border-radius: 10px;
+    background: rgba(201, 164, 92, 0.08);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.draft::before {
+    content: "Draft";
+    display: block;
+    margin-bottom: 2px;
+    font-size: 0.66rem;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-500);
+}
+
+.draft--dark {
+    color: var(--text-light-muted);
+}
+
+.draft--dark::before {
+    color: var(--gold-300);
+}
+
+.take {
+    padding: 14px 16px;
+    border-left: 3px solid var(--wax-500);
+    border-radius: 0 10px 10px 0;
+    background: var(--ivory-100);
+}
+
+.take__label {
+    margin-bottom: 4px;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--wax-500);
+}
+
+.take__text {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+.take--draft {
+    border: 1px dashed var(--gold-400);
+    border-radius: 10px;
+    background: rgba(201, 164, 92, 0.08);
+}
+
+.take--draft .take__label {
+    color: var(--gold-500);
+}
+
+.take--draft .take__text {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-style: italic;
     color: var(--text-muted);
 }
 
-/* ---------- 14. Buttons & forms ---------- */
+.stop .take {
+    background: var(--ink-700);
+}
+
+.stop .take__label {
+    color: var(--gold-300);
+}
+
+.stop .take--draft {
+    background: rgba(201, 164, 92, 0.06);
+}
+
+.stop .take--draft .take__text {
+    color: var(--text-light-muted);
+}
+
+/* ---------- 11. Buttons & forms ---------- */
 
 .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     min-height: 46px;
     padding: 0 22px;
     border: 1px solid transparent;
@@ -1067,7 +891,7 @@ main,
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
-    transition: background-color 0.25s, border-color 0.25s, transform 0.25s;
+    transition: background-color 0.25s, border-color 0.25s;
 }
 
 .button:disabled {
@@ -1078,23 +902,20 @@ main,
 .button--wax {
     background: linear-gradient(180deg, var(--wax-500), var(--wax-600));
     color: var(--ivory-50);
-    box-shadow: 0 12px 26px -12px rgba(116, 28, 43, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .button--wax:hover {
     background: linear-gradient(180deg, var(--wax-400), var(--wax-500));
-    transform: translateY(-1px);
 }
 
 .button--ghost {
     border-color: var(--ivory-300);
-    background: transparent;
+    background: #fff;
     color: var(--text-dark);
 }
 
 .button--ghost:hover:not(:disabled) {
     border-color: var(--gold-400);
-    background: var(--ivory-100);
 }
 
 .link-button {
@@ -1104,7 +925,7 @@ main,
     background: none;
     color: var(--wax-500);
     font-family: var(--font-ui);
-    font-size: 0.86rem;
+    font-size: 0.88rem;
     font-weight: 500;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -1116,8 +937,8 @@ main,
 }
 
 .icon {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.8;
@@ -1129,7 +950,7 @@ input[type="number"],
 input[type="search"],
 select {
     width: 100%;
-    min-height: 48px;
+    min-height: 46px;
     padding: 0 14px;
     border: 1px solid var(--ivory-300);
     border-radius: 10px;
@@ -1137,7 +958,6 @@ select {
     color: var(--text-dark);
     font-family: var(--font-ui);
     font-size: 1rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus,
@@ -1153,7 +973,7 @@ input[aria-invalid="true"] {
 
 .hint {
     margin-top: 10px;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
     color: var(--text-muted);
 }
 
@@ -1166,93 +986,88 @@ input[aria-invalid="true"] {
 .field-error {
     margin-top: 10px;
     font-size: 0.88rem;
-    color: var(--wax-500);
+    color: var(--wax-400);
 }
 
 .is-warning {
     color: var(--wax-500);
 }
 
+.converter-block .is-warning,
+.converter-block .field-error {
+    color: var(--gold-300);
+}
+
 .is-success {
     color: var(--sage-500);
 }
 
-/* ---------- 15. Footer ---------- */
+/* ---------- 12. Footer & responsive ---------- */
 
 .site-footer {
-    margin-top: 72px;
-    padding: 40px 0 56px;
-    border-top: 1px solid var(--line-light);
-    color: var(--text-light-muted);
-    font-size: 0.88rem;
-}
-
-.site-footer__inner {
     display: grid;
-    gap: 10px;
+    gap: 6px;
+    margin-top: 120px;
+    padding: 32px 0 48px;
+    border-top: 1px solid var(--line-light);
+    font-size: 0.82rem;
+    color: var(--text-light-muted);
 }
 
 .site-footer a {
     color: var(--gold-300);
 }
 
-.brand--footer {
-    margin-bottom: 6px;
+.site-footer__credits {
+    font-size: 0.76rem;
+    opacity: 0.85;
 }
 
-.site-footer__fine {
-    font-size: 0.8rem;
-    opacity: 0.8;
-}
-
-/* ---------- 16. Responsive ---------- */
-
-@media (max-width: 960px) {
-    .hero {
+@media (max-width: 860px) {
+    .intro {
         grid-template-columns: 1fr;
         gap: 40px;
-        padding-top: 8px;
+        padding: 16px 0 72px;
     }
 
-    .watch-grid,
-    .stop-grid {
-        grid-template-columns: 1fr 1fr;
+    .photo--intro {
+        max-width: 360px;
     }
 
-    .perspective-grid {
+    .watch-dialog__layout {
         grid-template-columns: 1fr;
+    }
+
+    .watch-dialog__photo {
+        padding: 20px 20px 0;
+    }
+
+    .watch-dialog__photo .photo__frame {
+        aspect-ratio: 4 / 3;
+    }
+
+    .watch-dialog__info {
+        padding: 24px 20px 28px;
     }
 }
 
-@media (max-width: 680px) {
-    .watch-grid,
-    .stop-grid,
+@media (max-width: 560px) {
+    .watch-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 16px;
+    }
+
+    .watch-card__model {
+        font-size: 1.2rem;
+    }
+
     .converter {
         grid-template-columns: 1fr;
     }
 
-    .watch .photo__frame {
-        aspect-ratio: 4 / 3;
-    }
-
-    .hero__photos {
-        gap: 10px;
-    }
-
-    .hero__photos .photo:nth-child(2) {
-        margin-top: 24px;
-    }
-
-    .location-row {
-        flex-wrap: wrap;
-    }
-
-    .location-row input {
-        flex-basis: 100%;
-    }
-
-    .location-row .button {
-        flex: 1;
+    .facts div {
+        grid-template-columns: 1fr;
+        gap: 2px;
     }
 }
 
@@ -1261,8 +1076,8 @@ input[aria-invalid="true"] {
         scroll-behavior: auto;
     }
 
-    .button,
-    .watch {
+    .watch-card .photo__frame,
+    .button {
         transition: none;
     }
 }

@@ -11,8 +11,10 @@
  *               thickness, so those figures come from reviews and are marked
  *               approximate). `photo` is a Wikimedia Commons file and
  *               `pictured` says exactly what that photo shows.
- * WATCH_TYPES, MOVEMENTS   The plain-English basics, also used as filters.
- * DRESS_CODES  Which watches suit which occasion (the "Occasion" filter).
+ * WATCH_TYPES  The one filter above the watches, with a one-line explanation.
+ * MOVEMENTS    Plain-English explanations shown in each watch's details.
+ * DRESS_CODES  Which occasions each watch suits ("Wear it to" in the details).
+ * INTRO_WATCH  The photo beside the introduction.
  * EUROPE_STOPS Places with a watch story. The three below are examples to
  *              replace with places Evan actually visited.
  * CURRENCIES   Currencies offered by the price converter.
@@ -24,6 +26,7 @@ const PRICE_TIERS = {
     grail: "Grail · $10k+"
 };
 
+// The one filter on the page. Each summary appears under the buttons when chosen.
 const WATCH_TYPES = {
     dress: {
         label: "Dress",
@@ -31,22 +34,14 @@ const WATCH_TYPES = {
     },
     dive: {
         label: "Dive",
-        summary: "A rotating bezel for timing, serious water resistance and hands that glow in the dark."
+        summary: "Built for water: a rotating bezel for timing, high water resistance and hands that glow in the dark."
     },
-    chronograph: {
-        label: "Chronograph",
-        summary: "A built-in stopwatch, started and stopped with the pushers beside the crown."
+    sport: {
+        label: "Sport",
+        summary: "Tool watches: a stopwatch, a field watch, a digital. Tough, easy to read and easy to live with."
     },
-    field: {
-        label: "Field",
-        summary: "Born in the military: a clear dial, a tough case and a canvas strap."
-    },
-    digital: {
-        label: "Digital",
-        summary: "An LCD screen, a stopwatch and a battery that lasts for years, for the price of lunch."
-    },
-    steel: {
-        label: "Everyday steel",
+    everyday: {
+        label: "Everyday",
         summary: "Steel on a bracelet: smart enough for a meeting, tough enough for every day."
     },
     jewelry: {
@@ -182,7 +177,7 @@ const WATCHES = {
     speedmaster: {
         brand: "Omega",
         model: "Speedmaster Moonwatch Professional",
-        type: "chronograph",
+        type: "sport",
         caseMm: "42",
         thicknessMm: 13.58,
         movement: "Manual-wind",
@@ -196,7 +191,7 @@ const WATCHES = {
     "khaki-field": {
         brand: "Hamilton",
         model: "Khaki Field Mechanical 38mm",
-        type: "field",
+        type: "sport",
         caseMm: "38",
         thicknessMm: 9.5,
         movement: "Manual-wind",
@@ -210,7 +205,7 @@ const WATCHES = {
     f91w: {
         brand: "Casio",
         model: "F-91W",
-        type: "digital",
+        type: "sport",
         caseMm: "35.2 × 38.2",
         thicknessMm: 8.5,
         movement: "Quartz",
@@ -224,7 +219,7 @@ const WATCHES = {
     "prx-40": {
         brand: "Tissot",
         model: "PRX Powermatic 80, 40mm",
-        type: "steel",
+        type: "everyday",
         caseMm: "40",
         thicknessMm: 10.93,
         movement: "Automatic",
@@ -238,7 +233,7 @@ const WATCHES = {
     "prx-35": {
         brand: "Tissot",
         model: "PRX 35mm",
-        type: "steel",
+        type: "everyday",
         caseMm: "35",
         thicknessMm: 9.6,
         movement: "Quartz",
@@ -252,7 +247,7 @@ const WATCHES = {
     "datejust-36": {
         brand: "Rolex",
         model: "Datejust 36",
-        type: "steel",
+        type: "everyday",
         caseMm: "36",
         thicknessMm: 11.8,
         thicknessApprox: true,
@@ -267,7 +262,7 @@ const WATCHES = {
     "lady-datejust": {
         brand: "Rolex",
         model: "Datejust 31",
-        type: "steel",
+        type: "everyday",
         caseMm: "31",
         thicknessMm: null,
         movement: "Automatic",
@@ -281,7 +276,7 @@ const WATCHES = {
     "grand-seiko": {
         brand: "Grand Seiko",
         model: "Snowflake SBGA211",
-        type: "steel",
+        type: "everyday",
         caseMm: "41",
         thicknessMm: 12.5,
         movement: "Spring Drive",
@@ -295,7 +290,7 @@ const WATCHES = {
     constellation: {
         brand: "Omega",
         model: "Constellation 28mm",
-        type: "steel",
+        type: "everyday",
         caseMm: "28",
         thicknessMm: 8.48,
         movement: "Quartz",
@@ -309,7 +304,7 @@ const WATCHES = {
     santos: {
         brand: "Cartier",
         model: "Santos de Cartier, medium",
-        type: "steel",
+        type: "everyday",
         caseMm: "35.1 × 41.9",
         thicknessMm: 8.83,
         movement: "Automatic",
@@ -350,9 +345,10 @@ const WATCHES = {
     }
 };
 
-const HERO_WATCHES = ["tank-must-large", "calatrava", "serpenti"];
+// The photo beside the introduction.
+const INTRO_WATCH = "calatrava";
 
-// The watch etiquette behind the "Occasion" filter.
+// Which watches suit which dress code ("Wear it to" in each watch's details).
 const DRESS_CODES = {
     "white-tie": {
         name: "White Tie",
