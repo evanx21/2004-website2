@@ -29,7 +29,7 @@
     --font-display: "Newsreader", "Iowan Old Style", Charter, Georgia, serif;
     --font-text: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
 
-    --t-h1: clamp(2.75rem, 1.9rem + 3.4vw, 5rem);
+    --t-h1: clamp(2.75rem, 1.9rem + 3vw, 4.5rem);
     --t-h2: clamp(2rem, 1.55rem + 1.5vw, 3rem);
     --t-label: 0.8125rem;
 
@@ -1474,6 +1474,8 @@ input[aria-invalid="true"] {
 @media (max-width: 1023px) {
     :root {
         --gut: 32px;
+        /* Smaller here, so the heading stays on two lines in the narrower column. */
+        --t-h1: clamp(2.5rem, 1rem + 3.4vw, 3.5rem);
     }
 
     .hero__text {
@@ -1585,7 +1587,7 @@ input[aria-invalid="true"] {
     .site-nav {
         flex-wrap: wrap;
         width: 100%;
-        column-gap: var(--s-5);
+        gap: 0 var(--s-5);
     }
 
     .wordmark {
@@ -1678,11 +1680,11 @@ input[aria-invalid="true"] {
 
 @media (max-width: 380px) {
     :root {
-        --t-h1: 2.25rem;
+        --t-h1: 2rem;
     }
 
     .site-nav {
-        column-gap: var(--s-4);
+        column-gap: var(--s-3);
     }
 
     .wordmark {
