@@ -1,9 +1,11 @@
 /* ============================================================
-   The Wrist Concierge
-   1. Tokens       5. Finder form         9. Watch cards
-   2. Base         6. Buttons & controls 10. White tie
-   3. Header       7. Results            11. Footer
-   4. Hero         8. Photos             12. Responsive
+   Wrist Notes
+   1. Tokens          7. Basics guide         13. Try one on
+   2. Base            8. Filters & chips      14. Buttons & forms
+   3. Header & nav    9. Watch cards & photos 15. Footer
+   4. Hero           10. Notes from Europe    16. Responsive
+   5. Sections       11. Perspective
+   6. Evan's notes   12. Buying abroad
    ============================================================ */
 
 /* ---------- 1. Tokens ---------- */
@@ -68,11 +70,12 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
     margin: 0;
     font-family: var(--font-display);
     font-weight: 500;
-    line-height: 1.1;
+    line-height: 1.15;
 }
 
 p {
@@ -127,9 +130,14 @@ main,
     margin: 0 auto;
 }
 
-/* ---------- 3. Header ---------- */
+/* ---------- 3. Header & nav ---------- */
 
 .site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
     padding: 24px 0;
 }
 
@@ -142,7 +150,7 @@ main,
 
 .brand__name {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     font-style: italic;
     color: var(--gold-200);
 }
@@ -163,6 +171,25 @@ main,
         inset 0 0 0 3px rgba(0, 0, 0, 0.18),
         inset 0 0 0 5px rgba(224, 200, 142, 0.35),
         0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+}
+
+.site-nav a {
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-light-muted);
+    transition: color 0.2s;
+}
+
+.site-nav a:hover {
+    color: var(--gold-300);
 }
 
 /* ---------- 4. Hero ---------- */
@@ -188,10 +215,14 @@ main,
 
 .hero__lede {
     max-width: 32em;
-    margin-bottom: 32px;
     font-size: 1.08rem;
     font-weight: 300;
     color: var(--text-light-muted);
+}
+
+.hero .draft {
+    margin: 20px 0 32px;
+    max-width: 32em;
 }
 
 /* Three photos in a gently staggered row */
@@ -216,12 +247,12 @@ main,
     color: var(--text-light-muted);
 }
 
-/* ---------- 5. Finder form ---------- */
+/* ---------- 5. Sections ---------- */
 
-/* Ivory "stationery" panels: the form and the results */
-.finder,
-.results {
+/* Ivory "stationery" panels */
+.panel {
     position: relative;
+    margin-top: 64px;
     padding: clamp(24px, 5vw, 56px);
     border-radius: var(--radius-lg);
     background: var(--ivory-50);
@@ -230,8 +261,7 @@ main,
     scroll-margin-top: 16px;
 }
 
-.finder::before,
-.results::before {
+.panel::before {
     content: "";
     position: absolute;
     inset: 10px;
@@ -240,415 +270,450 @@ main,
     pointer-events: none;
 }
 
-.finder__title {
-    margin-bottom: 8px;
-    font-size: clamp(2.2rem, 4.5vw, 3rem);
+.panel__head,
+.section-head {
+    max-width: 44em;
+    margin-bottom: 28px;
 }
 
-.finder__step {
-    min-width: 0;
-    margin: 0;
-    padding: 28px 0;
-    border: 0;
-    border-bottom: 1px solid var(--line-dark);
-}
-
-/* Floating the legend lets it behave like a normal heading inside a fieldset. */
-.step {
-    float: left;
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    width: 100%;
-    margin-bottom: 18px;
-    padding: 0;
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    line-height: 1.2;
-}
-
-.step + * {
-    clear: both;
-}
-
-.step__numeral {
-    font-style: italic;
+.panel__head .eyebrow {
     color: var(--gold-500);
 }
 
-.optional {
-    font-family: var(--font-ui);
-    font-size: 0.7rem;
+.panel h2,
+.dark-section h2 {
+    margin: 10px 0 12px;
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+}
+
+.panel__lede,
+.section-head__lede {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+}
+
+.section-head__lede {
+    color: var(--text-light-muted);
+}
+
+/* Darker sections sit straight on the page background for rhythm */
+.dark-section {
+    margin-top: 80px;
+    scroll-margin-top: 16px;
+}
+
+/* ---------- 6. Evan's notes ---------- */
+
+/* Draft boxes mark where Evan's own words will go. */
+.draft {
+    padding: 14px 18px;
+    border: 1px dashed var(--gold-400);
+    border-radius: 10px;
+    background: rgba(201, 164, 92, 0.08);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.draft::before {
+    content: "Draft";
+    display: block;
+    margin-bottom: 2px;
+    font-size: 0.66rem;
+    font-style: normal;
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+    color: var(--gold-500);
+}
+
+.draft--dark {
+    color: var(--text-light-muted);
+}
+
+.draft--dark::before {
+    color: var(--gold-300);
+}
+
+.panel > .draft,
+.dark-section > .draft {
+    margin-bottom: 28px;
+}
+
+.take {
+    padding: 14px 16px;
+    border-left: 3px solid var(--wax-500);
+    border-radius: 0 10px 10px 0;
+    background: var(--ivory-100);
+}
+
+.take__label {
+    margin-bottom: 4px;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--wax-500);
+}
+
+.take__text {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1.4;
+}
+
+.take--draft {
+    border: 1px dashed var(--gold-400);
+    background: rgba(201, 164, 92, 0.08);
+}
+
+.take--draft .take__label {
+    color: var(--gold-500);
+}
+
+.take--draft .take__text {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-style: italic;
     color: var(--text-muted);
+}
+
+/* ---------- 7. Basics guide ---------- */
+
+.guide-part {
+    padding-top: 28px;
+    border-top: 1px solid var(--line-dark);
+}
+
+.guide-part + .guide-part {
+    margin-top: 32px;
+}
+
+.guide-part__title {
+    margin-bottom: 18px;
+    font-size: 1.8rem;
+}
+
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.guide-grid--four {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.guide-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px;
+    border: 1px solid var(--ivory-300);
+    border-radius: var(--radius-md);
+    background: #fff;
+}
+
+.guide-card__title {
+    font-size: 1.45rem;
+}
+
+.guide-card__text {
+    flex: 1;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+}
+
+.spec-glossary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px 28px;
+    margin: 0;
+}
+
+.spec-glossary dt {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.spec-glossary dd {
+    margin: 4px 0 0;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+}
+
+/* ---------- 8. Filters & chips ---------- */
+
+.filters {
+    display: grid;
+    gap: 16px;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    background: var(--ivory-100);
+}
+
+.filter-group {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 .field-label {
     display: block;
     margin-bottom: 8px;
     padding: 0;
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--text-muted);
 }
 
-.field-label .optional {
-    margin-left: 6px;
-    font-size: 0.66rem;
-    opacity: 0.8;
-}
-
-textarea,
-input[type="date"],
-input[type="search"] {
-    width: 100%;
-    border: 1px solid var(--ivory-300);
-    border-radius: 10px;
-    background-color: #fff;
-    color: var(--text-dark);
-    font-family: var(--font-ui);
-    font-size: 1rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-input[type="date"],
-input[type="search"] {
-    min-height: 48px;
-    padding: 0 14px;
-}
-
-textarea {
-    display: block;
-    min-height: 150px;
-    padding: 16px 20px;
-    background-color: var(--ivory-100);
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-style: italic;
-    line-height: 1.5;
-    resize: vertical;
-}
-
-textarea::placeholder {
-    color: #9a9182;
-}
-
-textarea:focus,
-input:focus {
-    outline: none;
-    border-color: var(--gold-400);
-    box-shadow: 0 0 0 3px rgba(201, 164, 92, 0.28);
-}
-
-.hint {
-    margin-top: 8px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.hint--lead {
-    margin: 0 0 18px;
-}
-
-/* Empty status messages stay in the page (so screen readers hear updates) but take no space. */
-.hint:empty,
-.field-error:empty {
-    margin: 0;
-}
-
-.is-warning {
-    color: var(--wax-500);
-}
-
-.is-success {
-    color: var(--sage-500);
-}
-
-.field-error {
-    margin-top: 10px;
-    font-size: 0.88rem;
-    color: var(--wax-500);
-}
-
-.invite-tools {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px 16px;
-    margin: 14px 0 26px;
-}
-
-.invite-tools .hint {
-    margin-top: 0;
-}
-
-.forecast-fields {
-    display: grid;
-    grid-template-columns: 1fr 200px;
-    align-items: start;
-    gap: 20px;
-}
-
-.location-row {
-    display: flex;
-    gap: 10px;
-}
-
-.location-row input {
-    flex: 1;
-    min-width: 0;
-}
-
-.city-results {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 12px 0 0;
-    padding: 0;
-    list-style: none;
-}
-
-.city-results:empty {
-    display: none;
-}
-
-.city-option {
-    padding: 8px 16px;
-    border: 1px solid var(--ivory-300);
-    border-radius: 999px;
-    background: #fff;
-    color: var(--text-dark);
-    font-family: var(--font-ui);
-    font-size: 0.92rem;
-    cursor: pointer;
-    transition: border-color 0.2s, background-color 0.2s;
-}
-
-.city-option:hover {
-    border-color: var(--gold-400);
-    background-color: var(--ivory-100);
-}
-
-.finder__submit {
-    padding-top: 32px;
-    text-align: center;
-}
-
-/* ---------- 6. Buttons & controls ---------- */
-
-.button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 46px;
-    padding: 0 22px;
-    border: 1px solid transparent;
-    border-radius: 999px;
-    font-family: var(--font-ui);
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    text-decoration: none;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background-color 0.25s, border-color 0.25s, transform 0.25s;
-}
-
-.button:disabled {
-    opacity: 0.55;
-    cursor: wait;
-}
-
-.button--wax {
-    background: linear-gradient(180deg, var(--wax-500), var(--wax-600));
-    color: var(--ivory-50);
-    box-shadow: 0 12px 26px -12px rgba(116, 28, 43, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.16);
-}
-
-.button--wax:hover {
-    background: linear-gradient(180deg, var(--wax-400), var(--wax-500));
-    transform: translateY(-1px);
-}
-
-.button--ghost {
-    border-color: var(--ivory-300);
-    background: transparent;
-    color: var(--text-dark);
-}
-
-.button--ghost:hover:not(:disabled) {
-    border-color: var(--gold-400);
-    background: var(--ivory-100);
-}
-
-.button--large {
-    min-height: 58px;
-    padding: 0 40px;
-    font-size: 0.84rem;
-}
-
-.icon {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-/* Radio buttons styled as chips (dress code) and as a segmented switch (wardrobe).
-   The real inputs stay in the page, invisible, so keyboards and screen readers still work. */
+/* Radio buttons styled as chips. The real inputs stay in the page, invisible,
+   so keyboards and screen readers still work. */
 .chips {
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-.chips__list,
-.segmented {
     position: relative;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
 }
 
-.segmented {
-    display: inline-flex;
-    gap: 4px;
-    padding: 4px;
-    border-radius: 999px;
-    background: var(--ivory-200);
-}
-
-.chips input,
-.segmented input {
+.chips input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
-.chips label,
-.segmented label {
-    padding: 9px 18px;
+.chips label {
+    padding: 7px 16px;
+    border: 1px solid var(--ivory-300);
     border-radius: 999px;
+    background: #fff;
     color: var(--text-dark);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-}
-
-.chips label {
-    border: 1px solid var(--ivory-300);
-    background: #fff;
 }
 
 .chips label:hover {
     border-color: var(--gold-400);
 }
 
-.segmented label {
-    color: var(--text-muted);
-}
-
-.chips input:checked + label,
-.segmented input:checked + label {
+.chips input:checked + label {
     border-color: var(--ink-800);
     background: var(--ink-800);
     color: var(--gold-200);
 }
 
-.chips input:focus-visible + label,
-.segmented input:focus-visible + label {
+.chips input:focus-visible + label {
     outline: 2px solid var(--gold-500);
     outline-offset: 2px;
 }
 
-/* ---------- 7. Results ---------- */
-
-.results {
-    margin-top: 64px;
+.collection-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 16px;
+    margin: 22px 0 18px;
 }
 
-.results__head {
-    max-width: 44em;
-    margin: 0 auto 32px;
-    text-align: center;
-}
-
-.results__head .eyebrow {
-    color: var(--gold-500);
-}
-
-.results__title {
-    margin: 10px 0 12px;
-    font-size: clamp(2.6rem, 6vw, 4.2rem);
-}
-
-.results__title:focus {
-    outline: none;
-}
-
-.results__decoded {
-    font-size: 1rem;
+.collection-bar__count {
+    font-size: 0.9rem;
     color: var(--text-muted);
 }
 
-.results__rule {
-    margin-top: 16px;
-    font-family: var(--font-display);
-    font-size: 1.45rem;
-    font-style: italic;
-    line-height: 1.4;
-}
-
-.strap-tip {
+.occasion-note {
     display: grid;
     gap: 4px;
-    margin-bottom: 32px;
-    padding: 18px 24px;
+    margin-bottom: 22px;
+    padding: 16px 20px;
     border-radius: var(--radius-md);
     background: var(--ink-800);
-    color: var(--text-light);
-}
-
-.strap-tip__label {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold-300);
-}
-
-.strap-tip__forecast {
-    font-size: 0.9rem;
     color: var(--text-light-muted);
 }
 
-.strap-tip__advice {
+.occasion-note__title {
     font-family: var(--font-display);
-    font-size: 1.3rem;
-    line-height: 1.4;
+    font-size: 1.5rem;
+    color: var(--gold-200);
 }
 
-.results__again {
-    margin-top: 32px;
+.occasion-note__advice {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-light);
+}
+
+.empty-state {
+    padding: 32px;
+    border: 1px dashed var(--ivory-300);
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-style: italic;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* ---------- 9. Watch cards & photos ---------- */
+
+.watch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.watch {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--ivory-300);
+    border-radius: var(--radius-md);
+    background: #fff;
+    scroll-margin-top: 24px;
+    transition: box-shadow 0.4s;
+}
+
+.watch.is-highlighted {
+    box-shadow: 0 0 0 3px var(--gold-400);
+}
+
+.watch .photo__credit {
+    padding: 0 18px;
+}
+
+.watch__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 18px 22px;
+}
+
+.watch__tier {
+    align-self: flex-start;
+    padding: 3px 10px;
+    border: 1px solid var(--gold-400);
+    border-radius: 999px;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-500);
+}
+
+.watch__brand {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.watch__model {
+    margin-top: -6px;
+    font-size: 1.6rem;
+}
+
+.watch__tags {
+    font-size: 0.8rem;
+    color: var(--gold-500);
+}
+
+.watch__why,
+.watch__occasions {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+}
+
+.watch__specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+    margin: 4px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-dark);
+}
+
+.watch__specs dt,
+.cuff__label {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.watch__specs dd {
+    margin: 0;
+    font-size: 0.94rem;
+}
+
+.cuff {
+    padding-top: 14px;
+    border-top: 1px solid var(--line-dark);
+}
+
+.cuff__label {
+    margin-bottom: 10px;
+}
+
+/* 0–15 mm: up to 9 mm slides under a cuff, 9–11 mm needs a tug, over 11 mm needs room. */
+.cuff__gauge {
+    position: relative;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--sage-500) 0 60%, var(--gold-400) 60% 73.3%, var(--wax-400) 73.3% 100%);
+}
+
+.cuff__gauge.is-unknown {
+    background: var(--ivory-300);
+}
+
+/* --at is the watch's thickness as a percentage of the gauge, set by script.js. */
+.cuff__marker {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--at, 0) * 1%);
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    background: var(--ink-800);
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.cuff__gauge.is-unknown .cuff__marker {
+    display: none;
+}
+
+.cuff__scale {
+    display: grid;
+    grid-template-columns: 60% 13.3% 26.7%;
+    margin-top: 6px;
+    font-size: 0.66rem;
+    color: var(--text-muted);
+}
+
+.cuff__scale span:nth-child(2) {
     text-align: center;
 }
 
-.results__again a {
-    color: var(--wax-500);
-    font-weight: 500;
+.cuff__scale span:last-child {
+    text-align: right;
 }
 
-/* ---------- 8. Photos ---------- */
+.cuff__verdict {
+    margin-top: 6px;
+    font-size: 0.9rem;
+}
+
+.watch .take {
+    margin-top: auto;
+}
 
 .photo {
     margin: 0;
@@ -706,182 +771,413 @@ input:focus {
     margin: 0;
 }
 
-/* ---------- 9. Watch cards ---------- */
+/* ---------- 10. Notes from Europe ---------- */
 
-.watch-grid {
+.stop-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 22px;
 }
 
-.watch {
+.stop {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border: 1px solid var(--ivory-300);
+    border: 1px solid var(--line-light);
     border-radius: var(--radius-md);
-    background: #fff;
+    background: var(--ink-800);
 }
 
-.watch .photo__credit {
-    padding: 0 18px;
+.stop__photo {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    border-bottom: 1px dashed rgba(201, 164, 92, 0.5);
+    background: var(--ink-700);
 }
 
-.watch__body {
+/* Until Evan adds his own photo, the placeholder stays short. */
+.stop__photo--empty {
+    aspect-ratio: auto;
+    min-height: 140px;
+}
+
+.stop__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stop__photo-note {
+    padding: 16px;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    text-align: center;
+    color: var(--text-light-muted);
+}
+
+.stop__body {
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: 10px;
-    padding: 16px 18px 22px;
+    gap: 12px;
+    padding: 18px 20px 22px;
 }
 
-.watch__tier {
-    align-self: flex-start;
-    padding: 3px 10px;
-    border: 1px solid var(--gold-400);
-    border-radius: 999px;
-    font-size: 0.66rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold-500);
-}
-
-.watch__brand {
-    font-size: 0.72rem;
+.stop__where {
+    font-size: 0.7rem;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
+    color: var(--gold-400);
+}
+
+.stop__place {
+    font-size: 1.8rem;
+    color: var(--text-light);
+}
+
+.stop__summary {
+    font-size: 0.92rem;
+    color: var(--text-light-muted);
+}
+
+.stop__link {
+    padding-top: 12px;
+    border-top: 1px solid var(--line-light);
+}
+
+.stop__link-label {
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-300);
+}
+
+.stop__link-text {
+    margin: 4px 0 6px;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--text-light);
+}
+
+.stop .link-button {
+    color: var(--gold-300);
+}
+
+.stop .take {
+    margin-top: auto;
+}
+
+.stop .take--draft .take__text {
+    color: var(--text-light-muted);
+}
+
+/* ---------- 11. Perspective ---------- */
+
+.perspective-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.perspective h3 {
+    margin-bottom: 12px;
+    font-size: 1.7rem;
+}
+
+/* ---------- 12. Buying abroad ---------- */
+
+.converter {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    align-items: end;
+    gap: 16px;
+    max-width: 720px;
+}
+
+.converter-result {
+    max-width: 720px;
+    margin: 22px 0 28px;
+}
+
+.converter-result:empty {
+    margin: 0 0 28px;
+}
+
+.converter-result__from {
+    margin-bottom: 10px;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+}
+
+.converter-result__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+    margin: 0 0 10px;
+}
+
+.converter-result__list div {
+    padding: 12px 14px;
+    border: 1px solid var(--ivory-300);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.converter-result__list dt {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--text-muted);
 }
 
-.watch__model {
-    margin-top: -6px;
+.converter-result__list dd {
+    margin: 2px 0 0;
+    font-family: var(--font-display);
     font-size: 1.6rem;
 }
 
-.watch__why {
-    font-size: 0.92rem;
-    color: var(--text-muted);
+/* ---------- 13. Try one on ---------- */
+
+.shop-search {
+    max-width: 720px;
 }
 
-.watch__specs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 16px;
-    margin: 4px 0 0;
-    padding-top: 14px;
-    border-top: 1px solid var(--line-dark);
+.location-row {
+    display: flex;
+    gap: 10px;
 }
 
-.watch__specs dt {
-    font-size: 0.66rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
+.location-row input {
+    flex: 1;
+    min-width: 0;
 }
 
-.watch__specs dd {
-    margin: 0;
-    font-size: 0.94rem;
+.place-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
 }
 
-.cuff {
-    margin-top: auto;
-    padding-top: 14px;
-    border-top: 1px solid var(--line-dark);
-}
-
-.cuff__label {
-    margin-bottom: 10px;
-    font-size: 0.66rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
-
-/* 0–15 mm: up to 9 mm slides under a cuff, 9–11 mm needs a tug, over 11 mm needs room. */
-.cuff__gauge {
-    position: relative;
-    height: 6px;
-    border-radius: 3px;
-    background: linear-gradient(90deg, var(--sage-500) 0 60%, var(--gold-400) 60% 73.3%, var(--wax-400) 73.3% 100%);
-}
-
-.cuff__gauge.is-unknown {
-    background: var(--ivory-300);
-}
-
-/* --at is the watch's thickness as a percentage of the gauge, set by script.js. */
-.cuff__marker {
-    position: absolute;
-    top: 50%;
-    left: calc(var(--at, 0) * 1%);
-    width: 14px;
-    height: 14px;
-    border: 2px solid #fff;
-    background: var(--ink-800);
-    transform: translate(-50%, -50%) rotate(45deg);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-.cuff__gauge.is-unknown .cuff__marker {
+.place-options:empty {
     display: none;
 }
 
-.cuff__scale {
-    display: grid;
-    grid-template-columns: 60% 13.3% 26.7%;
-    margin-top: 6px;
-    font-size: 0.66rem;
+.place-options__label {
+    font-size: 0.88rem;
     color: var(--text-muted);
 }
 
-.cuff__scale span:nth-child(2) {
-    text-align: center;
+.city-option {
+    padding: 6px 14px;
+    border: 1px solid var(--ivory-300);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--text-dark);
+    font-family: var(--font-ui);
+    font-size: 0.86rem;
+    cursor: pointer;
 }
 
-.cuff__scale span:last-child {
-    text-align: right;
+.city-option:hover {
+    border-color: var(--gold-400);
 }
 
-.cuff__verdict {
-    margin-top: 6px;
-    font-size: 0.9rem;
-}
-
-/* ---------- 10. White tie ---------- */
-
-.no-watch {
+.shop-list {
     display: grid;
-    grid-template-columns: minmax(200px, 320px) 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.shop-list:empty {
+    display: none;
+}
+
+.shop {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--ivory-300);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.shop__details {
+    min-width: 0;
+}
+
+.shop__name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.2;
+}
+
+.shop__meta,
+.shop__address {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+}
+
+.shop__brands {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--wax-500);
+}
+
+.shop__map {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--wax-500);
+}
+
+.fine-print {
+    margin: 16px 0 28px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ---------- 14. Buttons & forms ---------- */
+
+.button {
+    display: inline-flex;
     align-items: center;
-    gap: 36px;
-    padding: 24px;
-    border-radius: var(--radius-md);
+    justify-content: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 0 22px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.button:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.button--wax {
+    background: linear-gradient(180deg, var(--wax-500), var(--wax-600));
+    color: var(--ivory-50);
+    box-shadow: 0 12px 26px -12px rgba(116, 28, 43, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.button--wax:hover {
+    background: linear-gradient(180deg, var(--wax-400), var(--wax-500));
+    transform: translateY(-1px);
+}
+
+.button--ghost {
+    border-color: var(--ivory-300);
+    background: transparent;
+    color: var(--text-dark);
+}
+
+.button--ghost:hover:not(:disabled) {
+    border-color: var(--gold-400);
     background: var(--ivory-100);
 }
 
-.no-watch .photo {
-    justify-self: center;
+.link-button {
+    align-self: flex-start;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--wax-500);
+    font-family: var(--font-ui);
+    font-size: 0.86rem;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.text-link {
+    color: var(--gold-300);
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+input[type="number"],
+input[type="search"],
+select {
     width: 100%;
-    max-width: 320px;
-}
-
-.no-watch .photo__frame {
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid var(--ivory-300);
     border-radius: 10px;
+    background-color: #fff;
+    color: var(--text-dark);
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.no-watch h3 {
-    margin-bottom: 10px;
-    font-size: 2rem;
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--gold-400);
+    box-shadow: 0 0 0 3px rgba(201, 164, 92, 0.28);
 }
 
-.no-watch__text p {
+input[aria-invalid="true"] {
+    border-color: var(--wax-400);
+}
+
+.hint {
+    margin-top: 10px;
+    font-size: 0.9rem;
     color: var(--text-muted);
 }
 
-/* ---------- 11. Footer ---------- */
+/* Empty status messages stay in the page (so screen readers hear updates) but take no space. */
+.hint:empty,
+.field-error:empty {
+    margin: 0;
+}
+
+.field-error {
+    margin-top: 10px;
+    font-size: 0.88rem;
+    color: var(--wax-500);
+}
+
+.is-warning {
+    color: var(--wax-500);
+}
+
+.is-success {
+    color: var(--sage-500);
+}
+
+/* ---------- 15. Footer ---------- */
 
 .site-footer {
     margin-top: 72px;
@@ -909,7 +1205,7 @@ input:focus {
     opacity: 0.8;
 }
 
-/* ---------- 12. Responsive ---------- */
+/* ---------- 16. Responsive ---------- */
 
 @media (max-width: 960px) {
     .hero {
@@ -918,15 +1214,20 @@ input:focus {
         padding-top: 8px;
     }
 
-    .watch-grid {
+    .watch-grid,
+    .stop-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .perspective-grid {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 680px) {
     .watch-grid,
-    .forecast-fields,
-    .no-watch {
+    .stop-grid,
+    .converter {
         grid-template-columns: 1fr;
     }
 
@@ -953,10 +1254,6 @@ input:focus {
     .location-row .button {
         flex: 1;
     }
-
-    .button--large {
-        width: 100%;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -964,7 +1261,8 @@ input:focus {
         scroll-behavior: auto;
     }
 
-    .button {
+    .button,
+    .watch {
         transition: none;
     }
 }
