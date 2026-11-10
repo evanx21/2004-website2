@@ -5,11 +5,13 @@
  *
  * EVAN’S NOTES  Each Europe stop’s `story` is for Evan’s own words. An empty
  *               string shows a "draft" box on the page.
- * HOUSES        The brand guide: four groups, each brand with where and when
- *               it was founded and what it’s known for. Names match `brand`.
- *               `say` (hard names only): the language to read the name in,
- *               `text` when the voice needs a respelling to get it right, and
- *               `guide`, the English spelling shown beside the Say it button.
+ * BRANDS        Every brand on the site: where and when it was founded and
+ *               what it’s known for (the "Maker" line in a watch’s details).
+ *               Names match `brand`. `say` (hard names only): the language
+ *               to read the name in, `text` when the voice needs a respelling
+ *               to get it right, and `guide`, the English spelling shown
+ *               beside the Say it button.
+ * SPECIALTIES   "Who’s best at what" in Watch basics.
  * WATCHES       Real watches. Specs describe the current model named in
  *               `model` (makers’ published data; Rolex doesn’t publish
  *               thickness, so those figures come from reviews and are marked
@@ -29,170 +31,170 @@ const PRICE_TIERS = {
     grail: "Over $10,000"
 };
 
-const HOUSES = [
+const BRANDS = {
+    "Patek Philippe": {
+        origin: "Geneva, 1839",
+        note: "Family-owned since 1932 and best known for grand complications, the Calatrava and the Nautilus.",
+        say: { lang: "fr-FR", guide: "pah-TEK fee-LEEP" }
+    },
+    "Audemars Piguet": {
+        origin: "Le Brassus, 1875",
+        note: "Still owned by its founding families; its 1972 Royal Oak helped create the luxury steel sports watch.",
+        say: { lang: "fr-FR", text: "Audemar Piguet", guide: "oh-duh-MAR pee-GAY" }
+    },
+    "Vacheron Constantin": {
+        origin: "Geneva, 1755",
+        note: "Says it has made watches without interruption since 1755, longer than any other maker.",
+        say: { lang: "fr-FR", guide: "vash-uh-RON kon-stahn-TAN" }
+    },
+    "Jaeger-LeCoultre": {
+        origin: "Le Sentier, 1833",
+        note: "Called “the watchmaker’s watchmaker” for supplying movements to other houses; maker of the Reverso.",
+        say: { lang: "fr-FR", text: "Jégère Lecoultre", guide: "zhay-ZHAIR luh-KOO-truh" }
+    },
+    "Breguet": {
+        origin: "Paris, 1775",
+        note: "Founded by Abraham-Louis Breguet, who patented the tourbillon in 1801.",
+        say: { lang: "fr-FR", guide: "bruh-GAY" }
+    },
+    "Blancpain": {
+        origin: "Villeret, 1735",
+        note: "Claims to be the oldest watch brand; its 1953 Fifty Fathoms helped define the dive watch.",
+        say: { lang: "fr-FR", guide: "blahn-PAN" }
+    },
+    "Piaget": {
+        origin: "La Côte-aux-Fées, 1874",
+        note: "Famous for ultra-thin movements and for watches that double as jewelry.",
+        say: { lang: "fr-FR", guide: "pyah-ZHAY" }
+    },
+    "Cartier": {
+        origin: "Paris, 1847",
+        note: "The Paris jeweler whose Santos (1904) and Tank (1917) helped make the wristwatch fashionable.",
+        say: { lang: "fr-FR", guide: "kar-tee-AY" }
+    },
+    "Bulgari": {
+        origin: "Rome, 1884",
+        note: "A Roman jeweler known for bold Italian design, from the Serpenti to record-thin Octo Finissimo watches.",
+        say: { lang: "it-IT", text: "Bùlgari", guide: "BOOL-gah-ree" }
+    },
+    "Grand Seiko": {
+        origin: "Japan, 1960",
+        note: "Seiko’s luxury line, known for mirror-like Zaratsu polishing and the gliding Spring Drive.",
+        say: { lang: "ja-JP", text: "グランドセイコー", guide: "grand SAY-koh" }
+    },
+    "Rolex": {
+        origin: "Geneva, 1905",
+        note: "Founded in London and based in Geneva since 1919; its 1926 Oyster case made wristwatches waterproof."
+    },
+    "Omega": {
+        origin: "Biel/Bienne, 1848",
+        note: "The Speedmaster went to the Moon, and Omega has timed the Olympic Games since 1932."
+    },
+    "Tudor": {
+        origin: "Geneva, 1926",
+        note: "Founded by Rolex’s Hans Wilsdorf as a more affordable sister brand."
+    },
+    "Breitling": {
+        origin: "Saint-Imier, 1884",
+        note: "Built its name on pilot’s chronographs such as the Navitimer."
+    },
+    "TAG Heuer": {
+        origin: "Saint-Imier, 1860",
+        note: "Edouard Heuer’s company, a pioneer of racing chronographs and stopwatches.",
+        say: { lang: "en-US", text: "Tag Hoyer", guide: "tag HOY-er" }
+    },
+    "Zenith": {
+        origin: "Le Locle, 1865",
+        note: "Launched the El Primero in 1969, one of the first automatic chronograph movements."
+    },
+    "IWC": {
+        origin: "Schaffhausen, 1868",
+        note: "Founded by an American, F. A. Jones; known for pilot’s watches and the Portugieser."
+    },
+    "Panerai": {
+        origin: "Florence, 1860",
+        note: "A Florentine workshop that supplied the Italian navy with diving instruments and watches.",
+        say: { lang: "it-IT", guide: "pah-neh-RYE" }
+    },
+    "Seiko": {
+        origin: "Tokyo, 1881",
+        note: "Launched the world’s first quartz wristwatch, the Astron, in 1969.",
+        say: { lang: "ja-JP", text: "セイコー", guide: "SAY-koh" }
+    },
+    "Orient": {
+        origin: "Tokyo, 1950",
+        note: "Japanese maker known for automatic movements it builds itself, at friendly prices."
+    },
+    "Tissot": {
+        origin: "Le Locle, 1853",
+        note: "One of the most affordable ways into Swiss mechanical watches.",
+        say: { lang: "fr-FR", guide: "tee-SOH" }
+    },
+    "Hamilton": {
+        origin: "Lancaster, Pennsylvania, 1892",
+        note: "An American name, now Swiss-made, still known for military-style field watches."
+    },
+    "Nomos Glashütte": {
+        origin: "Glashütte, 1990",
+        note: "Founded just after the fall of the Berlin Wall; known for clean, Bauhaus-style dials.",
+        say: { lang: "de-DE", guide: "NOH-moss GLAHS-hoo-tuh" }
+    },
+    "Casio": {
+        origin: "Tokyo, 1946",
+        note: "An electronics maker whose watches began with the 1974 Casiotron; home of the G-Shock and F-91W."
+    },
+    "Swatch": {
+        origin: "Biel/Bienne, 1983",
+        note: "Its cheap, colorful plastic watches helped rescue Swiss watchmaking from the quartz crisis."
+    }
+};
+
+// "Who’s best at what" in Watch basics. Brand names match BRANDS.
+const SPECIALTIES = [
     {
-        title: "The Holy Trinity",
-        summary: "The three Swiss houses collectors rank above all others for history and hand-finishing.",
-        brands: [
-            {
-                name: "Patek Philippe",
-                origin: "Geneva, 1839",
-                note: "Family-owned since 1932 and best known for grand complications, the Calatrava and the Nautilus.",
-                say: { lang: "fr-FR", guide: "pah-TEK fee-LEEP" }
-            },
-            {
-                name: "Audemars Piguet",
-                origin: "Le Brassus, 1875",
-                note: "Still owned by its founding families; its 1972 Royal Oak helped create the luxury steel sports watch.",
-                say: { lang: "fr-FR", text: "Audemar Piguet", guide: "oh-duh-MAR pee-GAY" }
-            },
-            {
-                name: "Vacheron Constantin",
-                origin: "Geneva, 1755",
-                note: "Says it has made watches without interruption since 1755, longer than any other maker.",
-                say: { lang: "fr-FR", guide: "vash-uh-RON kon-stahn-TAN" }
-            }
-        ]
+        title: "Thin dress watches",
+        text: "Plain dials and slim cases, often wound by hand.",
+        brands: ["Patek Philippe", "Vacheron Constantin", "Jaeger-LeCoultre", "Piaget", "Nomos Glashütte"]
     },
     {
-        title: "Fine watchmaking",
-        summary: "Historic makers and jewelers known for craft, complications and design.",
-        brands: [
-            {
-                name: "Jaeger-LeCoultre",
-                origin: "Le Sentier, 1833",
-                note: "Called “the watchmaker’s watchmaker” for supplying movements to other houses; maker of the Reverso.",
-                say: { lang: "fr-FR", text: "Jégère Lecoultre", guide: "zhay-ZHAIR luh-KOO-truh" }
-            },
-            {
-                name: "Breguet",
-                origin: "Paris, 1775",
-                note: "Founded by Abraham-Louis Breguet, who patented the tourbillon in 1801.",
-                say: { lang: "fr-FR", guide: "bruh-GAY" }
-            },
-            {
-                name: "Blancpain",
-                origin: "Villeret, 1735",
-                note: "Claims to be the oldest watch brand; its 1953 Fifty Fathoms helped define the dive watch.",
-                say: { lang: "fr-FR", guide: "blahn-PAN" }
-            },
-            {
-                name: "Piaget",
-                origin: "La Côte-aux-Fées, 1874",
-                note: "Famous for ultra-thin movements and for watches that double as jewelry.",
-                say: { lang: "fr-FR", guide: "pyah-ZHAY" }
-            },
-            {
-                name: "Cartier",
-                origin: "Paris, 1847",
-                note: "The Paris jeweler whose Santos (1904) and Tank (1917) helped make the wristwatch fashionable.",
-                say: { lang: "fr-FR", guide: "kar-tee-AY" }
-            },
-            {
-                name: "Bulgari",
-                origin: "Rome, 1884",
-                note: "A Roman jeweler known for bold Italian design, from the Serpenti to record-thin Octo Finissimo watches.",
-                say: { lang: "it-IT", text: "Bùlgari", guide: "BOOL-gah-ree" }
-            },
-            {
-                name: "Grand Seiko",
-                origin: "Japan, 1960",
-                note: "Seiko’s luxury line, known for mirror-like Zaratsu polishing and the gliding Spring Drive.",
-                say: { lang: "ja-JP", text: "グランドセイコー", guide: "grand SAY-koh" }
-            }
-        ]
+        title: "Dive watches",
+        text: "Rotating bezels and serious water resistance, a 1950s invention.",
+        brands: ["Rolex", "Blancpain", "Omega", "Tudor", "Seiko", "Panerai"]
     },
     {
-        title: "Sports watches",
-        summary: "The names behind the dive, pilot and racing watches everyone recognizes.",
-        brands: [
-            {
-                name: "Rolex",
-                origin: "Geneva, 1905",
-                note: "Founded in London and based in Geneva since 1919; its 1926 Oyster case made wristwatches waterproof."
-            },
-            {
-                name: "Omega",
-                origin: "Biel/Bienne, 1848",
-                note: "The Speedmaster went to the Moon, and Omega has timed the Olympic Games since 1932."
-            },
-            {
-                name: "Tudor",
-                origin: "Geneva, 1926",
-                note: "Founded by Rolex’s Hans Wilsdorf as a more affordable sister brand."
-            },
-            {
-                name: "Breitling",
-                origin: "Saint-Imier, 1884",
-                note: "Built its name on pilot’s chronographs such as the Navitimer."
-            },
-            {
-                name: "TAG Heuer",
-                origin: "Saint-Imier, 1860",
-                note: "Edouard Heuer’s company, a pioneer of racing chronographs and stopwatches.",
-                say: { lang: "en-US", text: "Tag Hoyer", guide: "tag HOY-er" }
-            },
-            {
-                name: "Zenith",
-                origin: "Le Locle, 1865",
-                note: "Launched the El Primero in 1969, one of the first automatic chronograph movements."
-            },
-            {
-                name: "IWC",
-                origin: "Schaffhausen, 1868",
-                note: "Founded by an American, F. A. Jones; known for pilot’s watches and the Portugieser."
-            },
-            {
-                name: "Panerai",
-                origin: "Florence, 1860",
-                note: "A Florentine workshop that supplied the Italian navy with diving instruments and watches.",
-                say: { lang: "it-IT", guide: "pah-neh-RYE" }
-            }
-        ]
+        title: "Chronographs",
+        text: "Stopwatch watches for racing, flying and even the Moon.",
+        brands: ["Omega", "Rolex", "Zenith", "TAG Heuer", "Breitling"]
+    },
+    {
+        title: "Pilot’s watches",
+        text: "Big, clear dials made to be read in a cockpit, like my IWC.",
+        brands: ["IWC", "Breitling"]
+    },
+    {
+        title: "Steel sports watches",
+        text: "Luxury watches in steel with a built-in bracelet, an idea from the 1970s.",
+        brands: ["Audemars Piguet", "Patek Philippe", "Vacheron Constantin", "Piaget", "Tissot"]
+    },
+    {
+        title: "Jewelry watches",
+        text: "Designed by jewelers, so the shape and the bracelet lead.",
+        brands: ["Cartier", "Bulgari", "Piaget"]
+    },
+    {
+        title: "Complications and hand-finishing",
+        text: "Tourbillons, perpetual calendars and movements decorated by hand.",
+        brands: ["Patek Philippe", "Vacheron Constantin", "Audemars Piguet", "Breguet", "Jaeger-LeCoultre"]
+    },
+    {
+        title: "Japanese watchmaking",
+        text: "From the first quartz wristwatch to the gliding Spring Drive.",
+        brands: ["Grand Seiko", "Seiko", "Casio", "Orient"]
     },
     {
         title: "Great first watches",
-        summary: "Honest, well-made watches that won’t empty a student’s wallet.",
-        brands: [
-            {
-                name: "Seiko",
-                origin: "Tokyo, 1881",
-                note: "Launched the world’s first quartz wristwatch, the Astron, in 1969.",
-                say: { lang: "ja-JP", text: "セイコー", guide: "SAY-koh" }
-            },
-            {
-                name: "Orient",
-                origin: "Tokyo, 1950",
-                note: "Japanese maker known for automatic movements it builds itself, at friendly prices."
-            },
-            {
-                name: "Tissot",
-                origin: "Le Locle, 1853",
-                note: "One of the most affordable ways into Swiss mechanical watches.",
-                say: { lang: "fr-FR", guide: "tee-SOH" }
-            },
-            {
-                name: "Hamilton",
-                origin: "Lancaster, Pennsylvania, 1892",
-                note: "An American name, now Swiss-made, still known for military-style field watches."
-            },
-            {
-                name: "Nomos Glashütte",
-                origin: "Glashütte, 1990",
-                note: "Founded just after the fall of the Berlin Wall; known for clean, Bauhaus-style dials.",
-                say: { lang: "de-DE", guide: "NOH-moss GLAHS-hoo-tuh" }
-            },
-            {
-                name: "Casio",
-                origin: "Tokyo, 1946",
-                note: "An electronics maker whose watches began with the 1974 Casiotron; home of the G-Shock and F-91W."
-            },
-            {
-                name: "Swatch",
-                origin: "Biel/Bienne, 1983",
-                note: "Its cheap, colorful plastic watches helped rescue Swiss watchmaking from the quartz crisis."
-            }
-        ]
+        text: "Honest, well-made watches for under $1,000.",
+        brands: ["Tissot", "Hamilton", "Seiko", "Orient", "Casio", "Swatch"]
     }
 ];
 
@@ -220,23 +222,27 @@ const WATCH_TYPES = {
     }
 };
 
-// Keys match each watch’s `movement`.
+// Keys match each watch’s `movement`. `tip` appears in Watch basics only.
 const MOVEMENTS = {
     "Quartz": {
         label: "Quartz",
-        summary: "A battery and a vibrating quartz crystal keep time. It’s the most accurate and affordable kind, and the seconds hand ticks once a second."
+        summary: "A battery and a vibrating quartz crystal keep time. It’s the most accurate and affordable kind, and the seconds hand ticks once a second.",
+        tip: "A new battery every few years is about all it needs."
     },
     "Automatic": {
         label: "Automatic",
-        summary: "Mechanical, wound by a weighted rotor as your wrist moves. Wear it and it keeps going; leave it in a drawer for a few days and it stops."
+        summary: "Mechanical, wound by a weighted rotor as your wrist moves. Wear it and it keeps going; leave it in a drawer for a few days and it stops.",
+        tip: "Most luxury watches are automatic. Plan on a service every five to ten years."
     },
     "Manual-wind": {
         label: "Manual-wind",
-        summary: "Mechanical, wound by turning the crown every day or two. Leaving out the rotor lets the watch be thinner."
+        summary: "Mechanical, wound by turning the crown every day or two. Leaving out the rotor lets the watch be thinner.",
+        tip: "Wind it each morning until you feel it resist, then stop."
     },
     "Spring Drive": {
         label: "Spring Drive",
-        summary: "Grand Seiko’s hybrid: a mainspring powers it and a quartz-regulated glide wheel sets the pace, so the seconds hand glides."
+        summary: "Grand Seiko’s hybrid: a mainspring powers it and a quartz-regulated glide wheel sets the pace, so the seconds hand glides.",
+        tip: "Only Seiko makes it, mostly for Grand Seiko."
     }
 };
 

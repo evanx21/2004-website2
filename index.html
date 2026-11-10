@@ -26,7 +26,7 @@
         <div class="wrap site-header__inner">
             <a class="wordmark" href="#top">Evan Explains Watches</a>
             <nav class="site-nav" aria-label="Sections">
-                <a href="#brands">Brands</a>
+                <a href="#basics">Basics</a>
                 <a href="#watches">Watches</a>
                 <a href="#europe">Europe</a>
                 <a href="#apis">APIs</a>
@@ -105,14 +105,95 @@
             </div>
         </section>
 
-        <section class="section" id="brands" aria-labelledby="brands-title">
+        <section class="section" id="basics" aria-labelledby="basics-title">
             <div class="wrap">
                 <header class="section-head">
-                    <h2 id="brands-title">The brands</h2>
-                    <p class="section-head__lede">25 watchmakers in four groups. Choose a brand to see its watches,
-                        or press Say it to hear a hard name in its own language.</p>
+                    <h2 id="basics-title">Watch basics</h2>
+                    <p class="section-head__lede">What my dad taught me, in the order that helps most: how a watch
+                        keeps time, what the numbers mean, what to wear when, and which brands are best at what.</p>
                 </header>
-                <div class="house-groups" id="house-groups"></div>
+
+                <section class="basics-part" aria-labelledby="movements-title">
+                    <div class="basics-part__head">
+                        <h3 id="movements-title">What makes it tick</h3>
+                        <p>The movement is the engine inside. Every watch on this site uses one of these four.</p>
+                    </div>
+                    <div class="movement-grid" id="movement-grid"></div>
+                </section>
+
+                <section class="basics-part" aria-labelledby="specs-title">
+                    <div class="basics-part__head">
+                        <h3 id="specs-title">What the numbers mean</h3>
+                        <p>The facts in each watch’s details, plus the terms you’ll meet on a maker’s spec sheet.</p>
+                    </div>
+                    <dl class="glossary">
+                        <div>
+                            <dt>Case size <span class="glossary__example">39&nbsp;mm</span></dt>
+                            <dd>The width of the case, not counting the crown. Most wrists suit 36–40&nbsp;mm; past
+                                about 42&nbsp;mm, a watch starts to look big.</dd>
+                        </div>
+                        <div>
+                            <dt>Thickness <span class="glossary__example">8&nbsp;mm</span></dt>
+                            <dd>Under about 9&nbsp;mm, a watch slides under a shirt cuff. Each watch’s details tell
+                                you whether it will.</dd>
+                        </div>
+                        <div>
+                            <dt>Water resistance <span class="glossary__example">100&nbsp;m</span></dt>
+                            <dd>Not a diving depth. 30&nbsp;m means rain and splashes, 100&nbsp;m is fine for
+                                swimming, and 200&nbsp;m or more is built for diving.</dd>
+                        </div>
+                        <div>
+                            <dt>Power reserve <span class="glossary__example">72 hours</span></dt>
+                            <dd>How long a mechanical watch keeps running once you take it off. With 72 hours, take it
+                                off on Friday evening and it’s still going on Monday.</dd>
+                        </div>
+                        <div>
+                            <dt>Beat rate <span class="glossary__example">28,800&nbsp;vph</span></dt>
+                            <dd>Vibrations per hour. That’s eight beats a second, which is why a mechanical seconds hand
+                                sweeps instead of ticking.</dd>
+                        </div>
+                        <div>
+                            <dt>Case material <span class="glossary__example">Steel, gold, titanium, ceramic</span></dt>
+                            <dd>Steel is the standard. Gold is heavier and scratches more easily, titanium is light,
+                                and ceramic, like my IWC, barely scratches but can crack if dropped.</dd>
+                        </div>
+                        <div>
+                            <dt>Crystal <span class="glossary__example">Sapphire or acrylic</span></dt>
+                            <dd>The clear cover over the dial. Sapphire resists scratches. Acrylic, used on the classic
+                                Speedmaster Moonwatch, scratches easily but can be polished.</dd>
+                        </div>
+                        <div>
+                            <dt>Strap or bracelet</dt>
+                            <dd>Leather is the dressiest, a metal bracelet goes with almost anything, and rubber or
+                                canvas is for sport and weekends.</dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <section class="basics-part" aria-labelledby="occasions-title">
+                    <div class="basics-part__head">
+                        <h3 id="occasions-title">What to wear when</h3>
+                        <p>The dress code decides the watch as much as the suit.</p>
+                    </div>
+                    <div class="occasion-list" id="occasion-list"></div>
+                </section>
+
+                <section class="basics-part" aria-labelledby="specialties-title">
+                    <div class="basics-part__head">
+                        <h3 id="specialties-title">Who’s best at what</h3>
+                        <p>Every brand has a speciality. Choose a name to see its watches.</p>
+                    </div>
+                    <div class="specialty-list" id="specialty-list"></div>
+                </section>
+
+                <section class="basics-part" aria-labelledby="names-title">
+                    <div class="basics-part__head">
+                        <h3 id="names-title">Say the names right</h3>
+                        <p>Many great names come from French-speaking Switzerland and France. Press Say it to hear one
+                            in its own language.</p>
+                    </div>
+                    <ul class="name-list" id="name-list"></ul>
+                </section>
             </div>
         </section>
 
@@ -197,8 +278,8 @@
                     <div>
                         <dt><a class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis">Web Speech API</a></dt>
                         <dd class="api-list__kind">Browser API</dd>
-                        <dd>Speech synthesis: “Say it” in The brands reads hard names in their own language, such as
-                            French for Audemars Piguet.</dd>
+                        <dd>Speech synthesis: “Say it” in Watch basics and in a watch’s details reads hard brand
+                            names in their own language, such as French for Audemars Piguet.</dd>
                     </div>
                     <div>
                         <dt><a class="link" href="https://commons.wikimedia.org/">Wikimedia Commons</a></dt>
@@ -268,6 +349,10 @@
                     <div>
                         <dt>Wear it to</dt>
                         <dd id="dialog-occasions"></dd>
+                    </div>
+                    <div>
+                        <dt>Maker</dt>
+                        <dd id="dialog-maker"></dd>
                     </div>
                 </dl>
 

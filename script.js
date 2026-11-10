@@ -9,7 +9,7 @@
  *               Open-Meteo Geocoding (city search in "Try it on near you")
  *               Overpass / OpenStreetMap (watch shops and jewelers nearby)
  * Browser APIs  Geolocation ("Use my location" in each watch’s details)
- *               Web Speech, speech synthesis ("Say it" beside hard brand names)
+ *               Web Speech, speech synthesis ("Say it" in Watch basics and the details)
  *
  * All content, including Evan’s own notes, lives in data.js.
  */
@@ -30,16 +30,17 @@ const TIER_ORDER = ["entry", "mid", "grail"];
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
 const SPEECH_RATE = 0.85; // a little slower than normal, so each syllable is clear
 const LANGUAGE_NAMES = { en: "English", fr: "French", it: "Italian", de: "German", ja: "Japanese" };
-
-// Brand name → its entry in HOUSES (origin, note and, for hard names, how to say it)
-const HOUSES_BY_NAME = new Map(HOUSES.flatMap(group => group.brands).map(house => [house.name, house]));
+const MAX_EXAMPLES = 3; // example watches shown under each movement and dress code
 
 const DRAFT_STORY = "Draft: your own memory of this place, what you saw, and how it felt.";
 
 /* ===================== Elements & state ===================== */
 
 const els = {
-    houseGroups: document.querySelector("#house-groups"),
+    movementGrid: document.querySelector("#movement-grid"),
+    occasionList: document.querySelector("#occasion-list"),
+    specialtyList: document.querySelector("#specialty-list"),
+    nameList: document.querySelector("#name-list"),
     watchesSection: document.querySelector("#watches"),
     typeFilter: document.querySelector("#type-filter"),
     typeChips: document.querySelector("#type-chips"),
@@ -66,6 +67,7 @@ const els = {
     dialogThickness: document.querySelector("#dialog-thickness"),
     dialogMovement: document.querySelector("#dialog-movement"),
     dialogStrap: document.querySelector("#dialog-strap"),
+    dialogMaker: document.querySelector("#dialog-maker"),
     dialogOccasions: document.querySelector("#dialog-occasions"),
     shopSearch: document.querySelector("#shop-search"),
     shopCity: document.querySelector("#shop-city"),
@@ -316,6 +318,13 @@ function renderBrandOptions() {
     }));
 }
 
+// Cheapest price band first, then by brand and model.
+function compareWatches(a, b) {
+    return TIER_ORDER.indexOf(WATCHES[a].tier) - TIER_ORDER.indexOf(WATCHES[b].tier)
+        || WATCHES[a].brand.localeCompare(WATCHES[b].brand)
+        || WATCHES[a].model.localeCompare(WATCHES[b].model);
+}
+
 function describeSelection(type, brand, count) {
     if (type !== "all") {
         return WATCH_TYPES[type].summary;
@@ -331,9 +340,7 @@ function renderWatches() {
     const brand = els.brandSelect.value;
     const ids = Object.keys(WATCHES)
         .filter(id => (type === "all" || WATCHES[id].type === type) && (brand === "all" || WATCHES[id].brand === brand))
-        .sort((a, b) => TIER_ORDER.indexOf(WATCHES[a].tier) - TIER_ORDER.indexOf(WATCHES[b].tier)
-            || WATCHES[a].brand.localeCompare(WATCHES[b].brand)
-            || WATCHES[a].model.localeCompare(WATCHES[b].model));
+        .sort(compareWatches);
 
     els.typeNote.textContent = describeSelection(type, brand, ids.length);
     els.emptyState.hidden = ids.length > 0;
@@ -347,9 +354,9 @@ function renderWatches() {
     els.watchGrid.replaceChildren(...ids.map(buildWatchCard));
 }
 
-/* ===================== The houses (brand guide) ===================== */
+/* ===================== Watch basics ===================== */
 
-// Choosing a house shows all of its watches in the gallery.
+// Choosing a brand shows all of its watches in the gallery.
 function showBrand(brand) {
     els.typeFilter.elements.type.value = "all";
     els.brandSelect.value = brand;
@@ -357,37 +364,103 @@ function showBrand(brand) {
     els.watchesSection.scrollIntoView({ behavior: REDUCED_MOTION.matches ? "auto" : "smooth", block: "start" });
 }
 
-function buildHouse(house) {
-    const count = Object.values(WATCHES).filter(watch => watch.brand === house.name).length;
-    const item = createElement("li", house.say ? "house house--say" : "house");
-    const button = createElement("button", "house__name", house.name);
-    button.type = "button";
-    button.addEventListener("click", () => showBrand(house.name));
-
-    item.append(
-        button,
-        createElement("p", "house__origin", house.origin),
-        createElement("p", "house__count", `${count} ${count === 1 ? "watch" : "watches"}`)
-    );
-    if (house.say) {
-        item.append(buildSay(house));
-    }
-    item.append(createElement("p", "house__note", house.note));
-    return item;
+// A few example watches, one from each price band first, so they run from affordable to grail.
+function pickExamples(ids) {
+    const sorted = [...ids].sort(compareWatches);
+    const picks = TIER_ORDER
+        .map(tier => sorted.find(id => WATCHES[id].tier === tier))
+        .filter(Boolean);
+    sorted.forEach(id => {
+        if (picks.length < MAX_EXAMPLES && !picks.includes(id)) {
+            picks.push(id);
+        }
+    });
+    return picks.slice(0, MAX_EXAMPLES).sort(compareWatches);
 }
 
-function renderHouses() {
-    els.houseGroups.replaceChildren(...HOUSES.map(group => {
-        const section = createElement("section", "house-group");
-        const list = createElement("ul", "house-group__list");
-        list.append(...group.brands.map(buildHouse));
-        section.append(
-            createElement("h3", "house-group__title", group.title),
-            createElement("p", "house-group__summary", group.summary),
-            list
-        );
-        return section;
+// A short list of watches; each name opens that watch's details.
+function buildExamples(label, ids) {
+    const wrapper = createElement("div", "examples");
+    const list = createElement("ul", "examples__list");
+    list.append(...ids.map(id => {
+        const watch = WATCHES[id];
+        const item = document.createElement("li");
+        const button = createElement("button", "link-button link-button--inline", `${watch.brand} ${watch.model}`);
+        button.type = "button";
+        button.addEventListener("click", () => openWatch(id, button));
+        item.append(button);
+        return item;
     }));
+    wrapper.append(createElement("p", "examples__label", label), list);
+    return wrapper;
+}
+
+function renderMovements() {
+    els.movementGrid.replaceChildren(...Object.entries(MOVEMENTS).map(([name, movement]) => {
+        const ids = Object.keys(WATCHES).filter(id => WATCHES[id].movement === name);
+        const item = createElement("article", "movement");
+        item.append(
+            createElement("h4", "movement__name", movement.label),
+            createElement("p", "movement__summary", movement.summary),
+            createElement("p", "movement__tip", movement.tip),
+            buildExamples(`${ids.length} on this site, for example`, pickExamples(ids))
+        );
+        return item;
+    }));
+}
+
+function renderOccasions() {
+    els.occasionList.replaceChildren(...Object.values(DRESS_CODES).map(dressCode => {
+        const item = createElement("article", "occasion");
+        const body = createElement("div", "occasion__body");
+        body.append(
+            createElement("p", "occasion__decoded", dressCode.decoded),
+            createElement("p", "occasion__advice", dressCode.advice)
+        );
+        if (dressCode.picks.length) {
+            body.append(buildExamples("Try", pickExamples(dressCode.picks)));
+        }
+        item.append(createElement("h4", "occasion__name", dressCode.name), body);
+        return item;
+    }));
+}
+
+function buildBrandButton(name) {
+    const button = createElement("button", "link-button", name);
+    button.type = "button";
+    button.append(createElement("span", "visually-hidden", " watches"));
+    button.addEventListener("click", () => showBrand(name));
+    return button;
+}
+
+function renderSpecialties() {
+    els.specialtyList.replaceChildren(...SPECIALTIES.map(specialty => {
+        const item = createElement("article", "specialty");
+        const head = createElement("div", "specialty__head");
+        const brands = createElement("ul", "specialty__brands");
+        head.append(
+            createElement("h4", "specialty__title", specialty.title),
+            createElement("p", "specialty__text", specialty.text)
+        );
+        brands.append(...specialty.brands.map(name => {
+            const brandItem = document.createElement("li");
+            brandItem.append(buildBrandButton(name));
+            return brandItem;
+        }));
+        item.append(head, brands);
+        return item;
+    }));
+}
+
+// Every brand whose name is easy to get wrong, with its Say it button.
+function renderNames() {
+    els.nameList.replaceChildren(...Object.entries(BRANDS)
+        .filter(([, brand]) => brand.say)
+        .map(([name, brand]) => {
+            const item = createElement("li", "name");
+            item.append(createElement("p", "name__brand", name), buildSay(name, brand));
+            return item;
+        }));
 }
 
 /* ===================== Say it (Web Speech API: speech synthesis) ===================== */
@@ -417,8 +490,8 @@ function findVoice(voices, lang) {
         || null;
 }
 
-async function sayName(house, button, note) {
-    const { lang, text = house.name } = house.say;
+async function sayName(name, brand, button, note) {
+    const { lang, text = name } = brand.say;
     note.textContent = "";
 
     if (!canSpeak()) {
@@ -462,14 +535,14 @@ async function sayName(house, button, note) {
 }
 
 // The Say it button, the spelling beside it, and a line for messages if speech isn't available.
-function buildSay(house) {
+function buildSay(name, brand) {
     const say = els.sayTemplate.content.firstElementChild.cloneNode(true);
     const button = say.querySelector(".say__button");
     const note = say.querySelector(".say__note");
 
-    say.querySelector(".visually-hidden").textContent = `: ${house.name}`;
-    say.querySelector(".say__guide").textContent = house.say.guide;
-    button.addEventListener("click", () => sayName(house, button, note));
+    say.querySelector(".visually-hidden").textContent = `: ${name}`;
+    say.querySelector(".say__guide").textContent = brand.say.guide;
+    button.addEventListener("click", () => sayName(name, brand, button, note));
     return say;
 }
 
@@ -510,10 +583,11 @@ function openWatch(id, trigger) {
     els.dialogFrame.replaceChildren(createElement("p", "photo__placeholder", "Loading photo…"));
     loadPhoto(els.dialogFrame, els.dialogCredit, watch.photo, watch.pictured);
 
+    const brand = BRANDS[watch.brand];
     els.dialogBrand.textContent = watch.brand;
-    const house = HOUSES_BY_NAME.get(watch.brand);
     stopSpeaking();
-    els.dialogSay.replaceChildren(...(house && house.say ? [buildSay(house)] : []));
+    els.dialogSay.replaceChildren(...(brand.say ? [buildSay(watch.brand, brand)] : []));
+    els.dialogMaker.textContent = `${brand.origin}. ${brand.note}`;
     els.dialogTitle.textContent = watch.model;
     els.dialogTier.textContent = PRICE_TIERS[watch.tier];
     els.dialogWhy.textContent = watch.why;
@@ -827,7 +901,10 @@ function bindEvents() {
 function init() {
     renderTypeChips();
     renderBrandOptions();
-    renderHouses();
+    renderMovements();
+    renderOccasions();
+    renderSpecialties();
+    renderNames();
     renderWatches();
     renderStops();
     renderCurrencyOptions();
