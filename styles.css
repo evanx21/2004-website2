@@ -1,5 +1,5 @@
 /* ============================================================
-   Wrist Notes
+   Evan Explains Watches
    1. Tokens         6. Brands           11. Europe
    2. Base           7. Watches          12. Price converter
    3. Header         8. Photos           13. Buttons, links, forms
@@ -29,7 +29,7 @@
     --font-display: "Newsreader", "Iowan Old Style", Charter, Georgia, serif;
     --font-text: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
 
-    --t-h1: clamp(2.75rem, 1.9rem + 2.9vw, 4.5rem);
+    --t-h1: clamp(2.75rem, 1.9rem + 3.4vw, 5rem);
     --t-h2: clamp(2rem, 1.55rem + 1.5vw, 3rem);
     --t-label: 0.8125rem;
 
@@ -209,13 +209,6 @@ img {
     font-size: var(--t-h1);
     line-height: 1.02;
     letter-spacing: -0.02em;
-}
-
-.hero__lede {
-    max-width: 28rem;
-    margin-top: var(--s-5);
-    font-size: 1.25rem;
-    line-height: 1.5;
 }
 
 .actions {
@@ -830,7 +823,7 @@ img {
 
 .stop-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
     gap: var(--s-7) var(--s-5);
 }
 
@@ -1235,11 +1228,7 @@ input[aria-invalid="true"] {
 }
 
 .hero__text > :nth-child(2) {
-    animation-delay: 0.08s;
-}
-
-.hero__text > :nth-child(3) {
-    animation-delay: 0.16s;
+    animation-delay: 0.12s;
 }
 
 .hero__photo {
@@ -1332,15 +1321,27 @@ input[aria-invalid="true"] {
 @media (max-width: 640px) {
     :root {
         --gut: 20px;
-        --nav: 56px;
+    }
+
+    /* On phones the name and the links take a row each, and the header scrolls away. */
+    html {
+        scroll-padding-top: 0;
+    }
+
+    .site-header {
+        position: static;
+    }
+
+    .site-header__inner {
+        flex-wrap: wrap;
+        row-gap: 0;
+        height: auto;
+        padding-top: var(--s-3);
     }
 
     .site-nav {
-        gap: var(--s-4);
-    }
-
-    .site-nav a {
-        font-size: 0.875rem;
+        width: 100%;
+        gap: var(--s-5);
     }
 
     .wordmark {
@@ -1411,8 +1412,12 @@ input[aria-invalid="true"] {
 }
 
 @media (max-width: 380px) {
+    :root {
+        --t-h1: 2.25rem;
+    }
+
     .site-nav {
-        gap: var(--s-3);
+        gap: var(--s-4);
     }
 
     .wordmark {

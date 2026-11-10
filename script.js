@@ -1,7 +1,7 @@
 "use strict";
 
 /*
- * Wrist Notes: a student’s guide to watches
+ * Evan Explains Watches: a student’s guide to watches
  * -------------------------------------------------------------------------
  * Data APIs    Wikimedia Commons (watch photos and their credits)
  *              Wikipedia REST (place notes in "Notes from Europe")
