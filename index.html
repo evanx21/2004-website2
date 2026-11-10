@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Wrist Notes: a student's guide to watches. Real watches from the great watchmakers in plain English, notes from Europe, and where to try one on.">
-    <title>Wrist Notes</title>
+        content="39 real watches from 25 brands, from a $20 Casio to a Patek Philippe, with what each one is for and where to try it on.">
+    <meta name="theme-color" content="#ffffff">
+    <title>Wrist Notes: a student’s guide to watches</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..600&amp;family=Schibsted+Grotesk:wght@400..600&amp;display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="data.js" defer></script>
@@ -22,158 +23,172 @@
     <a class="skip-link" href="#watches">Skip to the watches</a>
 
     <header class="site-header">
-        <a class="brand" href="#top">
-            <span class="seal" aria-hidden="true">W</span>
-            <span class="brand__name">Wrist Notes</span>
-        </a>
-        <nav class="site-nav" aria-label="Sections">
-            <a href="#houses">Houses</a>
-            <a href="#watches">Watches</a>
-            <a href="#europe">Europe</a>
-        </nav>
+        <div class="wrap site-header__inner">
+            <a class="wordmark" href="#top">Wrist Notes</a>
+            <nav class="site-nav" aria-label="Sections">
+                <a href="#brands">Brands</a>
+                <a href="#watches">Watches</a>
+                <a href="#europe">Europe</a>
+            </nav>
+        </div>
     </header>
 
     <main id="top">
-        <section class="intro" aria-labelledby="intro-title">
-            <div class="intro__text">
-                <p class="eyebrow">A student's guide to watches</p>
-                <h1 id="intro-title">Watches, explained <em>by a student who loves them.</em></h1>
-                <p class="intro__lede">Real watches from the great watchmakers, explained in plain English, and notes
-                    from my time in Europe.</p>
-                <p class="intro__story">I'm from Shanghai, and I've lived in the US for five years. Watches were part
-                    of home long before they were my hobby: my parents run a business and travel often, their trips
-                    usually came back with a new watch, and our home slowly filled with them. My dad liked to pick
-                    one up and tell me what made it special. This site is my way of passing those lessons on.</p>
-                <a class="button button--wax" href="#watches">See the watches</a>
-            </div>
-            <figure class="photo photo--intro">
-                <div class="photo__frame">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="wrap hero__inner">
+                <div class="hero__text">
+                    <h1 id="hero-title">A student’s guide to watches</h1>
+                    <p class="hero__lede">39 real watches, from a $20 Casio to a Patek&nbsp;Philippe, explained by
+                        Evan&nbsp;Xia, a student who grew up around them.</p>
+                    <div class="actions">
+                        <a class="button button--primary" href="#watches">See the watches</a>
+                        <a class="link" href="#story">Read my story</a>
+                    </div>
+                </div>
+                <div class="hero__photo">
                     <img src="images/first-watch.jpg" width="960" height="1200"
-                        alt="Evan's first watch, a black ceramic IWC Pilot's Watch Chronograph TOP GUN, held in his hand">
+                        alt="Evan’s first watch, a black ceramic IWC Pilot’s Watch Chronograph TOP GUN, held in his hand">
                 </div>
-                <figcaption class="photo__credit">My first watch, a gift from my dad.
-                    <a href="#first-watch">Read the story</a></figcaption>
-            </figure>
-        </section>
-
-        <section class="first-watch" id="first-watch" aria-labelledby="first-watch-title">
-            <div class="first-watch__story">
-                <p class="eyebrow">Where it started</p>
-                <h2 id="first-watch-title">My first watch</h2>
-                <p>Just before I left Shanghai for the US, my dad gave me my first watch: an IWC Pilot's Watch
-                    Chronograph from the TOP GUN line, made in partnership with the US Navy's fighter-pilot school.
-                    It's black ceramic and 46 mm across, so it's not a quiet watch.</p>
-                <p>My dad had always explained watches to me, but having one on my own wrist made the lessons stick.
-                    Almost every detail turned out to be a difference between one kind of watch and another.</p>
-                <p>America taught me something else. On campus, hardly anyone wears a watch, since everyone just
-                    checks their phone. In the workplace, I found almost everyone wears one. That gap is a big part
-                    of why I made this site.</p>
-            </div>
-
-            <div class="first-watch__lessons">
-                <h3>What it taught me</h3>
-                <dl class="lessons">
-                    <div>
-                        <dt>Read it at a glance</dt>
-                        <dd>Big numerals and a triangle at 12 o'clock come from cockpit instruments. A dress watch does
-                            the opposite: slim hands, few numerals, nothing loud.</dd>
-                    </div>
-                    <div>
-                        <dt>Ceramic, not steel</dt>
-                        <dd>The case is ceramic: light and very hard to scratch, though it can crack if dropped. IWC
-                            was one of the first brands to make a ceramic watch case, in 1986.</dd>
-                    </div>
-                    <div>
-                        <dt>A stopwatch that resets in one press</dt>
-                        <dd>The pushers run a chronograph. Mine is a flyback: one press resets it and starts timing
-                            again, so a pilot could time each leg of a flight.</dd>
-                    </div>
-                    <div>
-                        <dt>Size changes everything</dt>
-                        <dd>At 46 mm wide and 16.5 mm thick, it will never slide under a shirt cuff. That's exactly
-                            why dress watches are thin.</dd>
-                    </div>
-                </dl>
             </div>
         </section>
 
-        <section class="houses" id="houses" aria-labelledby="houses-title">
-            <header class="section-head">
-                <h2 id="houses-title">The houses</h2>
-                <p class="section-head__lede">Who's who in watchmaking, one line each. Choose a house to see its
-                    watches.</p>
-            </header>
-            <div class="house-groups" id="house-groups"></div>
-        </section>
-
-        <section class="panel" id="watches" aria-labelledby="watches-title">
-            <header class="panel__head">
-                <h2 id="watches-title">The watches</h2>
-                <p class="panel__lede">Choose a watch to see the details and where to try it on.</p>
-            </header>
-
-            <form class="type-filter" id="type-filter" aria-label="Filter the watches">
-                <div class="filter-row">
-                    <div class="chips" id="type-chips" role="group" aria-label="Kind of watch"></div>
-                    <label class="visually-hidden" for="brand-select">Brand</label>
-                    <select class="brand-select" id="brand-select" name="brand"></select>
+        <section class="story" id="story" aria-labelledby="story-title">
+            <div class="wrap story__inner">
+                <div class="story__text">
+                    <h2 id="story-title">My first watch</h2>
+                    <p>I’m from Shanghai, and I’ve lived in the US for five years. Watches were part of home long
+                        before they were my hobby: my parents run a business and travel often, their trips usually
+                        came back with a new watch, and our home slowly filled with them. My dad liked to pick one up
+                        and tell me what made it special.</p>
+                    <p>Just before I left for the US, he gave me my first watch: an IWC Pilot’s Watch Chronograph from
+                        the TOP GUN line, made in partnership with the US Navy’s fighter-pilot school. It’s black
+                        ceramic and 46&nbsp;mm across, so it’s not a quiet watch.</p>
+                    <p>He had always explained watches to me, but having one on my own wrist made the lessons stick.
+                        Almost every detail turned out to be a difference between one kind of watch and another.</p>
+                    <p>America taught me something else. On campus, hardly anyone wears a watch, since everyone just
+                        checks their phone. In the workplace, I found almost everyone wears one. That gap is a big part
+                        of why I made this site.</p>
                 </div>
-                <p class="type-filter__note" id="type-note" aria-live="polite"></p>
-            </form>
 
-            <ul class="watch-grid" id="watch-grid"></ul>
-            <p class="empty-state" id="empty-state" hidden></p>
+                <div class="story__lessons">
+                    <h3>What it taught me</h3>
+                    <dl class="lessons">
+                        <div>
+                            <dt>Read it at a glance</dt>
+                            <dd>Big numerals and a triangle at 12 o’clock come from cockpit instruments. A dress watch
+                                does the opposite: slim hands, few numerals, nothing loud.</dd>
+                        </div>
+                        <div>
+                            <dt>Ceramic, not steel</dt>
+                            <dd>The case is ceramic: light and very hard to scratch, though it can crack if dropped.
+                                IWC was one of the first brands to make a ceramic watch case, in 1986.</dd>
+                        </div>
+                        <div>
+                            <dt>A stopwatch that resets in one press</dt>
+                            <dd>The pushers run a chronograph. Mine is a flyback: one press resets it and starts timing
+                                again, so a pilot could time each leg of a flight.</dd>
+                        </div>
+                        <div>
+                            <dt>Size changes everything</dt>
+                            <dd>At 46&nbsp;mm wide and 16.5&nbsp;mm thick, it will never slide under a shirt cuff.
+                                That’s exactly why dress watches are thin.</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
         </section>
 
-        <section class="europe" id="europe" aria-labelledby="europe-title">
-            <header class="section-head">
-                <h2 id="europe-title">Notes from Europe</h2>
-                <p class="section-head__lede">Places I've been where watches have a story.</p>
-            </header>
-            <p class="draft draft--dark">Evan's take: a short intro to your trip. When you went, where, and what you
-                were looking for.</p>
+        <section class="section" id="brands" aria-labelledby="brands-title">
+            <div class="wrap">
+                <header class="section-head">
+                    <h2 id="brands-title">The brands</h2>
+                    <p class="section-head__lede">25 watchmakers in four groups. Choose a brand to see its watches.</p>
+                </header>
+                <div class="house-groups" id="house-groups"></div>
+            </div>
+        </section>
 
-            <div class="stop-grid" id="stop-grid"></div>
+        <section class="section" id="watches" aria-labelledby="watches-title">
+            <div class="wrap">
+                <header class="section-head">
+                    <h2 id="watches-title">The watches</h2>
+                    <p class="section-head__lede">Choose a watch to see its size, its movement, what to wear it to
+                        and where to try it on.</p>
+                </header>
 
-            <section class="converter-block" aria-labelledby="converter-title">
-                <h3 id="converter-title">Saw a price tag abroad?</h3>
-                <p class="converter-block__lede">See what it comes to at today's exchange rates.</p>
-                <form class="converter" id="converter" novalidate>
-                    <label class="visually-hidden" for="price-amount">Price on the tag</label>
-                    <input type="number" id="price-amount" name="amount" min="0" step="any" inputmode="decimal"
-                        placeholder="Price, e.g. 9600" aria-describedby="converter-error">
-                    <label class="visually-hidden" for="price-currency">Currency</label>
-                    <select id="price-currency" name="currency"></select>
-                    <button type="submit" class="button button--wax">Convert</button>
+                <form class="filter" id="type-filter" aria-label="Filter the watches">
+                    <div class="filter__row">
+                        <div class="tabs" id="type-chips" role="group" aria-label="Kind of watch"></div>
+                        <div class="field field--inline">
+                            <label for="brand-select">Brand</label>
+                            <select id="brand-select" name="brand"></select>
+                        </div>
+                    </div>
+                    <p class="filter__note" id="type-note" aria-live="polite"></p>
                 </form>
-                <p class="field-error" id="converter-error" role="alert"></p>
-                <div class="converter-result" id="converter-result" aria-live="polite"></div>
-                <p class="draft draft--dark">Evan's take: buying tips from your trip, such as tax-free shopping and
-                    where prices felt different. We'll fact-check any rules before publishing.</p>
-            </section>
+
+                <ul class="watch-grid" id="watch-grid"></ul>
+                <p class="empty-state" id="empty-state" hidden></p>
+            </div>
+        </section>
+
+        <section class="section section--alt" id="europe" aria-labelledby="europe-title">
+            <div class="wrap">
+                <header class="section-head">
+                    <h2 id="europe-title">My trips to Europe</h2>
+                    <p class="section-head__lede">Places where watches have a story. Each one links to a watch above.
+                    </p>
+                </header>
+                <p class="draft draft--intro">Evan’s take: a short intro to your trip. When you went, where, and what
+                    you were looking for.</p>
+
+                <div class="stop-grid" id="stop-grid"></div>
+
+                <section class="converter-block" aria-labelledby="converter-title">
+                    <h3 id="converter-title">Convert a price tag</h3>
+                    <p class="converter-block__lede">Type a price you saw abroad to see it in six other currencies at
+                        today’s rates.</p>
+                    <form class="converter" id="converter" novalidate>
+                        <div class="field">
+                            <label for="price-amount">Price</label>
+                            <input type="number" id="price-amount" name="amount" min="0" step="any"
+                                inputmode="decimal" placeholder="9600" aria-describedby="converter-error">
+                        </div>
+                        <div class="field">
+                            <label for="price-currency">Currency</label>
+                            <select id="price-currency" name="currency"></select>
+                        </div>
+                        <button type="submit" class="button button--primary">Convert price</button>
+                    </form>
+                    <p class="field-error" id="converter-error" role="alert"></p>
+                    <div class="converter-result" id="converter-result" aria-live="polite"></div>
+                    <p class="draft">Evan’s take: buying tips from your trip, such as tax-free shopping and where
+                        prices felt different. We’ll fact-check any rules before publishing.</p>
+                </section>
+            </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <p>Written and built by Evan Xia for CSE 2004.</p>
-        <p class="site-footer__credits">
-            Photos from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, credited in each watch's
-            details · Place notes from <a href="https://en.wikipedia.org/">Wikipedia</a> · Exchange rates from
-            <a href="https://frankfurter.dev/">Frankfurter</a> · City search by
-            <a href="https://open-meteo.com/">Open-Meteo</a> · Shops © <a
-                href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors
-        </p>
-        <p class="site-footer__credits">Specs come from makers' published data, except Rolex thicknesses, which come
-            from reviews. Not affiliated with any watch brand.</p>
+        <div class="wrap site-footer__inner">
+            <a class="wordmark" href="#top">Wrist Notes</a>
+            <p>Written and built by Evan Xia for CSE 2004. Not affiliated with any watch brand.</p>
+            <p>Watch photos from <a class="link" href="https://commons.wikimedia.org/">Wikimedia Commons</a>,
+                credited in each watch’s details. Place notes from <a class="link"
+                    href="https://en.wikipedia.org/">Wikipedia</a>. Exchange rates from <a class="link"
+                    href="https://frankfurter.dev/">Frankfurter</a>. City search by <a class="link"
+                    href="https://open-meteo.com/">Open-Meteo</a>. Shop listings © <a class="link"
+                    href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Specs come from
+                makers’ published data, except Rolex thicknesses, which come from reviews.</p>
+        </div>
     </footer>
 
     <dialog class="watch-dialog" id="watch-dialog" aria-labelledby="dialog-title">
         <button type="button" class="watch-dialog__close" id="dialog-close" aria-label="Close">×</button>
         <div class="watch-dialog__layout">
-            <figure class="photo watch-dialog__photo">
+            <div class="watch-dialog__photo">
                 <div class="photo__frame" id="dialog-frame"></div>
-                <figcaption class="photo__credit" id="dialog-credit"></figcaption>
-            </figure>
+            </div>
 
             <div class="watch-dialog__info">
                 <p class="watch-dialog__brand" id="dialog-brand"></p>
@@ -207,21 +222,22 @@
                 <section class="try-on" aria-labelledby="try-on-title">
                     <h3 id="try-on-title">Try it on near you</h3>
                     <form class="try-on__form" id="shop-search" novalidate>
-                        <label class="visually-hidden" for="shop-city">City</label>
-                        <input type="search" id="shop-city" name="city" autocomplete="off"
-                            placeholder="City, e.g. Chicago" aria-describedby="shop-status">
-                        <button type="submit" class="button button--ghost">Search</button>
-                        <button type="button" class="button button--ghost" id="geo-btn">
-                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
-                                <circle cx="12" cy="10" r="2.5" />
-                            </svg>
-                            Near me
-                        </button>
+                        <div class="field">
+                            <label for="shop-city">City</label>
+                            <input type="search" id="shop-city" name="city" autocomplete="off" placeholder="Chicago"
+                                aria-describedby="shop-status">
+                        </div>
+                        <div class="try-on__actions">
+                            <button type="submit" class="button button--primary">Find shops</button>
+                            <button type="button" class="button button--secondary" id="geo-btn">Use my
+                                location</button>
+                        </div>
                     </form>
                     <p class="hint" id="shop-status" role="status"></p>
                     <ol class="shop-list" id="shop-list"></ol>
                 </section>
+
+                <p class="photo-credit" id="dialog-credit"></p>
             </div>
         </div>
     </dialog>
@@ -248,7 +264,7 @@
                 <p class="stop__where"></p>
                 <h3 class="stop__place"></h3>
                 <div class="take">
-                    <p class="take__label">Evan's take</p>
+                    <p class="take__label">Evan’s take</p>
                     <p class="take__text"></p>
                 </div>
                 <p class="stop__link"></p>

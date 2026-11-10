@@ -1,16 +1,16 @@
 "use strict";
 
 /*
- * Wrist Notes: a student's guide to watches
+ * Wrist Notes: a student’s guide to watches
  * -------------------------------------------------------------------------
  * Data APIs    Wikimedia Commons (watch photos and their credits)
  *              Wikipedia REST (place notes in "Notes from Europe")
  *              Frankfurter (exchange rates for the price converter)
  *              Open-Meteo Geocoding (city search in "Try it on near you")
  *              Overpass / OpenStreetMap (watch shops and jewelers nearby)
- * Browser API  Geolocation ("Near me" in each watch's details)
+ * Browser API  Geolocation ("Use my location" in each watch’s details)
  *
- * All content, including Evan's own notes, lives in data.js.
+ * All content, including Evan’s own notes, lives in data.js.
  */
 
 /* ===================== Constants ===================== */
@@ -148,7 +148,7 @@ function hasText(text) {
     return Boolean(text && text.trim());
 }
 
-// Evan's own words, or a clearly marked draft box until he writes them.
+// Evan’s own words, or a clearly marked draft box until he writes them.
 function fillTake(container, text, draftText) {
     container.classList.toggle("take--draft", !hasText(text));
     container.querySelector(".take__text").textContent = hasText(text) ? text : draftText;
@@ -198,7 +198,7 @@ async function requestPhotos(titles) {
     return photos;
 }
 
-// Returns photos in the same order as `titles`, asking Commons only for ones we haven't fetched.
+// Returns photos in the same order as `titles`, asking Commons only for ones we haven’t fetched.
 function getPhotos(titles) {
     const missing = [...new Set(titles)].filter(title => !photoCache.has(title));
 
@@ -218,7 +218,6 @@ function getPhotos(titles) {
 }
 
 function showPhotoMessage(frame, credit, message) {
-    frame.style.removeProperty("--photo");
     frame.replaceChildren(createElement("p", "photo__placeholder", message));
     if (credit) {
         credit.replaceChildren();
@@ -226,7 +225,7 @@ function showPhotoMessage(frame, credit, message) {
 }
 
 // `credit` is optional: the grid cards leave credits to the details dialog.
-function showPhoto(frame, credit, photo, pictured, { compact = false } = {}) {
+function showPhoto(frame, credit, photo, pictured) {
     const image = document.createElement("img");
     image.src = photo.src;
     image.alt = pictured;
@@ -234,32 +233,31 @@ function showPhoto(frame, credit, photo, pictured, { compact = false } = {}) {
         image.width = photo.width;
         image.height = photo.height;
     }
-    image.loading = "lazy";
+    // Grid photos load as they scroll into view; the details photo is needed right away.
+    image.loading = credit ? "eager" : "lazy";
     image.addEventListener("error", () => showPhotoMessage(frame, credit, "Photo unavailable"));
-
-    // The same photo, blurred, fills the space around photos that aren't square.
-    frame.style.setProperty("--photo", `url("${photo.src.replace(/"/g, "%22")}")`);
     frame.replaceChildren(image);
 
     if (credit) {
-        const pictureNote = compact ? "" : `Pictured: ${lowerFirst(pictured)}. `;
+        // Says exactly what the photo shows, since it can be a sibling of the model named.
         credit.replaceChildren(
-            `${pictureNote}Photo: ${photo.artist}, ${photo.license}, via `,
-            createLink("Wikimedia Commons", photo.pageUrl)
+            `Pictured: ${lowerFirst(pictured)}. Photo by ${photo.artist}, ${photo.license}, via `,
+            createLink("Wikimedia Commons", photo.pageUrl, "link"),
+            "."
         );
     }
 }
 
-function loadPhoto(frame, credit, title, pictured, options = {}) {
+function loadPhoto(frame, credit, title, pictured) {
     getPhotos([title])
         .then(([photo]) => {
             if (photo) {
-                showPhoto(frame, credit, photo, pictured, options);
+                showPhoto(frame, credit, photo, pictured);
             } else {
                 showPhotoMessage(frame, credit, "Photo unavailable");
             }
         })
-        .catch(() => showPhotoMessage(frame, credit, "The photo archive isn't answering right now."));
+        .catch(() => showPhotoMessage(frame, credit, "The photo archive isn’t answering right now."));
 }
 
 /* ===================== The watches ===================== */
@@ -317,7 +315,7 @@ function describeSelection(type, brand, count) {
     if (brand !== "all") {
         return `${count} ${count === 1 ? "watch" : "watches"} from ${brand}.`;
     }
-    return `${count} real watches from ${els.brandSelect.options.length - 1} brands, from a twenty-dollar digital to a grail.`;
+    return `All ${count} watches from ${els.brandSelect.options.length - 1} brands, from under $1,000 to over $10,000.`;
 }
 
 function renderWatches() {
@@ -360,7 +358,8 @@ function buildHouse(house) {
 
     item.append(
         button,
-        createElement("p", "house__origin", `${house.origin} · ${count} ${count === 1 ? "watch" : "watches"} here`),
+        createElement("p", "house__origin", house.origin),
+        createElement("p", "house__count", `${count} ${count === 1 ? "watch" : "watches"}`),
         createElement("p", "house__note", house.note)
     );
     return item;
@@ -386,7 +385,7 @@ function formatThickness(watch) {
     if (watch.thicknessMm === null) {
         return "Not published by the maker";
     }
-    const value = `${watch.thicknessApprox ? "≈ " : ""}${watch.thicknessMm} mm`;
+    const value = `${watch.thicknessApprox ? "≈ " : ""}${watch.thicknessMm} mm`;
     // Dress watches are thin so they slide under a shirt cuff.
     let cuff = "wants a roomier cuff";
     if (watch.thicknessMm <= 9) {
@@ -415,14 +414,14 @@ function openWatch(id, trigger) {
     els.dialogTitle.textContent = watch.model;
     els.dialogTier.textContent = PRICE_TIERS[watch.tier];
     els.dialogWhy.textContent = watch.why;
-    els.dialogCase.textContent = `${watch.caseMm} mm`;
+    els.dialogCase.textContent = `${watch.caseMm} mm`;
     els.dialogThickness.textContent = formatThickness(watch);
     els.dialogMovement.replaceChildren(
         watch.movement,
         createElement("span", "facts__note", MOVEMENTS[watch.movement].summary)
     );
     els.dialogStrap.textContent = watch.strap;
-    els.dialogOccasions.textContent = occasionsFor(id).join(" · ");
+    els.dialogOccasions.textContent = occasionsFor(id).join(", ");
 
     // Each watch starts with a fresh shop search.
     state.shopSearchId += 1;
@@ -485,7 +484,7 @@ async function queryShops(location, brand) {
             };
         })
         .filter(shop => shop.name && Number.isFinite(shop.distance))
-        // Shops that name this watch's brand first, then the nearest.
+        // Shops that name this watch’s brand first, then the nearest.
         .sort((a, b) => Number(b.mentionsBrand) - Number(a.mentionsBrand) || a.distance - b.distance)
         .slice(0, MAX_SHOPS);
 }
@@ -493,8 +492,13 @@ async function queryShops(location, brand) {
 function buildShopItem(shop, brand) {
     const item = createElement("li", "shop");
     const details = createElement("div", "shop__details");
-    const meta = [shop.kind, formatDistance(shop.distance), shop.address].filter(Boolean).join(" · ");
-    details.append(createElement("p", "shop__name", shop.name), createElement("p", "shop__meta", meta));
+    details.append(
+        createElement("p", "shop__name", shop.name),
+        createElement("p", "shop__meta", `${shop.kind}, ${formatDistance(shop.distance)} away`)
+    );
+    if (shop.address) {
+        details.append(createElement("p", "shop__meta", shop.address));
+    }
     if (shop.mentionsBrand) {
         details.append(createElement("p", "shop__brand", `Mentions ${brand}`));
     }
@@ -525,7 +529,7 @@ async function findShops(location) {
             const busy = error.status === 429 || error.status === 504 || error.name === "AbortError";
             setStatus(els.shopStatus, busy
                 ? "The map service is busy right now. Please try again in a minute."
-                : "We couldn't reach the map service. Please try again in a moment.", "warning");
+                : "We couldn’t reach the map service. Please try again in a moment.", "warning");
         }
     }
 }
@@ -534,7 +538,7 @@ async function handleShopSearch(submitEvent) {
     submitEvent.preventDefault();
     const name = els.shopCity.value.trim();
     if (name.length < 2) {
-        setStatus(els.shopStatus, "Type a city first, or choose “Near me”.", "warning");
+        setStatus(els.shopStatus, "Type a city first, or choose “Use my location”.", "warning");
         els.shopCity.focus();
         return;
     }
@@ -545,18 +549,18 @@ async function handleShopSearch(submitEvent) {
         const data = await fetchJSON(`${GEOCODING_API}?${params}`);
         const place = data.results && data.results[0];
         if (!place) {
-            setStatus(els.shopStatus, `We couldn't find “${name}”. Check the spelling, or try a nearby larger city.`, "warning");
+            setStatus(els.shopStatus, `We couldn’t find “${name}”. Check the spelling, or try a nearby larger city.`, "warning");
             return;
         }
         findShops({ label: placeLabel(place), latitude: place.latitude, longitude: place.longitude });
     } catch (error) {
-        setStatus(els.shopStatus, "The city search isn't responding. Try again in a moment, or choose “Near me”.", "warning");
+        setStatus(els.shopStatus, "The city search isn’t responding. Try again in a moment, or choose “Use my location”.", "warning");
     }
 }
 
 function useMyLocation() {
     if (!("geolocation" in navigator)) {
-        setStatus(els.shopStatus, "This browser can't share your location. Type a city instead.", "warning");
+        setStatus(els.shopStatus, "This browser can’t share your location. Type a city instead.", "warning");
         els.shopCity.focus();
         return;
     }
@@ -575,7 +579,7 @@ function useMyLocation() {
         },
         error => {
             els.geoBtn.disabled = false;
-            let message = "We couldn't pin down your location. Type a city instead.";
+            let message = "We couldn’t pin down your location. Type a city instead.";
             if (error.code === error.PERMISSION_DENIED) {
                 message = "Location access was declined. No problem: type a city instead.";
             } else if (error.code === error.TIMEOUT) {
@@ -595,9 +599,9 @@ async function loadPlaceSummary(card, stop) {
     try {
         const summary = await fetchJSON(`${WIKI_SUMMARY_API}${encodeURIComponent(stop.wiki)}`);
         const pageUrl = summary.content_urls ? summary.content_urls.desktop.page : `https://en.wikipedia.org/wiki/${stop.wiki}`;
-        summaryElement.replaceChildren(`${shorten(summary.extract, 320)} `, createLink("Wikipedia", pageUrl, "text-link"));
+        summaryElement.replaceChildren(`${shorten(summary.extract, 320)} `, createLink("Read more on Wikipedia", pageUrl, "link"));
     } catch (error) {
-        summaryElement.textContent = "The Wikipedia note isn't available right now.";
+        summaryElement.textContent = "The Wikipedia note isn’t available right now.";
     }
 }
 
@@ -614,10 +618,10 @@ function buildStopCard(stop) {
         photoBox.replaceChildren(image);
     } else {
         photoBox.classList.add("stop__photo--empty");
-        card.querySelector(".stop__photo-note").textContent = `Evan's photo from ${stop.city} goes here`;
+        card.querySelector(".stop__photo-note").textContent = `Evan’s photo from ${stop.city} goes here`;
     }
 
-    card.querySelector(".stop__where").textContent = `${stop.city} · ${stop.country}${stop.example ? " · example" : ""}`;
+    card.querySelector(".stop__where").textContent = `${stop.city}, ${stop.country}${stop.example ? " (example)" : ""}`;
     card.querySelector(".stop__place").textContent = stop.place;
     card.querySelector(".stop__link").textContent = stop.link;
     fillTake(card.querySelector(".take"), stop.story, DRAFT_STORY);
@@ -646,7 +650,7 @@ function renderStops() {
 
 function renderCurrencyOptions() {
     els.priceCurrency.replaceChildren(...CURRENCIES.map(({ code, name }) => {
-        const option = createElement("option", "", `${code} · ${name}`);
+        const option = createElement("option", "", `${name} (${code})`);
         option.value = code;
         return option;
     }));
@@ -670,7 +674,7 @@ async function handleConvert(submitEvent) {
     }
     els.priceAmount.removeAttribute("aria-invalid");
     els.converterError.textContent = "";
-    els.converterResult.replaceChildren(createElement("p", "converter-result__note", "Checking today's rates…"));
+    els.converterResult.replaceChildren(createElement("p", "converter-result__note", "Checking today’s rates…"));
 
     try {
         const targets = CURRENCIES.map(({ code }) => code).filter(code => code !== from);
@@ -688,7 +692,7 @@ async function handleConvert(submitEvent) {
         );
     } catch (error) {
         els.converterResult.replaceChildren(
-            createElement("p", "converter-result__note is-warning", "The exchange-rate service isn't answering right now. Please try again in a moment.")
+            createElement("p", "converter-result__note is-warning", "The exchange-rate service isn’t answering right now. Please try again in a moment.")
         );
     }
 }

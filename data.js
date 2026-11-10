@@ -3,17 +3,17 @@
 /*
  * data.js: everything the page knows.
  *
- * EVAN'S NOTES  Each Europe stop's `story` is for Evan's own words. An empty
+ * EVAN’S NOTES  Each Europe stop’s `story` is for Evan’s own words. An empty
  *               string shows a "draft" box on the page.
  * HOUSES        The brand guide: four groups, each brand with where and when
- *               it was founded and what it's known for. Names match `brand`.
+ *               it was founded and what it’s known for. Names match `brand`.
  * WATCHES       Real watches. Specs describe the current model named in
- *               `model` (makers' published data; Rolex doesn't publish
+ *               `model` (makers’ published data; Rolex doesn’t publish
  *               thickness, so those figures come from reviews and are marked
  *               approximate). `photo` is a Wikimedia Commons file and
  *               `pictured` says exactly what that photo shows.
  * WATCH_TYPES  The one filter above the watches, with a one-line explanation.
- * MOVEMENTS    Plain-English explanations shown in each watch's details.
+ * MOVEMENTS    Plain-English explanations shown in each watch’s details.
  * DRESS_CODES  Which occasions each watch suits ("Wear it to" in the details).
  * EUROPE_STOPS Places with a watch story. The three below are examples to
  *              replace with places Evan actually visited.
@@ -21,9 +21,9 @@
  */
 
 const PRICE_TIERS = {
-    entry: "Entry · under $1k",
-    mid: "Mid · $1k–10k",
-    grail: "Grail · $10k+"
+    entry: "Under $1,000",
+    mid: "$1,000–$10,000",
+    grail: "Over $10,000"
 };
 
 const HOUSES = [
@@ -33,17 +33,17 @@ const HOUSES = [
         brands: [
             {
                 name: "Patek Philippe",
-                origin: "Geneva · 1839",
+                origin: "Geneva, 1839",
                 note: "Family-owned since 1932 and best known for grand complications, the Calatrava and the Nautilus."
             },
             {
                 name: "Audemars Piguet",
-                origin: "Le Brassus · 1875",
+                origin: "Le Brassus, 1875",
                 note: "Still owned by its founding families; its 1972 Royal Oak helped create the luxury steel sports watch."
             },
             {
                 name: "Vacheron Constantin",
-                origin: "Geneva · 1755",
+                origin: "Geneva, 1755",
                 note: "Says it has made watches without interruption since 1755, longer than any other maker."
             }
         ]
@@ -54,124 +54,124 @@ const HOUSES = [
         brands: [
             {
                 name: "Jaeger-LeCoultre",
-                origin: "Le Sentier · 1833",
-                note: "Called “the watchmaker's watchmaker” for supplying movements to other houses; maker of the Reverso."
+                origin: "Le Sentier, 1833",
+                note: "Called “the watchmaker’s watchmaker” for supplying movements to other houses; maker of the Reverso."
             },
             {
                 name: "Breguet",
-                origin: "Paris · 1775",
+                origin: "Paris, 1775",
                 note: "Founded by Abraham-Louis Breguet, who patented the tourbillon in 1801."
             },
             {
                 name: "Blancpain",
-                origin: "Villeret · 1735",
+                origin: "Villeret, 1735",
                 note: "Claims to be the oldest watch brand; its 1953 Fifty Fathoms helped define the dive watch."
             },
             {
                 name: "Piaget",
-                origin: "La Côte-aux-Fées · 1874",
+                origin: "La Côte-aux-Fées, 1874",
                 note: "Famous for ultra-thin movements and for watches that double as jewelry."
             },
             {
                 name: "Cartier",
-                origin: "Paris · 1847",
+                origin: "Paris, 1847",
                 note: "The Paris jeweler whose Santos (1904) and Tank (1917) helped make the wristwatch fashionable."
             },
             {
                 name: "Bulgari",
-                origin: "Rome · 1884",
+                origin: "Rome, 1884",
                 note: "A Roman jeweler known for bold Italian design, from the Serpenti to record-thin Octo Finissimo watches."
             },
             {
                 name: "Grand Seiko",
-                origin: "Japan · 1960",
-                note: "Seiko's luxury line, known for mirror-like Zaratsu polishing and the gliding Spring Drive."
+                origin: "Japan, 1960",
+                note: "Seiko’s luxury line, known for mirror-like Zaratsu polishing and the gliding Spring Drive."
             }
         ]
     },
     {
-        title: "Sports icons",
+        title: "Sports watches",
         summary: "The names behind the dive, pilot and racing watches everyone recognizes.",
         brands: [
             {
                 name: "Rolex",
-                origin: "Geneva · 1905",
+                origin: "Geneva, 1905",
                 note: "Founded in London and based in Geneva since 1919; its 1926 Oyster case made wristwatches waterproof."
             },
             {
                 name: "Omega",
-                origin: "Biel/Bienne · 1848",
+                origin: "Biel/Bienne, 1848",
                 note: "The Speedmaster went to the Moon, and Omega has timed the Olympic Games since 1932."
             },
             {
                 name: "Tudor",
-                origin: "Geneva · 1926",
-                note: "Founded by Rolex's Hans Wilsdorf as a more affordable sister brand."
+                origin: "Geneva, 1926",
+                note: "Founded by Rolex’s Hans Wilsdorf as a more affordable sister brand."
             },
             {
                 name: "Breitling",
-                origin: "Saint-Imier · 1884",
-                note: "Built its name on pilot's chronographs such as the Navitimer."
+                origin: "Saint-Imier, 1884",
+                note: "Built its name on pilot’s chronographs such as the Navitimer."
             },
             {
                 name: "TAG Heuer",
-                origin: "Saint-Imier · 1860",
-                note: "Edouard Heuer's company, a pioneer of racing chronographs and stopwatches."
+                origin: "Saint-Imier, 1860",
+                note: "Edouard Heuer’s company, a pioneer of racing chronographs and stopwatches."
             },
             {
                 name: "Zenith",
-                origin: "Le Locle · 1865",
+                origin: "Le Locle, 1865",
                 note: "Launched the El Primero in 1969, one of the first automatic chronograph movements."
             },
             {
                 name: "IWC",
-                origin: "Schaffhausen · 1868",
-                note: "Founded by an American, F. A. Jones; known for pilot's watches and the Portugieser."
+                origin: "Schaffhausen, 1868",
+                note: "Founded by an American, F. A. Jones; known for pilot’s watches and the Portugieser."
             },
             {
                 name: "Panerai",
-                origin: "Florence · 1860",
+                origin: "Florence, 1860",
                 note: "A Florentine workshop that supplied the Italian navy with diving instruments and watches."
             }
         ]
     },
     {
         title: "Great first watches",
-        summary: "Honest, well-made watches that won't empty a student's wallet.",
+        summary: "Honest, well-made watches that won’t empty a student’s wallet.",
         brands: [
             {
                 name: "Seiko",
-                origin: "Tokyo · 1881",
-                note: "Launched the world's first quartz wristwatch, the Astron, in 1969."
+                origin: "Tokyo, 1881",
+                note: "Launched the world’s first quartz wristwatch, the Astron, in 1969."
             },
             {
                 name: "Orient",
-                origin: "Tokyo · 1950",
+                origin: "Tokyo, 1950",
                 note: "Japanese maker known for automatic movements it builds itself, at friendly prices."
             },
             {
                 name: "Tissot",
-                origin: "Le Locle · 1853",
+                origin: "Le Locle, 1853",
                 note: "One of the most affordable ways into Swiss mechanical watches."
             },
             {
                 name: "Hamilton",
-                origin: "Lancaster, Pennsylvania · 1892",
+                origin: "Lancaster, Pennsylvania, 1892",
                 note: "An American name, now Swiss-made, still known for military-style field watches."
             },
             {
                 name: "Nomos Glashütte",
-                origin: "Glashütte · 1990",
+                origin: "Glashütte, 1990",
                 note: "Founded just after the fall of the Berlin Wall; known for clean, Bauhaus-style dials."
             },
             {
                 name: "Casio",
-                origin: "Tokyo · 1946",
+                origin: "Tokyo, 1946",
                 note: "An electronics maker whose watches began with the 1974 Casiotron; home of the G-Shock and F-91W."
             },
             {
                 name: "Swatch",
-                origin: "Biel/Bienne · 1983",
+                origin: "Biel/Bienne, 1983",
                 note: "Its cheap, colorful plastic watches helped rescue Swiss watchmaking from the quartz crisis."
             }
         ]
@@ -202,11 +202,11 @@ const WATCH_TYPES = {
     }
 };
 
-// Keys match each watch's `movement`.
+// Keys match each watch’s `movement`.
 const MOVEMENTS = {
     "Quartz": {
         label: "Quartz",
-        summary: "A battery and a vibrating quartz crystal keep time. It's the most accurate and affordable kind, and the seconds hand ticks once a second."
+        summary: "A battery and a vibrating quartz crystal keep time. It’s the most accurate and affordable kind, and the seconds hand ticks once a second."
     },
     "Automatic": {
         label: "Automatic",
@@ -218,13 +218,13 @@ const MOVEMENTS = {
     },
     "Spring Drive": {
         label: "Spring Drive",
-        summary: "Grand Seiko's hybrid: a mainspring powers it and a quartz-regulated glide wheel sets the pace, so the seconds hand glides."
+        summary: "Grand Seiko’s hybrid: a mainspring powers it and a quartz-regulated glide wheel sets the pace, so the seconds hand glides."
     }
 };
 
 /*
  * type   one of the WATCH_TYPES keys
- * take   Evan's own note on this watch (empty = draft)
+ * take   Evan’s own note on this watch (empty = draft)
  */
 const WATCHES = {
     bambino: {
@@ -251,7 +251,7 @@ const WATCHES = {
         tier: "mid",
         photo: "File:Cartier Tank.jpg",
         pictured: "A vintage Les Must de Cartier Tank",
-        why: "Louis Cartier designed the Tank in 1917. At 6.6 mm thin, it disappears under a shirt cuff."
+        why: "Louis Cartier designed the Tank in 1917. At 6.6 mm thin, it disappears under a shirt cuff."
     },
     "tank-must-small": {
         brand: "Cartier",
@@ -304,7 +304,7 @@ const WATCHES = {
         tier: "grail",
         photo: "File:Rolex Submariner diving watch.jpg",
         pictured: "A Rolex Submariner Date, ref. 116610LN",
-        why: "Introduced in 1953 as a 100 m dive watch; today's no-date version is rated to 300 m."
+        why: "Introduced in 1953 as a 100 m dive watch; today’s no-date version is rated to 300 m."
     },
     "black-bay-54": {
         brand: "Tudor",
@@ -317,7 +317,7 @@ const WATCHES = {
         tier: "mid",
         photo: "File:Tudor Black Bay 54 ref. m79000n-0001.jpg",
         pictured: "A Tudor Black Bay 54, ref. M79000N-0001",
-        why: "A 2023 tribute to Tudor's first dive watch, the 1954 ref. 7922, in a compact 37 mm case."
+        why: "A 2023 tribute to Tudor’s first dive watch, the 1954 ref. 7922, in a compact 37 mm case."
     },
     speedmaster: {
         brand: "Omega",
@@ -356,7 +356,7 @@ const WATCHES = {
         tier: "entry",
         photo: "File:Casio F-91W 82T38575.jpg",
         pictured: "A Casio F-91W",
-        why: "Introduced in 1989, it weighs 21 g and runs about seven years on one battery."
+        why: "Introduced in 1989, it weighs 21 g and runs about seven years on one battery."
     },
     "prx-40": {
         brand: "Tissot",
@@ -382,7 +382,7 @@ const WATCHES = {
         tier: "entry",
         photo: "File:Tissot PRX.jpg",
         pictured: "A Tissot PRX",
-        why: "The 1978-inspired PRX at 35 mm, with a quartz movement and the same integrated steel bracelet."
+        why: "The 1978-inspired PRX at 35 mm, with a quartz movement and the same integrated steel bracelet."
     },
     "datejust-36": {
         brand: "Rolex",
@@ -409,7 +409,7 @@ const WATCHES = {
         tier: "mid",
         photo: "File:Rolex watch ladies Datejust 1987.jpg",
         pictured: "A 1987 Rolex Lady-Datejust in steel and gold",
-        why: "The Datejust's date window, magnifying Cyclops lens and Oyster bracelet, scaled to 31 mm."
+        why: "The Datejust’s date window, magnifying Cyclops lens and Oyster bracelet, scaled to 31 mm."
     },
     "grand-seiko": {
         brand: "Grand Seiko",
@@ -447,7 +447,7 @@ const WATCHES = {
         strap: "Steel bracelet",
         tier: "mid",
         photo: "File:Cartier Santos wristwatch.jpg",
-        pictured: "A Santos de Cartier on display in Cartier's Prague boutique",
+        pictured: "A Santos de Cartier on display in Cartier’s Prague boutique",
         why: "Designed in 1904 for aviator Alberto Santos-Dumont, who wanted to read the time mid-flight."
     },
     panthere: {
@@ -459,7 +459,7 @@ const WATCHES = {
         movement: "Quartz",
         strap: "Steel bracelet",
         tier: "mid",
-        photo: "File:Cartier Panthere lady's 2 tone watch.jpg",
+        photo: "File:Cartier Panthere lady’s 2 tone watch.jpg",
         pictured: "A Panthère de Cartier in steel and gold",
         why: "Launched in 1983 and revived in 2017, its supple link bracelet wears like jewelry."
     },
@@ -499,8 +499,8 @@ const WATCHES = {
         strap: "Steel bracelet",
         tier: "grail",
         photo: "File:Audemars Piguet Royal Oak ref. 15202.jpg",
-        pictured: "An Audemars Piguet Royal Oak 15202, the 16202's predecessor, on the wrist",
-        why: "Gérald Genta designed the 1972 Royal Oak, an early luxury sports watch in steel; this 39 mm version arrived in 2022."
+        pictured: "An Audemars Piguet Royal Oak 15202, the 16202’s predecessor, on the wrist",
+        why: "Gérald Genta designed the 1972 Royal Oak, an early luxury sports watch in steel; this 39 mm version arrived in 2022."
     },
     "historiques-222": {
         brand: "Vacheron Constantin",
@@ -526,7 +526,7 @@ const WATCHES = {
         tier: "grail",
         photo: "File:Vacheron Constantin Patrimony gold watch.jpg",
         pictured: "A gold Vacheron Constantin Patrimony from about 1990",
-        why: "From a maker that has worked without interruption since 1755; its hand-wound calibre is just 2.6 mm thick."
+        why: "From a maker that has worked without interruption since 1755; its hand-wound calibre is just 2.6 mm thick."
     },
     "jlc-master": {
         brand: "Jaeger-LeCoultre",
@@ -539,7 +539,7 @@ const WATCHES = {
         tier: "grail",
         photo: "File:Jaeger Le Coultre ultra thin moonphase Q1258420.jpg",
         pictured: "A Jaeger-LeCoultre Master Ultra Thin Moon",
-        why: "A moon phase and date in a 9.3 mm case, from the Vallée de Joux maker that also builds the Reverso."
+        why: "A moon phase and date in a 9.3 mm case, from the Vallée de Joux maker that also builds the Reverso."
     },
     "breguet-classique": {
         brand: "Breguet",
@@ -565,7 +565,7 @@ const WATCHES = {
         tier: "grail",
         photo: "File:Piaget Polo S.jpg",
         pictured: "A Piaget Polo S, the 2016 steel Polo",
-        why: "Piaget's Polo began in 1979 as an all-gold watch; the name returned in 2016 on a steel sports model."
+        why: "Piaget’s Polo began in 1979 as an all-gold watch; the name returned in 2016 on a steel sports model."
     },
     "tank-americaine": {
         brand: "Cartier",
@@ -578,7 +578,7 @@ const WATCHES = {
         tier: "mid",
         photo: "File:Cartier Tank Americaine automatico in acciaio.jpg",
         pictured: "A steel Cartier Tank Américaine automatic",
-        why: "Introduced in 1989, the curved Tank Américaine stretches Louis Cartier's 1917 Tank into a longer, slimmer shape."
+        why: "Introduced in 1989, the curved Tank Américaine stretches Louis Cartier’s 1917 Tank into a longer, slimmer shape."
     },
     tangente: {
         brand: "Nomos Glashütte",
@@ -592,7 +592,7 @@ const WATCHES = {
         tier: "mid",
         photo: "File:NOMOS Glashütte Tangente.jpg",
         pictured: "A Nomos Glashütte Tangente",
-        why: "A Bauhaus-style dial from Glashütte, Germany's watchmaking town, with a hand-wound movement in a 35 mm case."
+        why: "A Bauhaus-style dial from Glashütte, Germany’s watchmaking town, with a hand-wound movement in a 35 mm case."
     },
     daytona: {
         brand: "Rolex",
@@ -618,7 +618,7 @@ const WATCHES = {
         strap: "Steel bracelet",
         tier: "grail",
         photo: "File:Rolex GMT Master II 116710BLNR Batman.jpg",
-        pictured: "A Rolex GMT-Master II 116710BLNR, the 126710BLNR's predecessor",
+        pictured: "A Rolex GMT-Master II 116710BLNR, the 126710BLNR’s predecessor",
         why: "Descended from the 1950s GMT-Master made for airline pilots; a 24-hour hand and bezel track a second time zone."
     },
     seamaster: {
@@ -633,7 +633,7 @@ const WATCHES = {
         tier: "mid",
         photo: "File:Omega Seamaster chronograph watch (300 meters water resist).jpg",
         pictured: "An Omega Seamaster 300M Chrono Diver, an older chronograph version",
-        why: "The 2018 generation brought back the wave-pattern dial and added Omega's Master Chronometer calibre 8800."
+        why: "The 2018 generation brought back the wave-pattern dial and added Omega’s Master Chronometer calibre 8800."
     },
     "fifty-fathoms": {
         brand: "Blancpain",
@@ -674,7 +674,7 @@ const WATCHES = {
         tier: "entry",
         photo: "File:Seiko SKX007.jpg",
         pictured: "A Seiko SKX007",
-        why: "A 200 m automatic dive watch with day and date, made by Seiko until about 2019."
+        why: "A 200 m automatic dive watch with day and date, made by Seiko until about 2019."
     },
     portugieser: {
         brand: "IWC",
@@ -700,7 +700,7 @@ const WATCHES = {
         tier: "grail",
         photo: "File:Breitling Navitimer chronograph watch.jpg",
         pictured: "A Breitling Navitimer chronograph",
-        why: "Introduced in 1952 with a slide-rule bezel for flight calculations; it became the Aircraft Owners and Pilots Association's watch."
+        why: "Introduced in 1952 with a slide-rule bezel for flight calculations; it became the Aircraft Owners and Pilots Association’s watch."
     },
     monaco: {
         brand: "TAG Heuer",
@@ -745,12 +745,12 @@ const WATCHES = {
 };
 
 
-// Which watches suit which dress code ("Wear it to" in each watch's details).
+// Which watches suit which dress code ("Wear it to" in each watch’s details).
 const DRESS_CODES = {
     "white-tie": {
         name: "White Tie",
         decoded: "The most formal dress code there is: tailcoats and full-length gowns.",
-        advice: "No wristwatch. Checking the time hints that you'd rather be elsewhere; a pocket watch is the traditional exception.",
+        advice: "No wristwatch. Checking the time hints that you’d rather be elsewhere; a pocket watch is the traditional exception.",
         picks: []
     },
     "black-tie": {
@@ -797,8 +797,8 @@ const DRESS_CODES = {
  * wiki    English Wikipedia article for the place summary
  * watchId the watch in the collection this place connects to
  * link    one factual line on how the place and the watch connect
- * photo   Evan's own photo, e.g. "images/geneva.jpg" (null = placeholder)
- * story   Evan's own words (empty = draft)
+ * photo   Evan’s own photo, e.g. "images/geneva.jpg" (null = placeholder)
+ * story   Evan’s own words (empty = draft)
  */
 const EUROPE_STOPS = [
     {
@@ -819,7 +819,7 @@ const EUROPE_STOPS = [
         place: "Place Vendôme",
         wiki: "Place_Vendôme",
         watchId: "tank-must-large",
-        link: "Paris is Cartier's home city, where Louis Cartier designed the Tank in 1917.",
+        link: "Paris is Cartier’s home city, where Louis Cartier designed the Tank in 1917.",
         photo: null,
         photoAlt: "",
         story: "",
