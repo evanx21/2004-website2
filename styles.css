@@ -211,6 +211,13 @@ img {
     letter-spacing: -0.02em;
 }
 
+.hero__lede {
+    max-width: 30rem;
+    margin-top: var(--s-5);
+    font-size: 1.25rem;
+    line-height: 1.5;
+}
+
 .actions {
     display: flex;
     flex-wrap: wrap;
@@ -221,15 +228,31 @@ img {
 
 .hero__photo {
     grid-column: 8 / span 5;
+    margin: 0;
 }
 
+/* Leaves room for the caption so photo and caption fit on the first screen. */
 .hero__photo img {
     width: 100%;
     aspect-ratio: 4 / 5;
-    max-height: calc(100vh - var(--nav) - 112px);
-    max-height: calc(100svh - var(--nav) - 112px);
+    max-height: calc(100vh - var(--nav) - 12rem);
+    max-height: calc(100svh - var(--nav) - 12rem);
     object-fit: cover;
     border-radius: var(--r-lg);
+}
+
+.hero__caption {
+    margin-top: var(--s-3);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+.hero__caption-title {
+    display: block;
+    font-size: var(--t-label);
+    font-weight: 500;
+    color: var(--ink);
 }
 
 /* ---------- 5. Story band ---------- */
@@ -1228,7 +1251,11 @@ input[aria-invalid="true"] {
 }
 
 .hero__text > :nth-child(2) {
-    animation-delay: 0.12s;
+    animation-delay: 0.08s;
+}
+
+.hero__text > :nth-child(3) {
+    animation-delay: 0.16s;
 }
 
 .hero__photo {
@@ -1346,6 +1373,10 @@ input[aria-invalid="true"] {
 
     .wordmark {
         font-size: 1.25rem;
+    }
+
+    .hero__lede {
+        font-size: 1.125rem;
     }
 
     .actions {
