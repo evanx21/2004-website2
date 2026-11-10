@@ -29,7 +29,7 @@
                 <a href="#basics">Basics</a>
                 <a href="#watches">Watches</a>
                 <a href="#stores">Stores</a>
-                <a href="#europe">Europe</a>
+                <a href="#hong-kong">Hong Kong</a>
                 <a href="#apis">APIs</a>
             </nav>
         </div>
@@ -243,26 +243,54 @@
             </div>
         </section>
 
-        <section class="section section--alt" id="europe" aria-labelledby="europe-title">
+        <section class="section section--alt" id="hong-kong" aria-labelledby="hong-kong-title">
             <div class="wrap">
                 <header class="section-head">
-                    <h2 id="europe-title">My trips to Europe</h2>
-                    <p class="section-head__lede">Places I’ve been that have something to do with watches. Each one links to a watch above.</p>
+                    <h2 id="hong-kong-title">Buying a watch in Hong Kong</h2>
+                    <p class="section-head__lede">Hong Kong is tiny, but I don’t know any city with more watch shops this
+                        close together. New York, Singapore, Tokyo and even Geneva don’t come close. My dad says it’s
+                        because Hong Kong is a free port with no sales tax, right next to mainland China and close to
+                        Southeast Asia.</p>
                 </header>
-                <p class="draft draft--intro">Evan’s take: a short intro to your trip. When you went, where, and what
-                    you were looking for.</p>
 
-                <div class="stop-grid" id="stop-grid"></div>
+                <div class="hk-guide">
+                    <div class="hk-guide__text">
+                        <h3>Where to go</h3>
+                        <ol class="area-list" id="area-list"></ol>
+
+                        <h3>Where to buy</h3>
+                        <p>The big dealers are Oriental Watch Company (<span lang="zh-Hant">東方表行</span>), Emperor
+                            Watch &amp; Jewellery (<span lang="zh-Hant">英皇</span>) and Europe Watch Company
+                            (<span lang="zh-Hant">歐洲坊</span>). Their Chinese names are on the signs too.</p>
+
+                        <h3>Vintage watches</h3>
+                        <p>Look at the auction houses. Christie’s, Sotheby’s and Phillips all hold watch auctions in Hong
+                            Kong, and you can often see the watches in person before a sale.</p>
+                    </div>
+
+                    <div class="hk-photos">
+                        <figure class="hk-photo">
+                            <img src="images/hk-oriental-watch.jpg" width="800" height="1070" loading="lazy"
+                                alt="Oriental Watch Company’s Tudor and Rolex windows on a street in Central">
+                            <figcaption>Oriental Watch Company in Central</figcaption>
+                        </figure>
+                        <figure class="hk-photo">
+                            <img src="images/hk-central.jpg" width="800" height="1067" loading="lazy"
+                                alt="Office towers and red taxis on a street in Central, Hong Kong">
+                            <figcaption>Central, the business district</figcaption>
+                        </figure>
+                    </div>
+                </div>
 
                 <section class="converter-block" aria-labelledby="converter-title">
                     <h3 id="converter-title">Convert a price tag</h3>
-                    <p class="converter-block__lede">Type a price you saw abroad to see it in six other currencies at
-                        today’s rates.</p>
+                    <p class="converter-block__lede">Type a price you saw in Hong Kong dollars, or any other currency, to
+                        see it in the others at today’s rates.</p>
                     <form class="converter" id="converter" novalidate>
                         <div class="field">
                             <label for="price-amount">Price</label>
                             <input type="number" id="price-amount" name="amount" min="0" step="any"
-                                inputmode="decimal" placeholder="9600" aria-describedby="converter-error">
+                                inputmode="decimal" placeholder="50000" aria-describedby="converter-error">
                         </div>
                         <div class="field">
                             <label for="price-currency">Currency</label>
@@ -272,8 +300,6 @@
                     </form>
                     <p class="field-error" id="converter-error" role="alert"></p>
                     <div class="converter-result" id="converter-result" aria-live="polite"></div>
-                    <p class="draft">Evan’s take: buying tips from your trip, such as tax-free shopping and where
-                        prices felt different. We’ll fact-check any rules before publishing.</p>
                 </section>
             </div>
         </section>
@@ -333,7 +359,7 @@
                     <div>
                         <dt><a class="link" href="https://en.wikipedia.org/">Wikipedia</a></dt>
                         <dd class="api-list__kind">Data API</dd>
-                        <dd>The short “About …” notes on each place in My trips to Europe.</dd>
+                        <dd>The short “About …” notes on each area in Buying a watch in Hong Kong.</dd>
                     </div>
                 </dl>
             </section>
@@ -419,27 +445,6 @@
         </div>
     </template>
 
-    <template id="stop-template">
-        <article class="stop">
-            <div class="stop__photo">
-                <p class="stop__photo-note"></p>
-            </div>
-            <div class="stop__body">
-                <p class="stop__where"></p>
-                <h3 class="stop__place"></h3>
-                <div class="take">
-                    <p class="take__label">Evan’s take</p>
-                    <p class="take__text"></p>
-                </div>
-                <p class="stop__link"></p>
-                <button type="button" class="link-button stop__watch"></button>
-                <details class="stop__about">
-                    <summary></summary>
-                    <p class="stop__summary">Loading…</p>
-                </details>
-            </div>
-        </article>
-    </template>
 </body>
 
 </html>

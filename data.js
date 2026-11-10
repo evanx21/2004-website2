@@ -3,9 +3,7 @@
 /*
  * data.js: everything the page knows.
  *
- * EVAN’S NOTES  Each Europe stop’s `story` is for Evan’s own words. An empty
- *               string shows a "draft" box on the page.
- * BRANDS        Every brand on the site: where and when it was founded and
+ * BRANDS       Every brand on the site: where and when it was founded and
  *               what it’s known for (the "Maker" line in a watch’s details).
  *               Names match `brand`. `say` (hard names only): the language
  *               to read the name in, `text` when the voice needs a respelling
@@ -20,8 +18,7 @@
  * WATCH_TYPES  The one filter above the watches, with a one-line explanation.
  * MOVEMENTS    Plain-English explanations shown in each watch’s details.
  * DRESS_CODES  Which occasions each watch suits ("Wear it to" in the details).
- * EUROPE_STOPS Places with a watch story. The three below are examples to
- *              replace with places Evan actually visited.
+ * HK_AREAS     Evan’s Hong Kong guide: where to go to look at watches.
  * CURRENCIES   Currencies offered by the price converter.
  */
 
@@ -817,49 +814,32 @@ const DRESS_CODES = {
 };
 
 /*
- * EXAMPLE STOPS: replace these with places Evan actually visited.
- * wiki    English Wikipedia article for the place summary
- * watchId the watch in the collection this place connects to
- * link    one factual line on how the place and the watch connect
- * photo   Evan’s own photo, e.g. "images/geneva.jpg" (null = placeholder)
- * story   Evan’s own words (empty = draft)
+ * Buying a watch in Hong Kong: the three areas, in the order Evan suggests.
+ * chinese  the name on street signs and MTR maps
+ * when     when to go there
+ * wiki     English Wikipedia article for the "About" note
  */
-const EUROPE_STOPS = [
+const HK_AREAS = [
     {
-        city: "Geneva",
-        country: "Switzerland",
-        place: "Geneva",
-        wiki: "Geneva",
-        watchId: "calatrava",
-        link: "Patek Philippe has been based in Geneva since it was founded in 1839.",
-        photo: null,
-        photoAlt: "",
-        story: "",
-        example: true
+        name: "Central",
+        chinese: "中環",
+        when: "Start here",
+        note: "Hong Kong’s business district, with a flagship store for almost every big brand. If you only have a few hours, spend them here.",
+        wiki: "Central,_Hong_Kong"
     },
     {
-        city: "Paris",
-        country: "France",
-        place: "Place Vendôme",
-        wiki: "Place_Vendôme",
-        watchId: "tank-must-large",
-        link: "Paris is Cartier’s home city, where Louis Cartier designed the Tank in 1917.",
-        photo: null,
-        photoAlt: "",
-        story: "",
-        example: true
+        name: "Nathan Road",
+        chinese: "彌敦道",
+        when: "Then here",
+        note: "Kowloon’s main street, across the harbor from Central. Central and Nathan Road are enough for most trips.",
+        wiki: "Nathan_Road"
     },
     {
-        city: "London",
-        country: "United Kingdom",
-        place: "Bond Street",
-        wiki: "Bond_Street",
-        watchId: "submariner",
-        link: "Hans Wilsdorf founded the company that became Rolex in London in 1905.",
-        photo: null,
-        photoAlt: "",
-        story: "",
-        example: true
+        name: "Causeway Bay",
+        chinese: "銅鑼灣",
+        when: "If you have time",
+        note: "A busy shopping area east of Central. Add it if you have a spare afternoon.",
+        wiki: "Causeway_Bay"
     }
 ];
 

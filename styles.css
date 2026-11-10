@@ -1,6 +1,6 @@
 /* ============================================================
    Evan Explains Watches
-   1. Tokens         6. Watch basics     11. Europe
+   1. Tokens         6. Watch basics     11. Hong Kong
    2. Base           7. Watches          12. Price converter
    3. Header         8. Photos           13. Buttons, links, forms
    4. Hero           9. Watch details    14. Footer
@@ -994,136 +994,109 @@ img {
     font-weight: 500;
 }
 
-/* ---------- 11. Europe ---------- */
+/* ---------- 11. Buying a watch in Hong Kong ---------- */
 
-.draft--intro {
-    max-width: 44rem;
-    margin-bottom: var(--s-7);
-}
-
-.stop-grid {
+/* The guide on the left, Evan's two photos on the right. */
+.hk-guide {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
-    gap: var(--s-7) var(--s-5);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--s-5);
+    row-gap: var(--s-7);
+    align-items: start;
 }
 
-.stop {
-    display: flex;
-    flex-direction: column;
+.hk-guide__text {
+    grid-column: 1 / span 7;
 }
 
-.stop__photo {
+.hk-guide__text h3 {
+    font-size: 1.5rem;
+}
+
+.hk-guide__text > p {
+    max-width: 36rem;
+    margin-top: var(--s-3);
+}
+
+.hk-guide__text > p + h3,
+.area-list + h3 {
+    margin-top: var(--s-7);
+}
+
+.hk-photos {
     display: grid;
-    place-items: center;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    border-radius: var(--r-md);
-    background: var(--ground);
+    grid-column: 8 / span 5;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-3);
 }
 
-.stop__photo img {
+.hk-photo {
+    margin: 0;
+}
+
+.hk-photo img {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
+    border-radius: var(--r-md);
 }
 
-/* Until Evan adds his own photo, the empty frame stays short. */
-.stop__photo--empty {
-    aspect-ratio: auto;
-    min-height: 120px;
-    border: 1px dashed var(--line-strong);
-    background: transparent;
-}
-
-.stop__photo-note {
-    padding: var(--s-4);
-    font-size: 0.875rem;
-    text-align: center;
+.hk-photo figcaption {
+    margin-top: var(--s-2);
+    font-size: var(--t-label);
     color: var(--muted);
 }
 
-.stop__body {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--s-3);
-    padding-top: var(--s-5);
+/* The three areas side by side, in the order to visit them. */
+.area-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-5);
+    margin: var(--s-4) 0 0;
+    padding: 0;
+    list-style: none;
 }
 
-.stop__where {
+.area {
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line);
+}
+
+.area__when {
     font-size: var(--t-label);
     font-weight: 500;
     color: var(--muted);
 }
 
-.stop__place {
-    margin-top: calc(-1 * var(--s-2));
-    font-size: 1.5rem;
+.area__name {
+    margin-top: var(--s-1);
+    font-size: 1.25rem;
 }
 
-.stop__link {
-    font-family: var(--font-display);
-    font-size: 1.125rem;
-    line-height: 1.45;
+.area__chinese {
+    margin-left: var(--s-1);
+    font-family: var(--font-text);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--muted);
 }
 
-.stop__about summary {
+.area__note {
+    margin-top: var(--s-2);
+    font-size: 0.9375rem;
+}
+
+.area__about summary {
     display: flex;
     align-items: center;
     min-height: 44px;
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
 }
 
-.stop__summary {
-    color: var(--muted);
-}
-
-/* Draft boxes mark where Evan's own words will go. */
-.draft {
-    padding: var(--s-4) var(--s-5);
-    border: 1px dashed var(--line-strong);
-    border-radius: var(--r-md);
-    color: var(--muted);
-}
-
-.draft::before {
-    content: "Draft";
-    display: block;
-    margin-bottom: var(--s-1);
-    font-size: var(--t-label);
-    font-weight: 600;
-    color: var(--accent);
-}
-
-.take {
-    align-self: stretch;
-}
-
-.take__label {
-    font-size: var(--t-label);
-    font-weight: 500;
-    color: var(--muted);
-}
-
-.take__text {
-    margin-top: var(--s-1);
-    font-family: var(--font-display);
-    font-size: 1.1875rem;
-    line-height: 1.45;
-}
-
-.take--draft {
-    padding: var(--s-3) var(--s-4);
-    border: 1px dashed var(--line-strong);
-    border-radius: var(--r-md);
-}
-
-.take--draft .take__text {
-    font-family: var(--font-text);
-    font-size: 0.9375rem;
+.area__summary {
+    font-size: 0.875rem;
     color: var(--muted);
 }
 
@@ -1131,7 +1104,7 @@ img {
 
 .converter-block {
     max-width: 48rem;
-    margin-top: var(--s-9);
+    margin-top: var(--s-8);
     padding-top: var(--s-7);
     border-top: 1px solid var(--line);
 }
@@ -1172,10 +1145,6 @@ img {
     margin-top: var(--s-3);
     font-size: 0.875rem;
     color: var(--muted);
-}
-
-.converter-block .draft {
-    margin-top: var(--s-6);
 }
 
 /* ---------- 13. Buttons, links, forms ---------- */
@@ -1237,7 +1206,7 @@ img {
 .link-button,
 .shop__map,
 .photo-credit a,
-.stop__summary a {
+.area__summary a {
     color: inherit;
     text-decoration: underline;
     text-decoration-thickness: 1px;
@@ -1250,7 +1219,7 @@ img {
 .link-button:hover,
 .shop__map:hover,
 .photo-credit a:hover,
-.stop__summary a:hover {
+.area__summary a:hover {
     text-decoration-color: currentColor;
 }
 
@@ -1504,6 +1473,15 @@ input[aria-invalid="true"] {
     .name-list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    .hk-guide__text,
+    .hk-photos {
+        grid-column: 1 / -1;
+    }
+
+    .hk-photos {
+        max-width: 36rem;
+    }
 }
 
 @media (max-width: 860px) {
@@ -1632,6 +1610,10 @@ input[aria-invalid="true"] {
 
     .name-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .area-list {
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .filter__row {

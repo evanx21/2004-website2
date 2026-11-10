@@ -4,7 +4,7 @@
  * Evan Explains Watches: a student’s guide to watches
  * -------------------------------------------------------------------------
  * Data APIs     Wikimedia Commons (watch photos and their credits)
- *               Wikipedia REST (place notes in "My trips to Europe")
+ *               Wikipedia REST (area notes in "Buying a watch in Hong Kong")
  *               Frankfurter (exchange rates for the price converter)
  *               Open-Meteo Geocoding (city search in "Try one on")
  *               Google Places, through the CSE 2004 class proxy (stores near you)
@@ -12,7 +12,7 @@
  * Browser APIs  Geolocation ("Use my location" in Try one on)
  *               Web Speech, speech synthesis ("Say it" in Watch basics and the details)
  *
- * All content, including Evan’s own notes, lives in data.js.
+ * All the content lives in data.js.
  */
 
 /* ===================== Constants ===================== */
@@ -40,7 +40,6 @@ const OCCASION_EXAMPLES = 2; // and under each dress code
 const MAX_SHOP_DISTANCE_KM = 50; // Google may suggest a far-away boutique; leave those out
 const COORDINATE_DECIMALS = 2; // about 1 km
 
-const DRAFT_STORY = "Draft: your own memory of this place, what you saw, and how it felt.";
 
 /* ===================== Elements & state ===================== */
 
@@ -59,7 +58,7 @@ const els = {
     watchMore: document.querySelector("#watch-more"),
     basicsTabs: document.querySelector("#basics-tabs"),
     lessons: document.querySelectorAll(".lesson"),
-    stopGrid: document.querySelector("#stop-grid"),
+    areaList: document.querySelector("#area-list"),
     converter: document.querySelector("#converter"),
     priceAmount: document.querySelector("#price-amount"),
     priceCurrency: document.querySelector("#price-currency"),
@@ -89,7 +88,6 @@ const els = {
     shopStatus: document.querySelector("#shop-status"),
     shopList: document.querySelector("#shop-list"),
     watchTemplate: document.querySelector("#watch-template"),
-    stopTemplate: document.querySelector("#stop-template"),
     sayTemplate: document.querySelector("#say-template")
 };
 
@@ -170,16 +168,6 @@ function htmlToText(html) {
     }
     const text = new DOMParser().parseFromString(html, "text/html").body.textContent || "";
     return text.replace(/\s+/g, " ").trim();
-}
-
-function hasText(text) {
-    return Boolean(text && text.trim());
-}
-
-// Evan’s own words, or a clearly marked draft box until he writes them.
-function fillTake(container, text, draftText) {
-    container.classList.toggle("take--draft", !hasText(text));
-    container.querySelector(".take__text").textContent = hasText(text) ? text : draftText;
 }
 
 /* ===================== Photos (Wikimedia Commons API) ===================== */
@@ -952,58 +940,42 @@ function useMyLocation() {
     );
 }
 
-/* ===================== Notes from Europe (Wikipedia REST API) ===================== */
+/* ===================== Buying a watch in Hong Kong (Wikipedia REST API) ===================== */
 
-async function loadPlaceSummary(card, stop) {
-    const summaryElement = card.querySelector(".stop__summary");
+async function loadPlaceSummary(element, wikiTitle) {
     try {
-        const summary = await fetchJSON(`${WIKI_SUMMARY_API}${encodeURIComponent(stop.wiki)}`);
-        const pageUrl = summary.content_urls ? summary.content_urls.desktop.page : `https://en.wikipedia.org/wiki/${stop.wiki}`;
-        summaryElement.replaceChildren(`${shorten(summary.extract, 320)} `, createLink("Read more on Wikipedia", pageUrl, "link"));
+        const summary = await fetchJSON(`${WIKI_SUMMARY_API}${encodeURIComponent(wikiTitle)}`);
+        const pageUrl = summary.content_urls ? summary.content_urls.desktop.page : `https://en.wikipedia.org/wiki/${wikiTitle}`;
+        element.replaceChildren(`${shorten(summary.extract, 320)} `, createLink("Read more on Wikipedia", pageUrl, "link"));
     } catch (error) {
-        summaryElement.textContent = "The Wikipedia note isn’t available right now.";
+        element.textContent = "The Wikipedia note isn’t available right now.";
     }
 }
 
-function buildStopCard(stop) {
-    const card = els.stopTemplate.content.firstElementChild.cloneNode(true);
-    const watch = WATCHES[stop.watchId];
-    const photoBox = card.querySelector(".stop__photo");
+// One area of the guide, with a Wikipedia note that loads the first time someone opens it.
+function buildArea(area) {
+    const item = createElement("li", "area");
+    const name = createElement("h4", "area__name", `${area.name} `);
+    const chinese = createElement("span", "area__chinese", area.chinese);
+    chinese.lang = "zh-Hant";
+    name.append(chinese);
 
-    if (stop.photo) {
-        const image = document.createElement("img");
-        image.src = stop.photo;
-        image.alt = stop.photoAlt || `${stop.place}, ${stop.city}`;
-        image.loading = "lazy";
-        photoBox.replaceChildren(image);
-    } else {
-        photoBox.classList.add("stop__photo--empty");
-        card.querySelector(".stop__photo-note").textContent = `Evan’s photo from ${stop.city} goes here`;
-    }
-
-    card.querySelector(".stop__where").textContent = `${stop.city}, ${stop.country}${stop.example ? " (example)" : ""}`;
-    card.querySelector(".stop__place").textContent = stop.place;
-    card.querySelector(".stop__link").textContent = stop.link;
-    fillTake(card.querySelector(".take"), stop.story, DRAFT_STORY);
-
-    const watchButton = card.querySelector(".stop__watch");
-    watchButton.textContent = `See the ${watch.brand} ${watch.model}`;
-    watchButton.addEventListener("click", () => openWatch(stop.watchId, watchButton));
-
-    // The Wikipedia note loads the first time someone opens it.
-    const about = card.querySelector(".stop__about");
-    about.querySelector("summary").textContent = `About ${stop.place}`;
+    const about = createElement("details", "area__about");
+    const note = createElement("p", "area__summary", "Loading…");
+    about.append(createElement("summary", "", `About ${area.name}`), note);
     about.addEventListener("toggle", () => {
         if (about.open && !about.dataset.loaded) {
             about.dataset.loaded = "true";
-            loadPlaceSummary(card, stop);
+            loadPlaceSummary(note, area.wiki);
         }
     });
-    return card;
+
+    item.append(createElement("p", "area__when", area.when), name, createElement("p", "area__note", area.note), about);
+    return item;
 }
 
-function renderStops() {
-    els.stopGrid.replaceChildren(...EUROPE_STOPS.map(buildStopCard));
+function renderAreas() {
+    els.areaList.replaceChildren(...HK_AREAS.map(buildArea));
 }
 
 /* ===================== Price converter (Frankfurter API) ===================== */
@@ -1014,7 +986,7 @@ function renderCurrencyOptions() {
         option.value = code;
         return option;
     }));
-    els.priceCurrency.value = "CHF";
+    els.priceCurrency.value = "HKD";
 }
 
 function formatMoney(amount, currency) {
@@ -1092,7 +1064,7 @@ function init() {
     renderSpecialties();
     renderNames();
     renderWatches();
-    renderStops();
+    renderAreas();
     renderCurrencyOptions();
     bindEvents();
     if (canSpeak()) {
