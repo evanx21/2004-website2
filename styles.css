@@ -1,6 +1,6 @@
 /* ============================================================
    Evan Explains Watches
-   1. Tokens         6. Watch basics     11. Hong Kong
+   1. Tokens         6. Watch basics     11. City notes
    2. Base           7. Watches          12. Price converter
    3. Header         8. Photos           13. Buttons, links, forms
    4. Hero           9. Watch details    14. Footer
@@ -81,7 +81,8 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5 {
     margin: 0;
     font-family: var(--font-display);
     font-weight: 500;
@@ -204,32 +205,36 @@ img {
 
 /* ---------- 4. Hero ---------- */
 
+.hero {
+    background: #f4f2ed;
+}
+
 .hero__inner {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--s-5);
-    align-items: center;
-    min-height: calc(100vh - var(--nav));
-    min-height: calc(100svh - var(--nav));
-    padding-block: var(--s-6) var(--s-7);
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.2fr);
+    max-width: 1600px;
+    min-height: clamp(620px, calc(100svh - var(--nav) - 40px), 780px);
+    margin-inline: auto;
 }
 
 .hero__text {
-    grid-column: 1 / span 7;
+    align-self: center;
+    padding: var(--s-8) clamp(32px, 4.5vw, 72px);
 }
 
 .hero h1 {
-    max-width: 12em;
-    font-size: var(--t-h1);
+    max-width: 10em;
+    font-size: clamp(3rem, 4.4vw, 4.5rem);
     line-height: 1.02;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.035em;
 }
 
 .hero__lede {
     max-width: 30rem;
     margin-top: var(--s-5);
-    font-size: 1.25rem;
-    line-height: 1.5;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--muted);
 }
 
 .actions {
@@ -241,32 +246,50 @@ img {
 }
 
 .hero__photo {
-    grid-column: 8 / span 5;
+    position: relative;
     margin: 0;
+    background: #3b2c1d;
 }
 
-/* Leaves room for the caption so photo and caption fit on the first screen. */
 .hero__photo img {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    aspect-ratio: 4 / 5;
-    max-height: calc(100vh - var(--nav) - 12rem);
-    max-height: calc(100svh - var(--nav) - 12rem);
+    height: 100%;
     object-fit: cover;
-    border-radius: var(--r-lg);
+    object-position: 50% 45%;
 }
 
 .hero__caption {
-    margin-top: var(--s-3);
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    color: var(--muted);
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-2) var(--s-5);
+    padding: var(--s-6);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.88));
+    padding-top: var(--s-8);
+    font-size: 0.8125rem;
+    color: #fff;
 }
 
-.hero__caption-title {
-    display: block;
-    font-size: var(--t-label);
-    font-weight: 500;
-    color: var(--ink);
+.hero__caption a {
+    text-underline-offset: 4px;
+}
+
+.hero__credit {
+    max-width: 1600px;
+    margin-inline: auto;
+    padding: var(--s-2) var(--gut);
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    color: var(--muted);
+    text-align: right;
+}
+
+.hero__credit a {
+    text-underline-offset: 2px;
 }
 
 /* ---------- 5. Story band ---------- */
@@ -279,13 +302,31 @@ img {
 .story__inner {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--s-5);
+    column-gap: var(--s-7);
     row-gap: var(--s-7);
-    padding-block: var(--s-9);
+    padding-block: var(--s-8);
+    align-items: start;
+}
+
+.story__photo {
+    grid-column: 1 / span 5;
+    margin: 0;
+}
+
+.story__photo img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--r-lg);
+}
+
+.story__photo figcaption {
+    margin-top: var(--s-3);
+    font-size: var(--t-label);
+    color: var(--on-dark-muted);
 }
 
 .story__text {
-    grid-column: 1 / span 6;
+    grid-column: 6 / -1;
 }
 
 .story h2 {
@@ -295,7 +336,7 @@ img {
 
 .story__text p {
     max-width: 34em;
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     line-height: 1.7;
 }
 
@@ -303,25 +344,25 @@ img {
     margin-top: var(--s-4);
 }
 
-/* Lines up with the first paragraph, not the heading. */
 .story__lessons {
-    grid-column: 8 / span 5;
-    padding-top: calc(var(--t-h2) * 1.1 + var(--s-6));
+    grid-column: 1 / -1;
 }
 
 .story__lessons h3 {
     padding-bottom: var(--s-4);
-    border-bottom: 1px solid var(--line-on-dark);
     font-size: 1.5rem;
 }
 
 .lessons {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--s-6);
     margin: 0;
 }
 
 .lessons > div {
     padding-block: var(--s-4);
-    border-bottom: 1px solid var(--line-on-dark);
+    border-top: 1px solid var(--line-on-dark);
 }
 
 .lessons dt {
@@ -994,9 +1035,132 @@ img {
     font-weight: 500;
 }
 
-/* ---------- 11. Buying a watch in Hong Kong ---------- */
+/* ---------- 11. City notes ---------- */
 
-/* The guide on the left, Evan's two photos on the right. */
+.city-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-6);
+    margin-top: var(--s-5);
+    border-bottom: 1px solid var(--line);
+}
+
+.city-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--s-2) 0;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.city-tab:hover,
+.city-tab[aria-selected="true"] {
+    color: var(--ink);
+}
+
+.city-tab[aria-selected="true"]::after {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    content: "";
+}
+
+.city-note {
+    scroll-margin-top: var(--s-5);
+}
+
+.city-more {
+    max-width: 48rem;
+    margin-top: var(--s-6);
+}
+
+.city-more h3 {
+    font-size: 1.25rem;
+}
+
+.city-more p {
+    margin-top: var(--s-2);
+    color: var(--muted);
+    font-size: 0.9375rem;
+}
+
+.city-note__header {
+    margin-bottom: var(--s-6);
+}
+
+.city-note__header h3 {
+    font-size: clamp(1.75rem, 1.4rem + 1vw, 2.375rem);
+}
+
+.city-note__intro {
+    max-width: 48rem;
+    margin-top: var(--s-4);
+}
+
+.city-note__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--s-5);
+    align-items: start;
+}
+
+.city-note__layout > .city-photos {
+    grid-column: auto;
+}
+
+.city-note__story {
+    max-width: 40rem;
+}
+
+.city-note__story p + p {
+    margin-top: var(--s-5);
+}
+
+.city-route {
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--line);
+}
+
+.city-route h4 {
+    font-size: 1.5rem;
+}
+
+.city-route p {
+    margin-top: var(--s-3);
+    font-size: 0.9375rem;
+}
+
+.city-route__places {
+    margin: var(--s-5) 0;
+    padding: 0;
+    list-style: none;
+}
+
+.city-route__places li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-1) var(--s-3);
+    padding-block: var(--s-2);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9375rem;
+}
+
+.city-route__places span {
+    color: var(--muted);
+}
+
+/* Each city keeps its shop photos and Commons credits together. */
 .hk-guide {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -1009,7 +1173,7 @@ img {
     grid-column: 1 / span 7;
 }
 
-.hk-guide__text h3 {
+.hk-guide__text h4 {
     font-size: 1.5rem;
 }
 
@@ -1018,33 +1182,37 @@ img {
     margin-top: var(--s-3);
 }
 
-.hk-guide__text > p + h3,
-.area-list + h3 {
+.hk-guide__text > p + h4,
+.area-list + h4 {
     margin-top: var(--s-7);
 }
 
-.hk-photos {
+.city-photos {
     display: grid;
     grid-column: 8 / span 5;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--s-3);
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-5);
 }
 
-.hk-photo {
+.city-photo {
     margin: 0;
 }
 
-.hk-photo img {
+.city-photo img {
     width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
+    height: auto;
     border-radius: var(--r-md);
 }
 
-.hk-photo figcaption {
+.city-photo figcaption {
     margin-top: var(--s-2);
     font-size: var(--t-label);
     color: var(--muted);
+}
+
+.city-photo__credit {
+    display: block;
+    margin-top: var(--s-1);
 }
 
 /* The three areas side by side, in the order to visit them. */
@@ -1448,19 +1616,15 @@ input[aria-invalid="true"] {
     }
 
     .hero__text {
-        grid-column: 1 / span 6;
+        padding-inline: var(--gut);
     }
 
-    .hero__photo {
-        grid-column: 7 / span 6;
+    .story__inner {
+        column-gap: var(--s-6);
     }
 
-    .story__text {
-        grid-column: 1 / span 7;
-    }
-
-    .story__lessons {
-        grid-column: 8 / span 5;
+    .lessons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .movement-grid,
@@ -1475,47 +1639,64 @@ input[aria-invalid="true"] {
     }
 
     .hk-guide__text,
-    .hk-photos {
+    .city-photos {
         grid-column: 1 / -1;
     }
 
-    .hk-photos {
-        max-width: 36rem;
+    .city-photos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .city-note__layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--s-6);
     }
 }
 
 @media (max-width: 860px) {
     .hero__inner {
         grid-template-columns: minmax(0, 1fr);
-        row-gap: var(--s-6);
         min-height: 0;
-        padding-block: var(--s-6) var(--s-8);
     }
 
-    .hero__text,
+    .hero__text {
+        padding-block: var(--s-7);
+    }
+
+    .hero h1 {
+        max-width: 12em;
+        font-size: clamp(2.75rem, 6.8vw, 4rem);
+    }
+
+    .hero__lede {
+        max-width: 36rem;
+    }
+
     .hero__photo {
-        grid-column: 1 / -1;
+        aspect-ratio: 3 / 2;
     }
 
-    .hero__photo {
-        max-width: 30rem;
-    }
-
-    .hero__photo img {
-        max-height: none;
+    .hero__credit {
+        text-align: left;
     }
 
     .story__inner {
         grid-template-columns: minmax(0, 1fr);
     }
 
+    .story__photo,
     .story__text,
     .story__lessons {
         grid-column: 1 / -1;
     }
 
-    .story__lessons {
-        padding-top: 0;
+    .story__text {
+        grid-row: 1;
+    }
+
+    .story__photo {
+        width: min(100%, 28rem);
+        justify-self: center;
     }
 
     .site-footer__about,
@@ -1542,6 +1723,10 @@ input[aria-invalid="true"] {
 }
 
 @media (max-width: 640px) {
+    .city-nav {
+        column-gap: var(--s-4);
+    }
+
     :root {
         --gut: 20px;
     }
@@ -1573,7 +1758,11 @@ input[aria-invalid="true"] {
     }
 
     .hero__lede {
-        font-size: 1.125rem;
+        font-size: 1rem;
+    }
+
+    .hero__caption {
+        padding: var(--s-7) var(--gut) var(--s-4);
     }
 
     .actions {
@@ -1590,6 +1779,11 @@ input[aria-invalid="true"] {
 
     .story__inner {
         padding-block: var(--s-8);
+    }
+
+    .lessons {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
     }
 
     .section {
@@ -1613,6 +1807,10 @@ input[aria-invalid="true"] {
     }
 
     .area-list {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .city-photos {
         grid-template-columns: minmax(0, 1fr);
     }
 

@@ -850,5 +850,6 @@ const CURRENCIES = [
     { code: "USD", name: "US dollar" },
     { code: "CNY", name: "Chinese yuan" },
     { code: "HKD", name: "Hong Kong dollar" },
+    { code: "SGD", name: "Singapore dollar" },
     { code: "JPY", name: "Japanese yen" }
 ];

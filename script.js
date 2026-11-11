@@ -4,7 +4,7 @@
  * Evan Explains Watches: a student’s guide to watches
  * -------------------------------------------------------------------------
  * Data APIs     Wikimedia Commons (watch photos and their credits)
- *               Wikipedia REST (area notes in "Buying a watch in Hong Kong")
+ *               Wikipedia REST (Hong Kong area notes in "City notes")
  *               Frankfurter (exchange rates for the price converter)
  *               Open-Meteo Geocoding (city search in "Try one on")
  *               Google Places, through the CSE 2004 class proxy (stores near you)
@@ -58,6 +58,8 @@ const els = {
     watchMore: document.querySelector("#watch-more"),
     basicsTabs: document.querySelector("#basics-tabs"),
     lessons: document.querySelectorAll(".lesson"),
+    cityTabs: document.querySelectorAll(".city-tab"),
+    cityPanels: document.querySelectorAll(".city-note"),
     areaList: document.querySelector("#area-list"),
     converter: document.querySelector("#converter"),
     priceAmount: document.querySelector("#price-amount"),
@@ -940,7 +942,55 @@ function useMyLocation() {
     );
 }
 
-/* ===================== Buying a watch in Hong Kong (Wikipedia REST API) ===================== */
+/* ===================== City notes ===================== */
+
+function selectCity(cityId, { focus = false, updateHash = false } = {}) {
+    const selectedTab = Array.from(els.cityTabs).find(tab => tab.getAttribute("aria-controls") === cityId);
+    if (!selectedTab) return;
+
+    els.cityTabs.forEach(tab => {
+        const selected = tab === selectedTab;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+    });
+    els.cityPanels.forEach(panel => {
+        panel.hidden = panel.id !== cityId;
+    });
+    if (focus) selectedTab.focus();
+    // Keep city links shareable without scrolling the reader away from the tabs.
+    if (updateHash) history.replaceState(null, "", `#${cityId}`);
+}
+
+function selectCityFromHash() {
+    selectCity(window.location.hash.slice(1));
+}
+
+function bindCityTabs() {
+    const tabs = Array.from(els.cityTabs);
+    // Reveal a city before the browser follows an in-page link to its panel.
+    document.querySelectorAll("[data-city-link]").forEach(link => {
+        link.addEventListener("click", () => selectCity(link.hash.slice(1)));
+    });
+    tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => {
+            selectCity(tab.getAttribute("aria-controls"), { updateHash: true });
+        });
+        tab.addEventListener("keydown", event => {
+            let next;
+            if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+            else if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
+            else if (event.key === "Home") next = 0;
+            else if (event.key === "End") next = tabs.length - 1;
+            else return;
+            event.preventDefault();
+            selectCity(tabs[next].getAttribute("aria-controls"), { focus: true, updateHash: true });
+        });
+    });
+    window.addEventListener("hashchange", selectCityFromHash);
+    selectCityFromHash();
+}
+
+/* ===================== Hong Kong area notes (Wikipedia REST API) ===================== */
 
 async function loadPlaceSummary(element, wikiTitle) {
     try {
@@ -955,7 +1005,7 @@ async function loadPlaceSummary(element, wikiTitle) {
 // One area of the guide, with a Wikipedia note that loads the first time someone opens it.
 function buildArea(area) {
     const item = createElement("li", "area");
-    const name = createElement("h4", "area__name", `${area.name} `);
+    const name = createElement("h5", "area__name", `${area.name} `);
     const chinese = createElement("span", "area__chinese", area.chinese);
     chinese.lang = "zh-Hant";
     name.append(chinese);
@@ -1032,6 +1082,7 @@ async function handleConvert(submitEvent) {
 /* ===================== Start ===================== */
 
 function bindEvents() {
+    bindCityTabs();
     els.typeFilter.addEventListener("change", filterWatches);
     els.watchMore.addEventListener("click", toggleAllWatches);
     els.basicsTabs.addEventListener("change", showLesson);

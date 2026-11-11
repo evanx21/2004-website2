@@ -29,7 +29,7 @@
                 <a href="#basics">Basics</a>
                 <a href="#watches">Watches</a>
                 <a href="#stores">Stores</a>
-                <a href="#hong-kong">Hong Kong</a>
+                <a href="#city-notes">City notes</a>
                 <a href="#apis">APIs</a>
             </nav>
         </div>
@@ -37,7 +37,7 @@
 
     <main id="top">
         <section class="hero" aria-labelledby="hero-title">
-            <div class="wrap hero__inner">
+            <div class="hero__inner">
                 <div class="hero__text">
                     <h1 id="hero-title">What my dad taught me about watches</h1>
                     <p class="hero__lede">I’m Evan, a student from Shanghai. I’ve noticed most people don’t know much
@@ -49,19 +49,28 @@
                     </div>
                 </div>
                 <figure class="hero__photo">
-                    <img src="images/first-watch.jpg" width="960" height="1200"
-                        alt="A black ceramic pilot’s chronograph held in Evan’s hand">
+                    <img src="images/hero-watch-boutique.jpg" width="1920" height="1280" fetchpriority="high"
+                        alt="Cartier’s illuminated Ginza storefront, with a red ribbon across its gold facade">
                     <figcaption class="hero__caption">
-                        <span class="hero__caption-title">My first watch</span>
-                        An IWC Pilot’s Watch Chronograph TOP GUN in black ceramic. My dad gave it to me just before I
-                        left Shanghai for the US.
+                        <span>Cartier in Ginza, Tokyo (2013)</span>
+                        <a href="#tokyo" data-city-link>Notes from Tokyo <span aria-hidden="true">↗</span></a>
                     </figcaption>
                 </figure>
             </div>
+            <p class="hero__credit">Photo by
+                <a href="https://www.flickr.com/people/34530295@N06" target="_blank" rel="noopener noreferrer">Yoshikazu TAKADA</a>,
+                <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>, via
+                <a href="https://commons.wikimedia.org/wiki/File:Cartier_Shop_Ginza_(10903589784).jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.
+                Cropped for layout.</p>
         </section>
 
         <section class="story" id="story" aria-labelledby="story-title">
             <div class="wrap story__inner">
+                <figure class="story__photo">
+                    <img src="images/first-watch.jpg" width="960" height="1200" loading="lazy"
+                        alt="A black ceramic IWC pilot’s chronograph held in Evan’s hand">
+                    <figcaption>My IWC Pilot’s Watch Chronograph TOP GUN.</figcaption>
+                </figure>
                 <div class="story__text">
                     <h2 id="story-title">My first watch</h2>
                     <p>I’m from Shanghai and have lived in the US for five years. My parents run a business and travel a
@@ -243,49 +252,253 @@
             </div>
         </section>
 
-        <section class="section section--alt" id="hong-kong" aria-labelledby="hong-kong-title">
+        <section class="section section--alt" id="city-notes" aria-labelledby="city-notes-title">
             <div class="wrap">
                 <header class="section-head">
-                    <h2 id="hong-kong-title">Buying a watch in Hong Kong</h2>
-                    <p class="section-head__lede">Hong Kong is tiny, but I don’t know any city with more watch shops this
-                        close together. New York, Singapore, Tokyo and even Geneva don’t come close. My dad says it’s
-                        because Hong Kong is a free port with no sales tax, right next to mainland China and close to
-                        Southeast Asia.</p>
+                    <h2 id="city-notes-title">Watches along the way</h2>
+                    <p class="section-head__lede">Notes from the cities where I’ve looked at watches, with some advice from my dad.</p>
+                    <div class="city-nav" role="tablist" aria-label="City notes">
+                        <button type="button" class="city-tab" id="city-tab-hong-kong" role="tab"
+                            aria-controls="hong-kong" aria-selected="true">Hong Kong</button>
+                        <button type="button" class="city-tab" id="city-tab-shanghai" role="tab"
+                            aria-controls="shanghai" aria-selected="false" tabindex="-1">Shanghai</button>
+                        <button type="button" class="city-tab" id="city-tab-singapore" role="tab"
+                            aria-controls="singapore" aria-selected="false" tabindex="-1">Singapore</button>
+                        <button type="button" class="city-tab" id="city-tab-tokyo" role="tab"
+                            aria-controls="tokyo" aria-selected="false" tabindex="-1">Tokyo</button>
+                    </div>
                 </header>
 
-                <div class="hk-guide">
-                    <div class="hk-guide__text">
-                        <h3>Where to go</h3>
-                        <ol class="area-list" id="area-list"></ol>
+                <article class="city-note" id="hong-kong" role="tabpanel" aria-labelledby="city-tab-hong-kong" tabindex="0">
+                    <header class="city-note__header">
+                        <h3 id="hong-kong-title">So many shops, so close together</h3>
+                        <p class="city-note__intro">I don’t know another city with so many watch shops this close together.
+                            New York, Singapore, Tokyo and even Geneva don’t come close. Dad puts it down to Hong Kong’s
+                            free-port status, no sales tax and its location next to mainland China and close to Southeast Asia.</p>
+                    </header>
 
-                        <h3>Where to buy</h3>
-                        <p>The big dealers are Oriental Watch Company (<span lang="zh-Hant">東方表行</span>), Emperor
-                            Watch &amp; Jewellery (<span lang="zh-Hant">英皇</span>) and Europe Watch Company
-                            (<span lang="zh-Hant">歐洲坊</span>). Their Chinese names are on the signs too.</p>
+                    <div class="hk-guide">
+                        <div class="hk-guide__text">
+                            <h4>Where to go</h4>
+                            <ol class="area-list" id="area-list"></ol>
 
-                        <h3>Vintage watches</h3>
-                        <p>Look at the auction houses. Christie’s, Sotheby’s and Phillips all hold watch auctions in Hong
-                            Kong, and you can often see the watches in person before a sale.</p>
+                            <h4>Where to buy</h4>
+                            <p>The big dealers are Oriental Watch Company (<span lang="zh-Hant">東方表行</span>), Emperor
+                                Watch &amp; Jewellery (<span lang="zh-Hant">英皇</span>) and Europe Watch Company
+                                (<span lang="zh-Hant">歐洲坊</span>). Their Chinese names are on the signs too.</p>
+
+                            <h4>Vintage watches</h4>
+                            <p>Look at the auction houses. Christie’s, Sotheby’s and Phillips all hold watch auctions in Hong
+                                Kong, and you can often see the watches in person before a sale.</p>
+                        </div>
+
+                        <div class="city-photos">
+                            <figure class="city-photo">
+                                <img src="images/hk-vip-watch.jpg" width="2048" height="1536" loading="lazy"
+                                    alt="VIP Watch and Jewellery storefront illuminated at night on Kai Chiu Road, Causeway Bay">
+                                <figcaption>
+                                    VIP Watch and Jewellery, Causeway Bay (2013)
+                                    <span class="city-photo__credit">Photo by
+                                        <a class="link" href="https://commons.wikimedia.org/wiki/User:Msiafkd">Msiafkd</a>,
+                                        <a class="link" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>,
+                                        via <a class="link" href="https://commons.wikimedia.org/w/index.php?curid=25318483">Wikimedia Commons</a>.
+                                    </span>
+                                </figcaption>
+                            </figure>
+                            <figure class="city-photo">
+                                <img src="images/hk-vacheron-constantin.jpg" width="3648" height="2432" loading="lazy"
+                                    alt="Vacheron Constantin storefront on Kai Chiu Road in Causeway Bay, Hong Kong">
+                                <figcaption>
+                                    Vacheron Constantin, Causeway Bay (2018)
+                                    <span class="city-photo__credit">Photo by
+                                        <a class="link" href="https://commons.wikimedia.org/wiki/User:Fsav_niejocei">Fsav niejocei</a>,
+                                        <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>,
+                                        via <a class="link" href="https://commons.wikimedia.org/w/index.php?curid=68758300">Wikimedia Commons</a>.
+                                    </span>
+                                </figcaption>
+                            </figure>
+                        </div>
                     </div>
+                </article>
 
-                    <div class="hk-photos">
-                        <figure class="hk-photo">
-                            <img src="images/hk-oriental-watch.jpg" width="800" height="1070" loading="lazy"
-                                alt="Oriental Watch Company’s Tudor and Rolex windows on a street in Central">
-                            <figcaption>Oriental Watch Company in Central</figcaption>
-                        </figure>
-                        <figure class="hk-photo">
-                            <img src="images/hk-central.jpg" width="800" height="1067" loading="lazy"
-                                alt="Office towers and red taxis on a street in Central, Hong Kong">
-                            <figcaption>Central, the business district</figcaption>
-                        </figure>
+                <article class="city-note" id="shanghai" role="tabpanel" aria-labelledby="city-tab-shanghai" tabindex="0" hidden>
+                    <header class="city-note__header">
+                        <h3 id="shanghai-title">My first choice on the mainland</h3>
+                    </header>
+                    <div class="city-note__layout">
+                        <div class="city-note__story">
+                            <p>For me, Shanghai is mainland China’s best city for watches. There’s a wider choice
+                                of brands, with bigger flagship stores and more watches to look at. Major luxury
+                                groups including Kering and Richemont also
+                                <a class="link" href="https://english.shanghai.gov.cn/en-Editorspick-DoBusiness/20250627/7c261664600e438f90c96872ae8a0dd2.html">base their China operations here</a>.</p>
+                            <p>Hong Kong has no sales tax, but the hottest models are still hard for tourists to get.
+                                Dad says popular brands usually look after regular local customers first, wherever
+                                you go. A local customer can keep buying over the years; a tourist may buy once and leave.</p>
+                            <section class="city-route" aria-labelledby="shanghai-route-title">
+                                <h4 id="shanghai-route-title">Where I’d start</h4>
+                                <p>I’d head straight to Nanjing West Road. These are the main areas I’d look around:</p>
+                                <ul class="city-route__places" aria-label="Areas to explore in Shanghai">
+                                    <li>Nanjing West Road <span lang="zh-Hans">南京西路</span></li>
+                                    <li>Nanjing East Road <span lang="zh-Hans">南京东路</span></li>
+                                    <li>Xintiandi <span lang="zh-Hans">新天地</span></li>
+                                    <li>Lujiazui <span lang="zh-Hans">陆家嘴</span></li>
+                                </ul>
+                                <p>Nanjing Road has several Rolex retailers, including the
+                                    <a class="link" href="https://www.rolex.com/en-us/rolex-dealers/asiacommercialtimecityshanghaitradingcoltd-1705/rswi_5833-shanghai-chinesemainland">boutique at 1117 Nanjing West Road</a>.
+                                    I’d also stop by Audemars Piguet, Omega, Cartier, H. Moser &amp; Cie. and
+                                    <a class="link" href="https://www.alange-soehne.com/us-en/boutiques/asia/china/shanghai/a-lange-sohne-boutique-shanghai-wnr">A. Lange &amp; Söhne</a>.</p>
+                            </section>
+                        </div>
+                        <div class="city-photos">
+                            <figure class="city-photo">
+                                <img src="images/shanghai-omega.jpg" width="1500" height="1125" loading="lazy"
+                                    alt="Omega storefront on Huaihai Road in Shanghai, with watches in the windows and a taxi passing outside">
+                                <figcaption>
+                                    Omega, Huaihai Road, Shanghai (2009)
+                                    <span class="city-photo__credit">Photo by
+                                        <a class="link" href="https://commons.wikimedia.org/wiki/User:Gisling">Gisling</a>,
+                                        <a class="link" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>,
+                                        via <a class="link" href="https://commons.wikimedia.org/wiki/File:Omega_in_Shanghai.JPG">Wikimedia Commons</a>.
+                                    </span>
+                                </figcaption>
+                            </figure>
+                            <figure class="city-photo">
+                                <img src="images/shanghai-rolex.jpg" width="1380" height="920" loading="lazy"
+                                    alt="Rolex storefront in Shanghai, with gold lettering above the entrance and display windows">
+                                <figcaption>
+                                    Rolex storefront, Shanghai (2008)
+                                    <span class="city-photo__credit">Photo by
+                                        <a class="link" href="https://commons.wikimedia.org/wiki/User:Gisling">Gisling</a>,
+                                        <a class="link" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>,
+                                        via <a class="link" href="https://commons.wikimedia.org/wiki/File:Rolex_Shanghai.JPG">Wikimedia Commons</a>.
+                                    </span>
+                                </figcaption>
+                            </figure>
+                        </div>
                     </div>
-                </div>
+                </article>
+
+                <article class="city-note" id="singapore" role="tabpanel" aria-labelledby="city-tab-singapore" tabindex="0" hidden>
+                    <header class="city-note__header">
+                        <h3 id="singapore-title">A Rolex for my mom</h3>
+                    </header>
+                    <div class="city-note__layout">
+                        <div class="city-note__story">
+                            <p>I don’t remember a lot about Singapore, but I remember Dad buying Mom a Rolex
+                                there as a gift.</p>
+                            <p>Singapore is a major place to shop for watches in Southeast Asia, with plenty of
+                                flagship boutiques. There are independent makers here too:
+                                <a class="link" href="https://www.fpjourne.com/en/boutiques/singapore">F.P.Journe at Paragon</a>
+                                and <a class="link" href="https://www.mbandf.com/spaces/mbf-labs/mbf-lab-singapore">MB&amp;F at Raffles Hotel</a>.</p>
+                            <section class="city-route" aria-labelledby="singapore-route-title">
+                                <h4 id="singapore-route-title">Orchard Road and Marina Bay Sands</h4>
+                                <p>Orchard Road reminds me of Central in Hong Kong and Nanjing Road in Shanghai.
+                                    It’s where I’d start looking at watches.</p>
+                                <p><a class="link" href="https://www.marinabaysands.com/shopping.html">The Shoppes at Marina Bay Sands</a>
+                                    feels more comfortable to shop in, with plenty of other luxury brands to look at
+                                    while you’re there.</p>
+                                <p>And make time for some bak kut teh while you’re in Singapore!</p>
+                            </section>
+                        </div>
+                        <div class="city-photos">
+                            <figure class="city-photo">
+                                <img src="images/singapore-cartier.jpg" width="1280" height="878" loading="lazy"
+                                    alt="Illuminated Cartier signs on the curved glass facade of a Singapore boutique">
+                                <figcaption>
+                                    Cartier storefront, Singapore (2012)
+                                    <span class="city-photo__credit">Photo by
+                                        <a class="link" href="https://www.flickr.com/people/34534185@N00">Sheba_Also</a>,
+                                        <a class="link" href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>,
+                                        via <a class="link" href="https://commons.wikimedia.org/wiki/File:Singapore_Cartier_Shop-1_(8335424814).jpg">Wikimedia Commons</a>.
+                                    </span>
+                                </figcaption>
+                            </figure>
+                            <figure class="city-photo">
+                                <img src="images/singapore-marina-bay-shoppes.jpg" width="1280" height="849" loading="lazy"
+                                    alt="Shops and walkways beneath the glass roof of The Shoppes at Marina Bay Sands">
+                                <figcaption>
+                                    The Shoppes at Marina Bay Sands (2011)
+                                    <span class="city-photo__credit">Photo by
+                                        <a class="link" href="https://www.flickr.com/people/84493444@N00">William Cho</a>,
+                                        <a class="link" href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>,
+                                        via <a class="link" href="https://commons.wikimedia.org/wiki/File:Inside_The_Shoppes_@_Marina_Bay_(5524848911).jpg">Wikimedia Commons</a>.
+                                    </span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="city-note" id="tokyo" role="tabpanel" aria-labelledby="city-tab-tokyo" tabindex="0" hidden>
+                    <header class="city-note__header">
+                        <h3 id="tokyo-title">Ginza, then Nakano</h3>
+                    </header>
+                    <div class="city-note__layout">
+                        <div class="city-note__story">
+                            <p>For new watches, I’d start in Ginza. There are so many boutiques in one area that
+                                you can cover a lot on foot. I still remember the huge, freestanding Rolex and
+                                Cartier flagships. The buildings themselves are worth seeing for their size and
+                                unusual designs.</p>
+                            <p>Seiko House would be my first stop.
+                                <a class="link" href="https://www.seikowatches.com/jp-ja/stores/12889">Wako</a>,
+                                inside the clock-tower building at Ginza’s main crossing, carries Seiko, King Seiko,
+                                Grand Seiko and Credor. The Ginza and Wako exclusives are the main attraction for me.
+                                There are <a class="link" href="https://www.grand-seiko.com/jp-ja/storesinfo/JP-129926?language=en">historical Grand Seikos on display upstairs</a>,
+                                and the separate <a class="link" href="https://museum.seiko.co.jp/access/">Seiko Museum Ginza</a>
+                                is nearby if you want to see more.</p>
+                            <p>I’d also stop at the
+                                <a class="link" href="https://www.swatchgroup.jp/nicolas-g-hayek-center/">Nicolas G. Hayek Center</a>.
+                                Shigeru Ban designed the building, which has boutiques including Omega, Blancpain,
+                                Glashütte Original and Breguet.</p>
+                            <section class="city-route" aria-labelledby="tokyo-route-title">
+                                <h4 id="tokyo-route-title">Nakano for the unusual finds</h4>
+                                <p>If you’re already deep into watches, make time for Nakano Broadway.
+                                    <a class="link" href="https://www.jackroad.co.jp/shop/pages/shopinfo_new_en.aspx">Jackroad and Bettyroad</a>
+                                    are where I’d start, especially for the sheer number of Rolexes from different periods.</p>
+                                <p>I wouldn’t go expecting lower prices than in mainland China or Hong Kong.
+                                    I’d go for unusual models and the range of years and references on offer.
+                                    To me, that choice is hard to match elsewhere in Asia, even in Hong Kong.</p>
+                            </section>
+                        </div>
+                        <div class="city-photos">
+                            <figure class="city-photo">
+                                <img src="images/tokyo-wako.jpg" width="1024" height="683" loading="lazy"
+                                    alt="The illuminated Wako building and clock tower at the Ginza intersection at night">
+                                <figcaption>
+                                    Wako clock tower, Ginza (2011)
+                                    <span class="city-photo__credit">Photo by
+                                        <a class="link" href="https://commons.wikimedia.org/wiki/User:JordyMeow">Jordy Meow</a>,
+                                        <a class="link" href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>,
+                                        via <a class="link" href="https://commons.wikimedia.org/wiki/File:Ginza_Wako_Clock.jpg">Wikimedia Commons</a>.
+                                    </span>
+                                </figcaption>
+                            </figure>
+                            <figure class="city-photo">
+                                <img src="images/tokyo-nakano-broadway.jpg" width="1280" height="853" loading="lazy"
+                                    alt="Shoppers inside Nakano Broadway, with watch-repair signs above the walkway">
+                                <figcaption>
+                                    Inside Nakano Broadway (2023)
+                                    <span class="city-photo__credit">Photo by
+                                        <a class="link" href="https://www.flickr.com/people/31029865@N06">Dick Thomas Johnson</a>,
+                                        <a class="link" href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>,
+                                        via <a class="link" href="https://commons.wikimedia.org/wiki/File:Nakano_Broadway_(53147264156).jpg">Wikimedia Commons</a>.
+                                    </span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+
+                <aside class="city-more" aria-labelledby="city-more-title">
+                    <h3 id="city-more-title">More to come</h3>
+                    <p>For now, these are the four cities I remember best for watch shopping. I’ll keep an eye
+                        out for useful tips on future trips and add them here.</p>
+                </aside>
 
                 <section class="converter-block" aria-labelledby="converter-title">
                     <h3 id="converter-title">Convert a price tag</h3>
-                    <p class="converter-block__lede">Type a price you saw in Hong Kong dollars, or any other currency, to
-                        see it in the others at today’s rates.</p>
+                    <p class="converter-block__lede">Type a price you saw on your travels and choose its currency to
+                        compare it at today’s exchange rates.</p>
                     <form class="converter" id="converter" novalidate>
                         <div class="field">
                             <label for="price-amount">Price</label>
@@ -359,7 +572,7 @@
                     <div>
                         <dt><a class="link" href="https://en.wikipedia.org/">Wikipedia</a></dt>
                         <dd class="api-list__kind">Data API</dd>
-                        <dd>The short “About …” notes on each area in Buying a watch in Hong Kong.</dd>
+                        <dd>The short “About …” notes on the Hong Kong areas in City notes.</dd>
                     </div>
                 </dl>
             </section>
